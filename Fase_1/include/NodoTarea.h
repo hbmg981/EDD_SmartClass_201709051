@@ -13,11 +13,12 @@ private:
 public:
     //Constructs
     NodoTarea();
-    NodoTarea(int id,string carnet,string nombre, string descrip, string materia, string fecha, string estado,int index, NodoTarea *next_, NodoTarea *previous_);
+    NodoTarea(int id,string carnet,string nombre, string descrip, string materia, string fecha,string hora, string estado,int index, NodoTarea *next_, NodoTarea *previous_);
 
     //Getters
     int getid();
     int getindex();
+    string gethora();
     string getnombre();
     string getcarnet();
     string getdescrip();
@@ -32,6 +33,7 @@ public:
     void setcarnet(string carnet);
     void setindex(int index);
     void setnombre(string nombre);
+    void sethora(string hora);
     void setdescrip(string descrip );
     void setmateria(string materia);
     void setfecha(string fecha);

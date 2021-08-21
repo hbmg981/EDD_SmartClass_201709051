@@ -5,17 +5,18 @@ using namespace std;
 
 class NodoMatriz {
 private:
-    string nombre, carnet, descrip,materia,fecha,estado;
+    string nombre, carnet, descrip,materia,fecha,estado,hora;
     //int edad;
 
 public:
     //Constructs
     NodoMatriz();
-    NodoMatriz(string carnet, string nombre_, string descrip, string materia, string fecha, string estado );
+    NodoMatriz(string carnet, string nombre_, string descrip, string materia, string fecha,string hora, string estado );
 
     //Getters
 
     string getnombre();
+    string gethora();
     string getcarnet();
     string getdescrip();
     string getmateria();
@@ -25,6 +26,7 @@ public:
 
     //Setters
     void setnombre(string nombre);
+    void sethora(string hora);
     void setcarnet(string carnet);
     void setdescrip(string descrip );
     void setmateria(string materia);

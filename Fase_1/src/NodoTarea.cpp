@@ -5,6 +5,7 @@ NodoTarea::NodoTarea(){
     this-> nombre= "";
     this-> carnet= "";
     this-> fecha= "";
+    this-> hora= "";
     this-> materia= "";
     this-> estado= "";
     this->id =1;
@@ -13,8 +14,9 @@ NodoTarea::NodoTarea(){
     this->Previous = 0;
 }
 
-NodoTarea::NodoTarea(int id_,string carnet_,string nombre_, string descrip_, string materia_, string fecha_, string estado_,int index_,NodoTarea *next_, NodoTarea *previous_) {
+NodoTarea::NodoTarea(int id_,string carnet_,string nombre_, string descrip_, string materia_, string fecha_,string hora_, string estado_,int index_,NodoTarea *next_, NodoTarea *previous_) {
     this-> id= id_;
+    this-> hora= hora_;
     this-> index= index_;
     this-> descrip= descrip_;
     this-> nombre= nombre_;
@@ -46,6 +48,9 @@ string NodoTarea::getdescrip() {
 string NodoTarea::getfecha() {
     return this->fecha;
 }
+string NodoTarea::gethora() {
+    return this->hora;
+}
 string NodoTarea::getestado() {
     return this->estado;
 }
@@ -75,6 +80,9 @@ void NodoTarea::setmateria(string materia){
 }
 void NodoTarea::setfecha(string fecha ){
     this->fecha=fecha ;
+}
+void NodoTarea::sethora(string hora){
+    this->hora=hora;
 }
 void NodoTarea::setestado(string estado){
     this->estado=estado ;

@@ -18,8 +18,8 @@ public:
 
     void getList();
     void getListReverse();
-
-    void insertList(string carnet_, string nombre_,string descrip_, string materia_, string fecha_, string estado_,int index_);
+    void BuscarTarea();
+    void insertList(string carnet_, string nombre_,string descrip_, string materia_, string fecha_,string hora, string estado_,int index_);
     void deleteValue(string id);
     void ModificarNodo(string id);
     void generaTarea();

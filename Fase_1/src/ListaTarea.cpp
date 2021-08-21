@@ -55,7 +55,7 @@ void ListaTarea::getListReverse(){
     delete aux;
 }
 
-void ListaTarea::insertList(string carnet_,string nombre_, string descrip_, string materia_, string fecha_, string estado_,int index_){
+void ListaTarea::insertList(string carnet_,string nombre_, string descrip_, string materia_, string fecha_,string hora_, string estado_,int index_){
     int idaux;
     if (carnet_=="-1"){
         idaux= -1;
@@ -64,7 +64,7 @@ void ListaTarea::insertList(string carnet_,string nombre_, string descrip_, stri
         idaux=this->id;
         this->id++;
     }
-    NodoTarea *newNode = new NodoTarea(idaux,carnet_,nombre_,descrip_,materia_,fecha_,estado_,index_, NULL, NULL);
+    NodoTarea *newNode = new NodoTarea(idaux,carnet_,nombre_,descrip_,materia_,fecha_,hora_,estado_,index_, NULL, NULL);
     this->tam++;
     if(isEmpty()){
         this->First = newNode;
@@ -221,7 +221,7 @@ void ListaTarea::generaTarea1(){
     }
     while(aux != NULL && contadornodo<450){
         //cout<<aux->getnombre()<<endl;
-        node_data += "Node" + to_string(counter) + "[label=\""+" ID: " + to_string(aux->getid())+ "\\n Carnet: " + aux->getcarnet() +"\\n Nombre: "+ aux->getnombre()+"\\n Descripcion: "+ aux->getdescrip()+"\\n Materia: "+aux->getmateria()+"\\n Fecha: "+aux->getfecha()+"\\n Estado: "+aux->getestado()+"\\n Index: "+to_string(aux->getindex())+ "\"];\n";
+        node_data += "Node" + to_string(counter) + "[label=\""+" ID: " + to_string(aux->getid())+ "\\n Carnet: " + aux->getcarnet() +"\\n Nombre: "+ aux->getnombre()+"\\n Descripcion: "+ aux->getdescrip()+"\\n Materia: "+aux->getmateria()+"\\n Fecha: "+aux->getfecha()+ "\\n Hora: " + aux->gethora() +":00"+"\\n Estado: "+aux->getestado()+"\\n Index: "+to_string(aux->getindex())+ "\"];\n";
         if(aux->getPrevious()!=NULL){
             edge_data += "Node" + to_string(counter-1) + "->Node" + to_string(counter) + ";\n";
             edge_data += "Node" + to_string(counter) + "->Node" + to_string(counter-1) + ";\n";

@@ -29,9 +29,10 @@ void ReporteUsuarios();
 void ReporteErrores();
 void ReporteTareas();
 void AgregarUsuario(string,string,string,string,string,string,string,string);
-void AgregarTarea(string,string,string,string,string,string,int);
+void AgregarTarea(string,string,string,string,string,string,string,int);
 int main()
 {
+    try{
     int opmenu=0;
     string ruta;
     do{ // Menu Principal
@@ -166,13 +167,24 @@ int main()
                                     }
                                 while (opT != 4);
                             }
-                            case 3:
+                            case 3: // correccion de errores
+                            {
+                                int cont=1;
+                                if (ClaseC->isEmpty()==false){
+
+                                }else{
+
+                                }
+                            }
                             break;
+                            case 4:
+                            break;
+
                         default:
                         cout<<" *  Datos mal ingresados *\n"<<endl;
                         };
                         }
-                        while (opmanual != 3);
+                        while (opmanual != 4);
                             }
                         break;
 
@@ -192,17 +204,23 @@ int main()
                                 ReporteTareas();
                                 }
                             break;
-                            case 3:// Reporte Errores
+                            case 3:
+                            break;
+                            case 4:
+                            break;
+                            case 5:// Reporte Errores
                                 {
                                 ReporteErrores();
                                 }
                             break;
-                            case 4:
+                            case 6:
+                            break;
+                            case 7:
                             break;
                             default:
                                     cout<<" *  Datos mal ingresados *\n"<<endl;
 
-                            }}while (opR != 4);
+                            }}while (opR != 7);
                     }
                 case 5:
                 break;
@@ -211,6 +229,10 @@ int main()
     }; }
 
     while(opmenu!=5);
+
+    }catch(exception e){
+        cout<<"Fallo detectado"<<endl;
+    }
     return 0;
 }
 
@@ -234,7 +256,8 @@ int ingresomanual(){
         cout<<" ********INGRESO MANUAL********"<<endl;
         cout<<" *  1.-  Estudiantes          *"<<endl;
         cout<<" *  2.-  Tareas               *"<<endl ;
-        cout<<" *  3.-  Regresar             *"<<endl;
+        cout<<" *  3.-  Corregir Error       *"<<endl;
+        cout<<" *  4.-  Regresar             *"<<endl;
         cout<<" ******************************\n"<<endl;
         cout<<endl;
         cout<<" * Ingrese el Numero de Opcion:  *  "<<endl;
@@ -245,12 +268,15 @@ int ingresomanual(){
 }
 int menuReporte(){
         cout<<"\n ";
-        cout<<" ***********REPORTES***********"<<endl;
-        cout<<" *  1.-  Estudiantes          *"<<endl;
-        cout<<" *  2.-  Tareas               *"<<endl ;
-        cout<<" *  3.-  Errores              *"<<endl;
-        cout<<" *  4.-  Regresar             *"<<endl;
-        cout<<" ******************************\n"<<endl;
+        cout<<" **************REPORTES***************"<<endl;
+        cout<<" *  1.-  Lista de Estudiantes         *"<<endl;
+        cout<<" *  2.-  Lista de Tareas              *"<<endl ;
+        cout<<" *  3.-  Busqueda de Tarea            *"<<endl;
+        cout<<" *  4.-  Busqueda de posicion         *"<<endl;
+        cout<<" *  5.-  Cola de Errores              *"<<endl;
+        cout<<" *  6.-  Codigo de Salida             *"<<endl;
+        cout<<" *  6.-  Regresar                     *"<<endl;
+        cout<<" **************************************\n"<<endl;
         cout<<endl;
         cout<<" * Ingrese el Numero de Opcion:  *  "<<endl;
         int opmanual;
@@ -368,76 +394,25 @@ void ReporteTareas(){
 void ReporteErrores(){
         cout << "\n ****** LISTA DE ERRORES ****** " << endl;
         ClaseC->generaError();
-        ClaseC->getList();
+       // ClaseC->getList();
 }
 void AgregarUsuario(string carnet, string dpi, string nombre, string carrera,string correo, string pass, string creditos,string edad){
 
-        if (estudiantes->validarCarnet(carnet) == true){
-           // cout << "\nEl Carne cumple con 9 digitos\n" << endl;
-            //istringstream(carnet)>>car;
-
-            if(estudiantes->validarDpi(dpi) == true){
-               // cout << "\nEl DPI cumple con 13 digitos\n" << endl;
-              // istringstream(dpi)>>dp;
-                if(estudiantes->validarCorreo(correo) == true){
-                   // cout << "\nEl Correo es valido\n" << endl;
-                   // istringstream(creditos)>>cre;
-                    //istringstream(edad)>>ed;
-
-                    estudiantes->insertList(carnet,dpi,nombre,carrera,correo,pass,creditos,edad);
-
-                }else {
-                    //cout << "\nEl Correo es invalido\n" << endl;
-                    ClaseC->insertList(" El correo es invalido", " Estudiante");
-                }}
-            else {
-                //cout << "\nEl DPI es invalido\n" << endl;
-                ClaseC->insertList(" El DPI es invalido", " Estudiante");
-            }}
-        else{
-        //cout << "\nEl Carne  no cumple con 9 digitos\n" << endl;
-        ClaseC->insertList(" El Carnet es invalido", " Estudiante");
-
+        if (estudiantes->validarCarnet(carnet) == false){
+            ClaseC->insertList(" El Carnet "+carnet+" es invalido", " Estudiante");
         }
+
+        if(estudiantes->validarDpi(dpi) == false){
+            ClaseC->insertList(" El DPI "+dpi+" es invalido", " Estudiante");
+        }
+
+        if(estudiantes->validarCorreo(correo) == false){
+            ClaseC->insertList(" El correo "+correo+" es invalido", " Estudiante");
+        }
+        estudiantes->insertList(carnet,dpi,nombre,carrera,correo,pass,creditos,edad);
 
 }
 void cargarTarea(){
-
-         /*string rutatarea = ruta_;
-
-         ifstream archivo(rutatarea);
-         string linea;
-         char delimitador = ';';
-        // Leemos la primer línea para descartarla, pues es el encabezado
-        //getline(archivo, linea);
-        // Leemos todas las líneas
-        while (getline(archivo, linea))
-        {
-
-        stringstream stream(linea); // Convertir la cadena a un stream
-        string carnet, dpi, nombre, carrera, correo, pass, creditos, edad;
-        // Extraer todos los valores de esa fila
-        getline(stream, carnet, delimitador);
-        getline(stream, dpi, delimitador);
-        getline(stream, nombre, delimitador);
-        getline(stream, carrera, delimitador);
-        getline(stream, correo, delimitador);
-        getline(stream, pass, delimitador);
-        getline(stream, creditos, delimitador);
-        getline(stream, edad, delimitador);
-        // Imprimir
-        cout << "==================" << endl;
-        cout << "Carnet: " << carnet << endl;
-        cout << "DPI: " <<dpi << endl;
-        cout << "Nombre: " << nombre << endl;
-        cout << "Carrera: " << carrera << endl;
-        cout << "correo: " << correo << endl;
-        cout << "passWord: " << pass << endl;
-        cout << "Creditos: " << creditos << endl;
-        cout << "Edad: " << edad << endl;
-    }
-
-    archivo.close();*/
 
     //Variables para extracción de infomación
     string path = "";
@@ -469,8 +444,16 @@ void cargarTarea(){
 
     file.open(path, ios::in);
     // si el archivo se abre hacemos el split  y el contador va caminando en la posicion para recorrer el arreglo
+    //string linea;
+    //getline(file, linea);
+   // getline(file, data);
     if(!file.fail()){
+        //tratando de ignorar la primera linea
+       //
+
         while(!file.eof()){
+
+            getline(file, data);
             getline(file, data);
             istringstream div(data);
             while(getline(div, item, ',')){
@@ -480,8 +463,25 @@ void cargarTarea(){
             int dia;
             istringstream(values[1])>>dia;
             // insertando valores a la matriz
-            matrix[getIndiceMes(values[0])][dia-1][getIndiceHora(values[2])] = new NodoMatriz(values[3],(values[4]),(values[5]),(values[6]),(values[7]),(values[8]));
-            counter = 0;
+            if (getIndiceMes(values[0])!= -1){
+                    if (dia>0 && dia<=30){
+                            if (getIndiceHora(values[2])!= -1){
+                                    matrix[getIndiceMes(values[0])][dia-1][getIndiceHora(values[2])] = new NodoMatriz(values[3],(values[4]),(values[5]),(values[6]),(values[7]),(values[2]),(values[8]));
+                                    counter = 0;
+                            }else{
+                                cout<<"hora "+values[2]+" fuera de rango: "<<endl;
+                                ClaseC->insertList("Hora "+values[2]+" fuera de rango","Tarea");
+                            }
+
+                    }else{
+                       cout<<"Dia "+ to_string(dia) +" fuera de rango: "<<endl;
+                       ClaseC->insertList("Dia "+ to_string(dia) +" fuera de rango","Tarea");
+
+            }}else{
+            cout<<"Mes "+values[0]+" fuera de rango: "<<endl;
+            ClaseC->insertList("Mes "+values[0]+" fuera de rango","Tarea");
+            }
+
         }
     }
     file.close();
@@ -503,12 +503,12 @@ void cargarTarea(){
             if(matrix[i][j][k]!=NULL){
                 // insertar los datos del nodo matriz a la lista de tareas
                //tareas->insertList(matrix[i][j][k]->getcarnet(),matrix[i][j][k]->getnombre(), matrix[i][j][k]->getdescrip(),matrix[i][j][k]->getmateria(),matrix[i][j][k]->getfecha(),matrix[i][j][k]->getestado(), (i+5*(j+30*k)));
-                AgregarTarea(matrix[i][j][k]->getcarnet(),matrix[i][j][k]->getnombre(), matrix[i][j][k]->getdescrip(),matrix[i][j][k]->getmateria(),matrix[i][j][k]->getfecha(),matrix[i][j][k]->getestado(), (i+5*(j+30*k)));
+                AgregarTarea(matrix[i][j][k]->getcarnet(),matrix[i][j][k]->getnombre(), matrix[i][j][k]->getdescrip(),matrix[i][j][k]->getmateria(),matrix[i][j][k]->getfecha(),matrix[i][j][k]->gethora(),matrix[i][j][k]->getestado(), (i+5*(j+30*k)));
 
             }
             else {
                //insertar valores nulos a la matriz
-            tareas->insertList("-1","-1", "-1","-1","-1","-1", (i+5*(j+30*k)));
+            tareas->insertList("-1","-1", "-1","-1","-1","-1","-", (i+5*(j+30*k)));
             }
         }}
     }
@@ -574,12 +574,12 @@ int getIndiceHora(string hora){
             return -1;
     }
 }
-void AgregarTarea(string carnet, string nombre, string descrip, string materia,string fecha, string estado, int index){
+void AgregarTarea(string carnet, string nombre, string descrip, string materia,string fecha,string hora, string estado, int index){
     //validar que el carnet tenga 9 digitos
         if (estudiantes->validarCarnet(carnet) == true){
             if (estudiantes->buscarUsuarioCarnet(carnet)==true){
                     cout << "\n El estudiante si existe\n" << endl;
-                tareas->insertList(carnet,nombre,descrip,materia,fecha,estado,index);
+                tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
 
             }else{
             cout << "\n No se encontro estudiante con el numero  de carnet\n" << endl;

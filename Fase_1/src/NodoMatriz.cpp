@@ -5,24 +5,29 @@ NodoMatriz::NodoMatriz(){
     this-> descrip= "";
     this-> carnet= "";
     this-> fecha= "";
+    this-> hora= "";
     this-> materia= "";
     this-> estado= "";
 
 }
 
-NodoMatriz::NodoMatriz( string carnet_,string nombre_, string descrip_, string materia_, string fecha_, string estado_) {
+NodoMatriz::NodoMatriz( string carnet_,string nombre_, string descrip_, string materia_, string fecha_,string hora_, string estado_) {
     this-> nombre= nombre_;
     this-> descrip= descrip_;
     this-> carnet= carnet_;
     this-> fecha= fecha_;
     this-> materia= materia_;
     this-> estado= estado_;
+    this-> hora= hora_;
 }
 
 
 
 string NodoMatriz::getnombre() {
     return this->nombre;
+}
+string NodoMatriz::gethora() {
+    return this->hora;
 }
 string NodoMatriz::getcarnet() {
     return this->carnet;

@@ -1,20 +1,8 @@
 digraph D { 
 	 rankdir =LR 
 	 graph [dpi=300]; 
-	 nodo_0[shape=box, label= "ID: 1\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
-	 nodo_1[shape=box, label= "ID: 2\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
-	 nodo_2[shape=box, label= "ID: 3\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
-	 nodo_3[shape=box, label= "ID: 4\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
-	 nodo_4[shape=box, label= "ID: 5\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
-	 nodo_5[shape=box, label= "ID: 6\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
-	 nodo_6[shape=box, label= "ID: 7\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
-	 nodo_7[shape=box, label= "ID: 8\n Descripcion:  No se encontro estudiante con el numero de carnet\n Tipo :  Tarea "];
+	 nodo_0[shape=box, label= "ID: 1\n Descripcion:  El Carnet 20170088 es invalido\n Tipo :  Estudiante"];
+	 nodo_1[shape=box, label= "ID: 2\n Descripcion:  El DPI 854919766348 es invalido\n Tipo :  Estudiante"];
 
 	 nodo_0-> nodo_1
-	 nodo_1-> nodo_2
-	 nodo_2-> nodo_3
-	 nodo_3-> nodo_4
-	 nodo_4-> nodo_5
-	 nodo_5-> nodo_6
-	 nodo_6-> nodo_7
 }
