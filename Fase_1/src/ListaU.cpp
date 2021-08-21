@@ -51,26 +51,26 @@ bool ListaU::buscarUsuarioDPI(string DPI){
     return encontrado;
 }
 bool ListaU::buscarUsuarioCarnet(string Carnet){
+    bool encontrado = false;
     NodoU* actual = new NodoU();
     actual = this->First;
-    bool encontrado = false;
-    if (this->First != NULL){
-        while (actual!=NULL&& encontrado!=true){
+
+    while (actual!=NULL&& encontrado!=true){
             if (actual->getcarnet() ==Carnet){
-                cout<<"Estudiante encontrado por Carnet "<<endl;
                 encontrado=true;
+                break;
             }
             actual = actual->getNext();
-        }
-        if (!encontrado){
-            cout<<"Estudiante no encontrado por Carnet "<<endl;
-            encontrado = false;
-        }
-    }else{
-    cout<<" La lista esta vacia Carnet no encontrado! "<<endl;
-    encontrado=false;
     }
+    if(encontrado ==true){
+        cout<<"Estudiante encontrado por Carnet "<<endl;
+    }else{
+        cout<<"Estudiante NO encontrado por Carnet "<<endl;
+    }
+
+
     return encontrado;
+    delete actual;
 }
 
 void ListaU::getList(){

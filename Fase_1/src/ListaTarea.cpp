@@ -205,6 +205,22 @@ void ListaTarea::generaTarea(){
 
 }
 
+void ListaTarea::BuscarTarea(int mes, int dia, int hora){
+    //i+5*(j+30*k)
+    NodoTarea *aux = First;
+    while(aux != NULL){
+        if(aux->getindex() == mes+5*((dia-1)+30*hora)){
+            cout<<"***************** Tarea Encontrada **************"<<endl;
+            cout<<" Carnet: "<<aux->getcarnet()<<" -- Nombre  "<<aux->getnombre()<<" -- Descripcion: "<<aux->getdescrip()<<endl;
+            cout<<" Materia: "<<aux->getmateria()<<" -- Fecha "<<aux->getfecha()<<" -- Estado "<<aux->getestado()<<endl;
+            break;
+        }
+        aux = aux->getNext();
+    }
+    delete aux;
+}
+
+
 
 void ListaTarea::generaTarea1(){
     NodoTarea *aux = First;

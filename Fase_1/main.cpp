@@ -204,9 +204,36 @@ int main()
                                 ReporteTareas();
                                 }
                             break;
-                            case 3:
+                            case 3: // Busqueda de tarea
+                                {   string mes, hora;
+                                    int dia;
+                                    cin.ignore();
+                                    cout<<"\N ********  BUSQUEDA DE TAREA ******** *\n"<<endl;
+                                    cout<<" *  Ingrese el Mes *\n"<<endl;
+                                    getline(cin,mes);
+                                    cout<<" *  Ingrese el Dia *\n"<<endl;
+                                    cin>>dia;
+                                    cin.ignore();
+                                    cout<<" *  Ingrese la Hora *\n"<<endl;
+                                    getline(cin,hora);
+                                    tareas->BuscarTarea(getIndiceMes(mes),dia,getIndiceHora(hora));
+
+                                }
                             break;
-                            case 4:
+                            case 4:// Busqueda de posicion
+                                    string mes, hora;
+                                    int dia;
+                                    cin.ignore();
+                                    cout<<" ********  CALCULO DE POSICION *********\n"<<endl;
+                                    cout<<" *  Ingrese el Mes *\n"<<endl;
+                                    getline(cin,mes);
+                                    cout<<" *  Ingrese el Dia *\n"<<endl;
+                                    cin>>dia;
+                                    cin.ignore();
+                                    cout<<" *  Ingrese la Hora *\n"<<endl;
+                                    getline(cin,hora);
+
+
                             break;
                             case 5:// Reporte Errores
                                 {
@@ -431,46 +458,52 @@ void cargarTarea(){
         }
     }
     //Estructura de tipo arreglo para guardar valores
-    string values[9] = {"", "", "", "","","","","",""};
+  //  string values[9] = {"", "", "", "","","","","",""};
 
     //Contador para el arreglo
-    int counter = 0;
+   // int counter = 0;
 
     //Lectura del archivo
-    ifstream file;
+    ifstream archivo;
     cin.ignore();
     cout<<"Ingrese direccion del archivo de Tareas a leer: "<<endl;
     getline(cin, path);
 
-    file.open(path, ios::in);
-    // si el archivo se abre hacemos el split  y el contador va caminando en la posicion para recorrer el arreglo
-    //string linea;
-    //getline(file, linea);
-   // getline(file, data);
-    if(!file.fail()){
-        //tratando de ignorar la primera linea
-       //
+    archivo.open(path, ios::in);
+        string linea;
+        char delimitador = ',';
+        // Leemos la primer línea para descartarla, pues es el encabezado
+        getline(archivo, linea);
+        // Leemos todas las líneas
+    if(!archivo.fail()){
+            while (getline(archivo, linea))
+        {
 
-        while(!file.eof()){
+        stringstream stream(linea); // Convertir la cadena a un stream
+        string  mes, dia1, hora,carnet,nombre,descrip,materia,fecha,estado;
 
-            getline(file, data);
-            getline(file, data);
-            istringstream div(data);
-            while(getline(div, item, ',')){
-                values[counter] = item;
-                counter++;
-            }
-            int dia;
-            istringstream(values[1])>>dia;
-            // insertando valores a la matriz
-            if (getIndiceMes(values[0])!= -1){
+
+        // Extraer todos los valores de esa fila
+        getline(stream, mes, delimitador);
+        getline(stream, dia1, delimitador);
+        getline(stream, hora, delimitador);
+        getline(stream, carnet, delimitador);
+        getline(stream, nombre, delimitador);
+        getline(stream, descrip, delimitador);
+        getline(stream, materia, delimitador);
+        getline(stream, fecha, delimitador);
+        getline(stream, estado, delimitador);
+        int dia;
+        istringstream(dia1)>>dia;
+
+        if (getIndiceMes(mes)!= -1){
                     if (dia>0 && dia<=30){
-                            if (getIndiceHora(values[2])!= -1){
-                                    matrix[getIndiceMes(values[0])][dia-1][getIndiceHora(values[2])] = new NodoMatriz(values[3],(values[4]),(values[5]),(values[6]),(values[7]),(values[2]),(values[8]));
-                                    counter = 0;
+                            if (getIndiceHora(hora)!= -1){
+                                    matrix[getIndiceMes(mes)][dia-1][getIndiceHora(hora)] = new NodoMatriz(carnet,nombre,descrip,materia,fecha,hora,estado);
+                                    //counter = 0;
                             }else{
-                                cout<<"hora "+values[2]+" fuera de rango: "<<endl;
-                                ClaseC->insertList("Hora "+values[2]+" fuera de rango","Tarea");
+                                cout<<"hora "+hora+" fuera de rango: "<<endl;
+                                ClaseC->insertList("Hora "+hora+" fuera de rango","Tarea");
                             }
 
                     }else{
@@ -478,13 +511,20 @@ void cargarTarea(){
                        ClaseC->insertList("Dia "+ to_string(dia) +" fuera de rango","Tarea");
 
             }}else{
-            cout<<"Mes "+values[0]+" fuera de rango: "<<endl;
-            ClaseC->insertList("Mes "+values[0]+" fuera de rango","Tarea");
+            cout<<"Mes "+mes+" fuera de rango: "<<endl;
+            ClaseC->insertList("Mes "+mes+" fuera de rango","Tarea");
             }
 
+
         }
+
+
+
+
+
+
     }
-    file.close();
+    archivo.close();
 
     //Recorrido de la matriz
     for(int i=0; i<5; i++){
@@ -576,22 +616,29 @@ int getIndiceHora(string hora){
 }
 void AgregarTarea(string carnet, string nombre, string descrip, string materia,string fecha,string hora, string estado, int index){
     //validar que el carnet tenga 9 digitos
-        if (estudiantes->validarCarnet(carnet) == true){
-            if (estudiantes->buscarUsuarioCarnet(carnet)==true){
-                    cout << "\n El estudiante si existe\n" << endl;
-                tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
-
+            tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+           /*if (estudiantes->buscarUsuarioCarnet(carnet)==true){
+                    cout << "\n El estudiante fue encontrado, tarea asignada" << endl;
             }else{
             cout << "\n No se encontro estudiante con el numero  de carnet\n" << endl;
             ClaseC->insertList(" No se encontro estudiante con el numero de carnet", " Tarea ");
             }
 
+
+            /*try{
+
+            }catch(exception e){
+            }*/
+
+
+
+        /*if (estudiantes->validarCarnet(carnet) == true){
             }
         else{
         //cout << "\nEl Carne  no cumple con 9 digitos\n" << endl;
         ClaseC->insertList(" El Carnet es invalido", " Tarea ");
 
-        }
+        }*/
 
 
 
