@@ -221,18 +221,27 @@ int main()
                                 }
                             break;
                             case 4:// Busqueda de posicion
-                                    string mes, hora;
-                                    int dia;
+                                   {
+                                    string mes, hora,dia;
+                                    //int ;
                                     cin.ignore();
                                     cout<<" ********  CALCULO DE POSICION *********\n"<<endl;
                                     cout<<" *  Ingrese el Mes *\n"<<endl;
                                     getline(cin,mes);
                                     cout<<" *  Ingrese el Dia *\n"<<endl;
-                                    cin>>dia;
-                                    cin.ignore();
+                                    getline(cin,dia);
                                     cout<<" *  Ingrese la Hora *\n"<<endl;
                                     getline(cin,hora);
+                                    //int posicion=0;
+                                    int mes1=getIndiceMes(mes);
+                                    int hora1= getIndiceHora(hora);
+                                    int dia1;
+                                    istringstream(dia)>>dia1;
+                                    int pos = hora1+9*((dia1-1)+30*(mes1));
+                                    cout<<"\n ********  La tarea se encuentra en la posicion: ********* "<<pos<<endl;
+                                    //(i+5*(j+30*k))
 
+                                   }
 
                             break;
                             case 5:// Reporte Errores
