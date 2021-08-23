@@ -84,19 +84,10 @@ int main()
                                         cin.ignore();
                                         cout<<" *  Ingrese el numero de DPI del usuario a modificar *\n"<<endl;
                                         getline(cin,dpi);
-                                        if (estudiantes->validarDpi(dpi)== true){
+
                                         estudiantes->ModificarNodo(dpi);
-                                        }else{
-                                        cout<<" *  Ingrese un numero de DPI valido (13 digitos) *\n"<<endl;
-                                        getline(cin,dpi);
-                                        if (estudiantes->validarDpi(dpi)== true){
-                                        estudiantes->ModificarNodo(dpi);
-                                        cout<<" *  El dato ingresado no es valido *\n"<<endl;
-                                        }
-                                        else{
 
                                         }
-                                        }}
 
                                     break;
                                     case 3:// Eliminar Usuario
@@ -136,10 +127,11 @@ int main()
                                     opT = menuTarea();
                                     switch (opT){
                                     case 1: // Agregar Tarea
-                                    {
+                                    {   int diax,mesx,horax;
+
                                         string nombre,descrip,materia,fecha,hora,estado,carnet;
-                                        cout<<" *  Ingrese el numero de Carnet *\n"<<endl;
                                         cin.ignore();
+                                        cout<<" *  Ingrese el numero de Carnet *\n"<<endl;
                                         getline(cin,carnet);
                                         //cin>>carnet;
                                         cout<<" *  Ingrese el Nombre de la Tarea  *\n"<<endl;
@@ -159,6 +151,29 @@ int main()
 
                                     break;
                                     case 3:// Eliminar Tarea
+                                        {
+                                        int index;
+                                        string oper;
+                                        int op;
+                                        cout<<" *  Ingrese el ID de la tarea a eliminar *\n"<<endl;
+                                        cin>>index;
+                                        cout<<" *  Esta seguro de eliminar la tarea?: "+to_string(index)+" *\n"<<endl;
+                                        cout<<" *  Ingrese la opcion: *"<<endl;
+                                        cout<<" *  1.- Si      2.- No *"<<endl;
+                                        //cin.ignore();
+                                        cin>>op;
+                                        //getline(cin,oper);
+                                       // istringstream(oper)>>op;
+                                        if (op == 1){
+                                           tareas->deleteValue(index);
+                                           cout<<" * Tarea Eliminada *\n"<<endl;
+                                        }else {
+                                        cout<<" * LA tarea no fue eliminada *\n"<<endl;
+                                        }
+                                       }
+
+                                    break;
+                                    case 4:// Regresar
 
                                     break;
                                     default:
@@ -172,8 +187,9 @@ int main()
                                 int cont=1;
                                 if (ClaseC->isEmpty()==false){
 
-                                }else{
 
+                                }else{
+                                    cout<<" *  Lista de Errores Vacia *\n"<<endl;
                                 }
                             }
                             break;
@@ -311,7 +327,7 @@ int menuReporte(){
         cout<<" *  4.-  Busqueda de posicion         *"<<endl;
         cout<<" *  5.-  Cola de Errores              *"<<endl;
         cout<<" *  6.-  Codigo de Salida             *"<<endl;
-        cout<<" *  6.-  Regresar                     *"<<endl;
+        cout<<" *  7.-  Regresar                     *"<<endl;
         cout<<" **************************************\n"<<endl;
         cout<<endl;
         cout<<" * Ingrese el Numero de Opcion:  *  "<<endl;
@@ -435,17 +451,32 @@ void ReporteErrores(){
 void AgregarUsuario(string carnet, string dpi, string nombre, string carrera,string correo, string pass, string creditos,string edad){
 
         if (estudiantes->validarCarnet(carnet) == false){
-            ClaseC->insertList(" El Carnet "+carnet+" es invalido", " Estudiante");
+            ClaseC->insertList(" El Carnet "+carnet+" es invalido", "Estudiante",1);
         }
 
         if(estudiantes->validarDpi(dpi) == false){
-            ClaseC->insertList(" El DPI "+dpi+" es invalido", " Estudiante");
+            ClaseC->insertList(" El DPI "+dpi+" es invalido", "Estudiante",1);
         }
 
         if(estudiantes->validarCorreo(correo) == false){
-            ClaseC->insertList(" El correo "+correo+" es invalido", " Estudiante");
+            ClaseC->insertList(" El correo "+correo+" es invalido", "Estudiante",1);
         }
-        estudiantes->insertList(carnet,dpi,nombre,carrera,correo,pass,creditos,edad);
+
+        if (estudiantes->buscarUsuarioCarnet(carnet)==false){
+           if (estudiantes->buscarUsuarioDPI(dpi)==false){
+           // cout << "\n El estudiante fue encontrado, tarea asignada" << endl;
+            estudiantes->insertList(carnet,dpi,nombre,carrera,correo,pass,creditos,edad);
+        }else{
+            cout << "\n El estudiante con numero de DPI: "+dpi+" ya existe" << endl;
+            ClaseC->insertList(" El DPI:  "+dpi+" ya esta registrado", "Estudiante",1);
+        }
+        }else{
+            cout << "\n El estudiante con numero de Carnet: "+carnet+" ya existe" << endl;
+            ClaseC->insertList(" El Carnet:  "+carnet+" ya esta registrado", "Estudiante",1);
+        }
+
+
+
 
 }
 void cargarTarea(){
@@ -466,12 +497,6 @@ void cargarTarea(){
         }
         }
     }
-    //Estructura de tipo arreglo para guardar valores
-  //  string values[9] = {"", "", "", "","","","","",""};
-
-    //Contador para el arreglo
-   // int counter = 0;
-
     //Lectura del archivo
     ifstream archivo;
     cin.ignore();
@@ -512,25 +537,20 @@ void cargarTarea(){
                                     //counter = 0;
                             }else{
                                 cout<<"hora "+hora+" fuera de rango: "<<endl;
-                                ClaseC->insertList("Hora "+hora+" fuera de rango","Tarea");
+                                ClaseC->insertList("Hora "+hora+" fuera de rango","Tarea",3);
                             }
 
                     }else{
                        cout<<"Dia "+ to_string(dia) +" fuera de rango: "<<endl;
-                       ClaseC->insertList("Dia "+ to_string(dia) +" fuera de rango","Tarea");
+                       ClaseC->insertList("Dia "+ to_string(dia) +" fuera de rango","Tarea",3);
 
             }}else{
             cout<<"Mes "+mes+" fuera de rango: "<<endl;
-            ClaseC->insertList("Mes "+mes+" fuera de rango","Tarea");
+            ClaseC->insertList("Mes "+mes+" fuera de rango","Tarea",3);
             }
 
 
         }
-
-
-
-
-
 
     }
     archivo.close();
@@ -551,13 +571,14 @@ void cargarTarea(){
             for(int k=0; k<9; k++){
             if(matrix[i][j][k]!=NULL){
                 // insertar los datos del nodo matriz a la lista de tareas
-               //tareas->insertList(matrix[i][j][k]->getcarnet(),matrix[i][j][k]->getnombre(), matrix[i][j][k]->getdescrip(),matrix[i][j][k]->getmateria(),matrix[i][j][k]->getfecha(),matrix[i][j][k]->getestado(), (i+5*(j+30*k)));
-                AgregarTarea(matrix[i][j][k]->getcarnet(),matrix[i][j][k]->getnombre(), matrix[i][j][k]->getdescrip(),matrix[i][j][k]->getmateria(),matrix[i][j][k]->getfecha(),matrix[i][j][k]->gethora(),matrix[i][j][k]->getestado(), (i+5*(j+30*k)));
+               //tareas->insertList(matrix[i][j][k]->getcarnet(),matrix[i][j][k]->getnombre(), matrix[i][j][k]->getdescrip(),matrix[i][j][k]->getmateria(),matrix[i][j][k]->getfecha(),matrix[i][j][k]->getestado(), (i+5*(j+30*k)));hora1+9*((dia1-1)+30*(mes1));
+                AgregarTarea(matrix[i][j][k]->getcarnet(),matrix[i][j][k]->getnombre(), matrix[i][j][k]->getdescrip(),matrix[i][j][k]->getmateria(),matrix[i][j][k]->getfecha(),matrix[i][j][k]->gethora(),matrix[i][j][k]->getestado(), (k+9*(j+30*i)));
 
             }
             else {
                //insertar valores nulos a la matriz
-            tareas->insertList("-1","-1", "-1","-1","-1","-1","-", (i+5*(j+30*k)));
+               //hora1+9*((dia1-1)+30*(mes1));
+            tareas->insertList("-1","-1", "-1","-1","-1","-1","-1", (k+9*(j+30*i)));
             }
         }}
     }
@@ -625,12 +646,16 @@ int getIndiceHora(string hora){
 }
 void AgregarTarea(string carnet, string nombre, string descrip, string materia,string fecha,string hora, string estado, int index){
     //validar que el carnet tenga 9 digitos
-            tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
-           /*if (estudiantes->buscarUsuarioCarnet(carnet)==true){
+
+            if (estudiantes->buscarUsuarioCarnet(carnet)==true){
                     cout << "\n El estudiante fue encontrado, tarea asignada" << endl;
+                    tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
             }else{
-            cout << "\n No se encontro estudiante con el numero  de carnet\n" << endl;
-            ClaseC->insertList(" No se encontro estudiante con el numero de carnet", " Tarea ");
+            cout << "\n No se encontro estudiante con el numero  de carnet" << endl;
+            ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet, "Tarea",2);
+            }
+            if (tareas->validarFecha(fecha)==false){
+            ClaseC->insertList(" La fecha: "+fecha+" No tiene el formato valido", "Tarea",2);
             }
 
 

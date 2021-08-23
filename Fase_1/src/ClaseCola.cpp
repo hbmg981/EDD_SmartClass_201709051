@@ -54,9 +54,9 @@ void ClaseCola::getListReverse(){
     delete aux;
 }
 
-void ClaseCola::insertList(string Descrip,string Tipo){
+void ClaseCola::insertList(string Descrip,string Tipo, int tip_){
 
-    NodoCola *newNode = new NodoCola(this->cont,Descrip,Tipo, NULL, NULL);
+    NodoCola *newNode = new NodoCola(this->cont,Descrip,Tipo,tip_, NULL, NULL);
     this->contador++;
     this->cont++;
     if(isEmpty()){

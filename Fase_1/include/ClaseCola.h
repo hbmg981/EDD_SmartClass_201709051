@@ -4,7 +4,7 @@ class ClaseCola{
 private:
     NodoCola *First;
     NodoCola *Last;
-    int contador, archi, cont;
+    int contador, archi, cont, tip;
 
 public:
     //Constructor
@@ -17,7 +17,7 @@ public:
     void getList();
     void getListReverse();
 
-    void insertList( string Descrip, string Tipo);
+    void insertList( string Descrip, string Tipo, int tip);
     void Desencolar();
     void generaError();
 };

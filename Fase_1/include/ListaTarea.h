@@ -20,8 +20,9 @@ public:
     void getListReverse();
     void BuscarTarea(int mes_, int dia_, int hora_);
     void insertList(string carnet_, string nombre_,string descrip_, string materia_, string fecha_,string hora, string estado_,int index_);
-    void deleteValue(string id);
+    void deleteValue(int index);
     void ModificarNodo(string id);
+    bool validarFecha(const string&);
     void generaTarea();
     void generaTarea1();
 

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <stdlib.h>
+#include <regex>
 ListaTarea::ListaTarea(){
     this->First = NULL;
     this->Last = 0;
@@ -77,35 +78,23 @@ void ListaTarea::insertList(string carnet_,string nombre_, string descrip_, stri
     }
 }
 
-void ListaTarea::deleteValue(string carnet) {
-    NodoTarea *aux = this->First;
-    while(this->First != NULL){
-        if(this->First->getcarnet() == carnet){
-            if(aux == this->First){
-                aux = this->First->getNext();
-                aux->setPrevious(NULL);
-                this->id-=1;
-                this->tam-=1;
-                break;
-            }
-            else if (this->First == this->Last){
-                this->Last = this->First->getPrevious();
-                this->Last->setNext(NULL);
-                this->id-=1;
-                this->tam-=1;
-                break;
-            }
-            else {
-                this->First->getNext()->setPrevious(this->First->getPrevious());
-                this->First->getPrevious()->setNext(this->First->getNext());
-                this->id-=1;
-                this->tam-=1;
-                break;
-            }
+void ListaTarea::deleteValue(int index) {
+    NodoTarea* aux = this->First;
+    while(aux != NULL){
+        if(aux->getindex() == index){
+            cout<<"Tarea Encontrada "<<endl;
+            aux->setcarnet("-1");
+            aux->setnombre("-1");
+            aux->setdescrip("-1");
+            aux->setmateria("-1");
+            aux->setfecha("-1");
+            aux->setestado("-1");
+            aux->sethora("-1");
+         cout<<"Tarea Eliminada "<<endl;
         }
-        this->First = this->First->getNext();
+        aux = aux->getNext();
     }
-    this->First = aux;
+   // this->First = aux;
 }
 void ListaTarea::ModificarNodo(string id) {
     NodoTarea* actual = new NodoTarea();
@@ -237,7 +226,7 @@ void ListaTarea::generaTarea1(){
     }
     while(aux != NULL && contadornodo<450){
         //cout<<aux->getnombre()<<endl;
-        node_data += "Node" + to_string(counter) + "[label=\""+" ID: " + to_string(aux->getid())+ "\\n Carnet: " + aux->getcarnet() +"\\n Nombre: "+ aux->getnombre()+"\\n Descripcion: "+ aux->getdescrip()+"\\n Materia: "+aux->getmateria()+"\\n Fecha: "+aux->getfecha()+ "\\n Hora: " + aux->gethora() +":00"+"\\n Estado: "+aux->getestado()+"\\n Index: "+to_string(aux->getindex())+ "\"];\n";
+        node_data += "Node" + to_string(counter) + "[label=\""+" ID: " + to_string(aux->getindex())+ "\\n Carnet: " + aux->getcarnet() +"\\n Nombre: "+ aux->getnombre()+"\\n Descripcion: "+ aux->getdescrip()+"\\n Materia: "+aux->getmateria()+"\\n Fecha: "+aux->getfecha()+ "\\n Hora: " + aux->gethora() +":00"+"\\n Estado: "+aux->getestado()+"\\n Id2: "+to_string(aux->getid())+ "\"];\n";
         if(aux->getPrevious()!=NULL){
             edge_data += "Node" + to_string(counter-1) + "->Node" + to_string(counter) + ";\n";
             edge_data += "Node" + to_string(counter) + "->Node" + to_string(counter-1) + ";\n";
@@ -278,4 +267,44 @@ void ListaTarea::generaTarea1(){
 
 
     delete aux;
+}
+bool ListaTarea::validarFecha(const string& fecha_){
+    //Regex para la fecha
+    const regex expReg("^[0-9]{4}/[0-9]{2}/[0-9]{2}$");
+    if (regex_match(fecha_,expReg)){
+            string fechaF[3] = {"","",""};
+            string dato = "";
+            int contador =0;
+            for (int i=0;i<fecha_.length(); i++){
+                if (fecha_[i]!= '/'){
+                    dato+=fecha_[i];
+                }else{
+                    fechaF[contador]=dato;
+                    dato ="";
+                    contador++;
+
+                }
+
+            }
+            fechaF[contador]=dato;
+            //int dia1;  istringstream(dia)>>dia1;
+            int dia, mes, a;
+            istringstream(fechaF[0])>>a;
+            istringstream(fechaF[1])>>mes;
+            istringstream(fechaF[2])>>dia;
+            if (a!= 2021){
+                return false;
+            }else if (mes<7 || mes >11){
+                return false;
+            }else if (dia <1 || dia>30){
+                return false;
+            }
+
+
+
+
+    }else{
+        return false;
+    }
+    return true;
 }

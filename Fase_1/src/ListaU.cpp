@@ -29,48 +29,36 @@ bool ListaU::isEmpty(){
     return this->First == NULL;
 }
 bool ListaU::buscarUsuarioDPI(string DPI){
+   if (this->isEmpty()!=true){
     NodoU* actual = new NodoU();
     actual = this->First;
-    bool encontrado = false;
-    if (this->First != NULL){
-        while (actual!=NULL&& encontrado!=true){
-            if (actual->getdpi() ==DPI){
-                cout<<"Estudiante encontrado por DPI "<<endl;
-                encontrado=true;
-            }
-            actual = actual->getNext();
+    do{
+        if (actual->getdpi() ==DPI){
+                return true;
         }
-        if (!encontrado){
-            cout<<"Estudiante no encontrado por DPI "<<endl;
-            encontrado = false;
-        }
-    }else{
-    cout<<" La lista esta vacia DPI no encontrado! "<<endl;
-    encontrado = false;
+        actual = actual->getNext();
+    }while(actual!=this->First);
+
+
     }
-    return encontrado;
+    return false;
 }
 bool ListaU::buscarUsuarioCarnet(string Carnet){
-    bool encontrado = false;
+    if (this->isEmpty()!=true){
     NodoU* actual = new NodoU();
     actual = this->First;
+    do{
+        if (actual->getcarnet() ==Carnet){
+                return true;
+        }
+        actual = actual->getNext();
+    }while(actual!=this->First);
 
-    while (actual!=NULL&& encontrado!=true){
-            if (actual->getcarnet() ==Carnet){
-                encontrado=true;
-                break;
-            }
-            actual = actual->getNext();
+
     }
-    if(encontrado ==true){
-        cout<<"Estudiante encontrado por Carnet "<<endl;
-    }else{
-        cout<<"Estudiante NO encontrado por Carnet "<<endl;
-    }
+    return false;
 
 
-    return encontrado;
-    delete actual;
 }
 
 void ListaU::getList(){
@@ -205,14 +193,12 @@ void ListaU::ModificarNodo(string DPI) {
     actual = this->First;
     bool encontrado = false;
     if (this->First != NULL){
-
-        while (actual!=NULL && encontrado!=true){
-
+        do{
             if (actual->getdpi() ==DPI){
                 cout<<"\n Estudiante Encontrado\n "<<endl;
 
                 string nombre,carrera,correo,pass,carnet,dpi,creditos,edad;
-                cin.ignore();
+                //cin.ignore();
                 cout<<" *  Ingrese el numero de Carnet *\n"<<endl;
                 getline(cin,carnet);
                 if (this->validarCarnet(carnet)== true){
@@ -267,7 +253,10 @@ void ListaU::ModificarNodo(string DPI) {
 
         }
         actual = actual->getNext();
+
         }
+        while (actual!=First && encontrado!=true);
+
         if(!encontrado){
             cout<<"Estudiante no encontrado\n "<<endl;
         }
@@ -379,7 +368,7 @@ bool ListaU:: validarDpi(const string& dpi){
 }
 bool ListaU::validarCorreo(const string& correo){
     //Regex para el Correo
-    const regex expReg("^[^@]+@[^@]+\.[es|com|org]$");
+    const regex expReg("^[^@]+@[^@]+\.(es|org|com)$");
     return regex_match(correo,expReg);
 }
 

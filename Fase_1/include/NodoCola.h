@@ -7,19 +7,20 @@ class NodoCola {
 private:
     string Descrip;
     string Tipo;
-    int id;
+    int id, tip;
     NodoCola *Siguiente;
     NodoCola *Anterior;
 
 public:
     //Constructores
     NodoCola();
-    NodoCola(int id,string Descrip_,string Tipo_, NodoCola *anterior_, NodoCola *siguiente_);
+    NodoCola(int id,string Descrip_,string Tipo_,int tip_, NodoCola *anterior_, NodoCola *siguiente_);
 
     //Getters
     string getDescrip();
     string getTipo();
     int getId();
+    int getTip();
     NodoCola *getSiguiente();
     NodoCola *getAnterior();
 
@@ -27,6 +28,7 @@ public:
     void setDescrip(string descrip);
     void setTipo(string Tipo);
     void setId(int Id);
+    void setTip(int Tip);
     void setSiguiente(NodoCola *siguiente);
     void setAnterior(NodoCola *anterior);
 };

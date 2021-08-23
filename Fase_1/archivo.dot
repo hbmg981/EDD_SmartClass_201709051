@@ -6,7 +6,7 @@ digraph D {
 	 nodo_1[shape=box, label= "Carnet: 201501786\n DPI: 7249529279753\n Nombre: Juan Curiel\n Carrera : Ingenieria Industrial\n Password: zanolexima\n Creditos: 245\n Edad: 24\n Correo: jernimo.caballero@yahoo.com"];
 	 nodo_2[shape=box, label= "Carnet: 201822186\n DPI: 9298434863898\n Nombre: Eloisa Rincon\n Carrera : Ingenieria Civil\n Password: toqelijanu\n Creditos: 95\n Edad: 19\n Correo: carolinaelizondo85@yahoo.com"];
 	 nodo_3[shape=box, label= "Carnet: 201901425\n DPI: 4131766125532\n Nombre: Bernardo Hinojosa\n Carrera : Ingenieria Mecanica\n Password: wosopumano\n Creditos: 100\n Edad: 20\n Correo: alfonso03@hotmail.com"];
-	 nodo_4[shape=box, label= "Carnet: 201503186\n DPI: 854919766348\n Nombre: Manuel Manzanares\n Carrera : Ingenieria Electrica\n Password: rejumudore\n Creditos: 226\n Edad: 24\n Correo: benitoarmas92@gmail.com"];
+	 nodo_4[shape=box, label= "Carnet: 123456897\n DPI: 3698741236984\n Nombre: Juan Manzanares\n Carrera : Ciencias y sistemas\n Password: 123\n Creditos: 365\n Edad: 254\n Correo: sdfasd@tal.com"];
 	 nodo_5[shape=box, label= "Carnet: 201123146\n DPI: 9616636196552\n Nombre: Julia Corona\n Carrera : Ingenieria Electronica\n Password: xojobavuji\n Creditos: 237\n Edad: 26\n Correo: ngela.solorio86@yahoo.com"];
 	 nodo_6[shape=box, label= "Carnet: 201704186\n DPI: 4778315315575\n Nombre: Berta Carrasco\n Carrera : Ingenieria Ambiental\n Password: gayahizatu\n Creditos: 210\n Edad: 22\n Correo: carmen.montenegro@yahoo.com"];
 	 nodo_7[shape=box, label= "Carnet: 202000786\n DPI: 7382344774121\n Nombre: Lola Delapaz\n Carrera : Ingenieria Quimica\n Password: hujocikimi\n Creditos: 45\n Edad: 19\n Correo: adriana56@gmail.com"];
