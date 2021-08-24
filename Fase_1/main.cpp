@@ -199,7 +199,7 @@ int main()
                                         tareas->ModificarNodo(carnet,nombre,descrip,materia,fecha,hora,estado,index);
                                         }else{
                                         cout << "\n No se encontro estudiante con el numero  de carnet" << endl;
-                                        ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet+"\n Ref. Index: "+to_string(index), "Tarea",2,1);
+                                        //ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet+"\n Ref. Index: "+to_string(index), "Tarea",2,1);
                                         }
 
 

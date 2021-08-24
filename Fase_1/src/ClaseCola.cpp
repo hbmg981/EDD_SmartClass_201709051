@@ -36,7 +36,7 @@ int  ClaseCola::TipoError(){
                 return 11;
         }else if (actual->getTip() ==1 && actual->getTipo2() == 2){
                 return 12;
-        }else if (actual->getTip() ==1 && actual->getTipo2() == 2){
+        }else if (actual->getTip() ==1 && actual->getTipo2() == 3){
                 return 13;
         }else if (actual->getTip() ==2 && actual->getTipo2() == 1){
                 return 21;
