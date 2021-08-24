@@ -15,6 +15,7 @@ NodoCola::NodoCola(int id,string Descrip,string Tipo,int tip_, int tipo2_,  Nodo
     this->Tipo = Tipo;
     this->id = id;
     this->tip = tip_;
+    this->tipo2=tipo2_;
     this->Siguiente = Siguiente_;
     this->Anterior = Anterior_;
 }

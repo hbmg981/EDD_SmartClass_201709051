@@ -32,6 +32,7 @@ int  ClaseCola::TipoError(){
     NodoCola* actual = new NodoCola();
     actual = this->First;
     do{
+        //cout<<" Tipo error 1: "<<actual->getTip()<<" Tipo error 2: "<<actual->getTipo2()<<endl;
         if (actual->getTip() ==1 && actual->getTipo2() == 1){
                 return 11;
         }else if (actual->getTip() ==1 && actual->getTipo2() == 2){
@@ -44,6 +45,10 @@ int  ClaseCola::TipoError(){
                 return 22;
         }else if (actual->getTip() ==3){
                 return 3;
+        }else if (actual->getTip() ==1 && actual->getTipo2() == 4){
+                return 14;
+        }else{
+           return -1;
         }
         actual = actual->getSiguiente();
     }while(actual!=NULL);

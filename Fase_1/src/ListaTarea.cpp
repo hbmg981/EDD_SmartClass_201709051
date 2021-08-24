@@ -328,14 +328,39 @@ void ListaTarea::generatxt(){
             NodoTarea *aux = First;
             int contador=0;
 
+
             do{
                 if (aux->getid() != -1){
+                        //split de la fecha para txt
+            string dia, mes, a, nuevaFecha, fe;
+            if (this->validarFecha(aux->getfecha())==true){
+            string fechaF[3] = {"","",""};
+            string dato = "";
+            int contador =0;
+            for (int i=0;i<aux->getfecha().length(); i++){
+                if (aux->getfecha()[i]!= '/'){
+                    dato+=aux->getfecha()[i];
+                }else{
+                    fechaF[contador]=dato;
+                    dato ="";
+                    contador++;
+                }
+            }
+            fechaF[contador]=dato;
+            dia = fechaF[2];
+            mes = fechaF[1];
+            a = fechaF[0];
+            nuevaFecha= dia+"/"+mes+"/"+a;
+            fe=nuevaFecha;
+            }else{
+            nuevaFecha=aux->getfecha();
+            }
                     string info= "\t ¿element type=\"task\"? \n \t \t ¿item ID=\""+to_string(aux->getid())+"\" $?"
                     +"\n \t \t ¿item Carnet=\""+aux->getcarnet()+"\" $?"
                     +"\n \t \t ¿item Nombre=\" "+aux->getnombre()+"\" $?"
                     +"\n \t \t ¿item Descripcion=\" "+ aux->getdescrip()+"\" $?"
                     +"\n \t \t ¿item Materia=\" "+aux->getmateria()+"\" $?"
-                    +"\n \t \t ¿item Fecha=\" "+aux->getfecha()+"\" $?"
+                    +"\n \t \t ¿item Fecha=\" "+nuevaFecha+"\" $?"
                     +"\n \t \t ¿item Hora=\" "+aux->gethora()+"\" $?"
                     +"\n \t \t ¿item Estado=\" "+aux->getestado()+"\" $?";
             archivo<<info;

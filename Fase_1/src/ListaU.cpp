@@ -60,23 +60,23 @@ bool ListaU::buscarUsuarioCarnet(string Carnet){
 
 
 }
-void ListaU::ModificarDato(string dato){
+void ListaU::ModificarDato(string dato, int tipoerror,string dpi){
     if (this->isEmpty()!=true){
     NodoU* actual = new NodoU();
     actual = this->First;
     do{
-        if (actual->getcarnet() ==dato){
-
+        if (actual->getdpi() ==dpi){
+                cout<<" Usuario encontrado!\n "<<endl;
+                if(tipoerror ==11){
                 actual->setcarnet(dato);
                 cout<<" Carnet Cambiado!\n "<<endl;
-        }else if(actual->getdpi() ==dato){
+                }else if(tipoerror ==12){
                 actual->setdpi(dato);
-                cout<<" Dpi Cambiado!\n "<<endl;
-        }else if(actual->getcorreo() ==dato){
+                cout<<" DPI Cambiado!\n "<<endl;
+                }else if(tipoerror ==13){
                 actual->setcorreo(dato);
-                cout<<" Correo Cambiado!\n "<<endl;
-        }else{
-            cout<<" No se encontro el dato !\n " + dato <<endl;
+                cout<<" Email Cambiado!\n "<<endl;
+                }
         }
 
         actual = actual->getNext();

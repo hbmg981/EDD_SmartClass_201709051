@@ -239,8 +239,69 @@ int main()
                                 while (opT != 4);
                             }
                             case 3: // correccion de errores
-                            {
-                                int cont=1;
+                            {   string datomalo, datonuevo,dpie;
+                                int index;
+                                if (ClaseC->isEmpty()==false){
+                                        if (ClaseC->ErrorUsuario()==true){
+                                            cin.ignore();
+                                            cout<<" *  Ingrese el numero de DPI del estudiante que contiene error *\n"<<endl;
+                                            getline(cin,dpie);
+
+                                            if (ClaseC->TipoError()==11){
+
+                                            cout<<" *  Primer error Estudiante, carnet*\n"<<endl;
+                                            cout<<" *  Ingrese el # de carnet correcto, (9 digitos) *\n"<<endl;
+                                            getline(cin,datonuevo);
+                                            estudiantes->ModificarDato(datonuevo,11,dpie);
+                                            ClaseC->Desencolar();
+                                            }else if (ClaseC->TipoError()==12){
+                                            cout<<" *  Primer error Estudiante, dpi*\n"<<endl;
+                                            cout<<" *  Ingrese el # de DPI correcto, (13 digitos) *\n"<<endl;
+                                            getline(cin,datonuevo);
+                                            estudiantes->ModificarDato(datonuevo,12,dpie);
+                                            ClaseC->Desencolar();
+                                            }else if (ClaseC->TipoError()==13){
+                                            cout<<" *  Primer error Estudiante, correo*\n"<<endl;
+                                            cout<<" *  Ingrese un email correcto, (user@dominio.(com|es|org) *\n"<<endl;
+                                            getline(cin,datonuevo);
+                                            estudiantes->ModificarDato(datonuevo,13,dpie);
+                                            ClaseC->Desencolar();
+                                            }else if (ClaseC->TipoError()==14){
+                                            cout<<" *  Primer error Estudiante, Duplicado*\n"<<endl;
+                                            ClaseC->Desencolar();
+                                        }
+                                        }else if (ClaseC->ErrorTarea2()==true){
+                                            //
+                                            cout<<" *  Ingrese el index de la tarea que contiene error *\n"<<endl;
+                                            cin>>index;
+                                            if (ClaseC->TipoError()==21){
+
+                                            cout<<" *  Primer error Tarea, carnet*\n"<<endl;
+                                            cin.ignore();
+                                            cout<<" *  Ingrese el # de carnet correcto, (9 digitos) para la tarea*\n"<<endl;
+                                            getline(cin,datonuevo);
+                                            ClaseC->Desencolar();
+                                            }else if (ClaseC->TipoError()==22){
+                                            cout<<" *  Primer error Tarea, Fecha*\n"<<endl;
+                                            cout<<" *  Ingrese fecha valida dd/mm/aaaa para la tarea*\n"<<endl;
+                                            getline(cin,datonuevo);
+                                            ClaseC->Desencolar();
+                                            }
+
+                                        }else if (ClaseC->TipoError()==3){
+                                            cout<<" *  Primer error Fuera de rango*\n"<<endl;
+                                            ClaseC->Desencolar();
+                                        }else{
+                                        cout<<" *  Primer error Datos erroneos*\n"<<endl;
+                                        ClaseC->Desencolar();
+                                        }
+
+
+                                }else{
+                                    cout<<" *  Lista de Errores Vacia *\n"<<endl;
+                                }
+
+                                /*int cont=1;
                                 if (ClaseC->isEmpty()==false){
                                     // error de tipo estudiante
                                     NodoCola *aux = new NodoCola;
@@ -289,7 +350,7 @@ int main()
 
                                 }else{
                                     cout<<" *  Lista de Errores Vacia *\n"<<endl;
-                                }
+                                }*/
                             }
                             break;
                             case 4:
@@ -576,7 +637,7 @@ void AgregarUsuario(string carnet, string dpi, string nombre, string carrera,str
         }
         }else{
             cout << "\n El estudiante con numero de Carnet: "+carnet+" ya existe" << endl;
-            ClaseC->insertList(" El Carnet:  "+carnet+" ya esta registrado", "Estudiante",1,4);
+            ClaseC->insertList(" El Carnet:  "+carnet+" ya esta registrado\n Ref. DPI:"+dpi, "Estudiante",1,4);
         }
 
 
@@ -778,14 +839,21 @@ void AgregarTarea(string carnet, string nombre, string descrip, string materia,s
 
             if (estudiantes->buscarUsuarioCarnet(carnet)==true){
                     cout << "\n El estudiante fue encontrado, tarea asignada" << endl;
-                    if (tareas->validarFecha(fecha)==true){
+                    tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                   /* if (tareas->validarFecha(fecha)==true){
                     tareas->insertList(carnet,nombre,descrip,materia,fe,hora,estado,index);}
                     else{
-                    tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
-                    }
+
+                    }*/
             }else{
             cout << "\n No se encontro estudiante con el numero  de carnet" << endl;
             ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet+"\n Ref. Index: "+to_string(index), "Tarea",2,1);
+            tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                    /*if (tareas->validarFecha(fecha)==true){
+                    tareas->insertList(carnet,nombre,descrip,materia,fe,hora,estado,index);}
+                    else{
+                    tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                    }*/
             }
 
 
