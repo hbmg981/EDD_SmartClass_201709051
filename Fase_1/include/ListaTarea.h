@@ -24,6 +24,7 @@ public:
     void ModificarNodo(string carnet_, string nombre_,string descrip_, string materia_, string fecha_,string hora, string estado_,int index_);
     bool validarFecha(const string&);
     bool buscarIndex(int index);
+    void ModificarDato(string dato, int tipoerror, int index);
     bool ValorOcupado();
     void generaTarea();
     void generaTarea1();

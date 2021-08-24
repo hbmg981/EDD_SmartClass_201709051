@@ -245,8 +245,8 @@ void ListaTarea::generaTarea(){
 void ListaTarea::BuscarTarea(int mes, int dia, int hora){
     //i+5*(j+30*k)
     NodoTarea *aux = First;
-    while(aux != NULL){
-        if(aux->getindex() == mes+5*((dia-1)+30*hora)){
+    while(aux != NULL){//hora1+9*((dia1-1)+30*(mes1))
+        if(aux->getindex() == hora+9*((dia-1)+30*mes)){
             cout<<"***************** Tarea Encontrada **************"<<endl;
             cout<<" Carnet: "<<aux->getcarnet()<<" -- Nombre  "<<aux->getnombre()<<" -- Descripcion: "<<aux->getdescrip()<<endl;
             cout<<" Materia: "<<aux->getmateria()<<" -- Fecha "<<aux->getfecha()<<" -- Estado "<<aux->getestado()<<endl;
@@ -316,6 +316,34 @@ void ListaTarea::generaTarea1(){
 
     delete aux;
 }
+
+void ListaTarea::ModificarDato(string dato, int tipoerror, int index){
+    if (this->isEmpty()!=true){
+    NodoTarea* actual = new NodoTarea();
+    actual = this->First;
+    do{
+        if (actual->getindex() ==index){
+                cout<<" Tarea Encontrada!\n "<<endl;
+                if(tipoerror ==21){
+                actual->setcarnet(dato);
+                cout<<" Carnet Cambiado!\n "<<endl;
+                }else if(tipoerror ==22){
+                actual->setfecha(dato);
+                cout<<" Fecha Cambiada!\n "<<endl;
+                }
+        }
+
+        actual = actual->getNext();
+    }while(actual!=this->First);
+
+
+    }
+    //return false;
+
+
+}
+
+
 void ListaTarea::generatxt(){
         string abrir = "start repo6.txt";
         if (isEmpty()){

@@ -280,11 +280,13 @@ int main()
                                             cin.ignore();
                                             cout<<" *  Ingrese el # de carnet correcto, (9 digitos) para la tarea*\n"<<endl;
                                             getline(cin,datonuevo);
+                                            tareas->ModificarDato(datonuevo,21,index);
                                             ClaseC->Desencolar();
                                             }else if (ClaseC->TipoError()==22){
                                             cout<<" *  Primer error Tarea, Fecha*\n"<<endl;
-                                            cout<<" *  Ingrese fecha valida dd/mm/aaaa para la tarea*\n"<<endl;
+                                            cout<<" *  Ingrese fecha valida aaaa/mm/dd para la tarea*\n"<<endl;
                                             getline(cin,datonuevo);
+                                            tareas->ModificarDato(datonuevo,22,index);
                                             ClaseC->Desencolar();
                                             }
 
@@ -384,7 +386,7 @@ int main()
                                 {   string mes, hora;
                                     int dia;
                                     cin.ignore();
-                                    cout<<"\N ********  BUSQUEDA DE TAREA ******** *\n"<<endl;
+                                    cout<<"\n ********  BUSQUEDA DE TAREA ******** *\n"<<endl;
                                     cout<<" *  Ingrese el Mes *\n"<<endl;
                                     getline(cin,mes);
                                     cout<<" *  Ingrese el Dia *\n"<<endl;
@@ -553,7 +555,7 @@ void cargarArchivo(){
          //Concatenar string para la ruta completa
          cin.ignore();
          getline(cin, ruta);
-         cout<<" ruta copiada:  "<<ruta<<"\n"<<endl;
+         //cout<<" ruta copiada:  "<<ruta<<"\n"<<endl;
          archivo.open(ruta,ios::in);
          string linea;
          char delimitador = ',';
