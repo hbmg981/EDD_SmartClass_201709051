@@ -30,6 +30,39 @@ bool ListaTarea::isEmpty(){
     return this->First == NULL;
 }
 
+bool ListaTarea::buscarIndex(int index){
+    if (this->isEmpty()!=true){
+    NodoTarea* actual = new NodoTarea();
+    actual = this->First;
+    do{
+        if (actual->getindex() ==index){
+                return true;
+        }
+        actual = actual->getNext();
+    }while(actual!=NULL);
+
+
+    }
+    return false;
+
+}
+bool ListaTarea::ValorOcupado(){
+    if (this->isEmpty()!=true){
+    NodoTarea* actual = new NodoTarea();
+    actual = this->First;
+    do{
+        if (actual->getcarnet() !="-1"){
+                return true;
+        }
+        actual = actual->getNext();
+    }while(actual!=NULL);
+
+
+    }
+    return false;
+
+}
+
 void ListaTarea::getList(){
     NodoTarea *aux = First;
     while(aux != NULL){

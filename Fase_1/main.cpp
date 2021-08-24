@@ -160,7 +160,12 @@ int main()
 
                                         if (estudiantes->buscarUsuarioCarnet(carnet)==true){
                                         cout << "\n El carnet es valido" << endl;
-                                        tareas->ModificarNodo(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                                        if (tareas->ValorOcupado()==false){
+                                            tareas->ModificarNodo(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                                        }else{
+                                        cout << "\n Ya existe una tarea en la posicion indicada" << endl;
+                                        }
+
                                         }else{
                                         cout << "\n No se encontro estudiante con el numero  de carnet" << endl;
                                         ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet+"\n Ref. Index: "+to_string(index), "Tarea",2,1);
@@ -251,9 +256,35 @@ int main()
                                     }else if (ClaseC->ErrorTarea2()==true){
 
                                         cout<<" *  Error en la tarea *\n"<<endl;
+                                        int index;
+                                        cout<<" *  Ingrese el ID de la tarea a Modificar *\n"<<endl;
+                                        cin>>index;
+
+                                        string carnet, descrip,nombre,materia,fecha,hora,estado;
+                                        cin.ignore();
+                                        cout<<" *  Ingrese el numero de Carnet *\n"<<endl;
+                                        getline(cin,carnet);
+                                        cout<<" *  Ingrese el nombre de la tarea *\n"<<endl;
+                                        getline(cin,nombre);
+                                        cout<<" *  Ingrese la descripcion *\n"<<endl;
+                                        getline(cin,descrip);
+                                        cout<<" *  Ingrese la Materia *\n"<<endl;
+                                        getline(cin,materia);
+                                        cout<<" *  Ingrese la Fecha en formato dd/mm/aaaa*\n"<<endl;
+                                        getline(cin,fecha);
+                                        cout<<" *  Ingrese la Hora *\n"<<endl;
+                                        getline(cin,hora);
+                                        cout<<" *  Ingrese el estado de la tarea *\n"<<endl;
+                                        getline(cin,estado);
+
+
+                                        tareas->ModificarNodo(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+
+                                        ClaseC->Desencolar();
 
                                     }else if(ClaseC->ErrorTarea3()==true){
                                         cout<<" *  Error de rango *\n"<<endl;
+                                        ClaseC->Desencolar();
                                     }
 
                                 }else{
