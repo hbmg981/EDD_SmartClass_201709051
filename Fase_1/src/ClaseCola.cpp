@@ -5,8 +5,8 @@
 ClaseCola::ClaseCola(){
     this->First = NULL;
     this->Last = 0;
-    this->contador =0;
-    this->cont=1;
+    this->contador =0; // contador para graficar
+    this->cont=1;// Contador para ID
     this->archi = 1;
 
 }
@@ -25,6 +25,72 @@ int ClaseCola::getSize(){
 
 bool ClaseCola::isEmpty(){
     return this->First == NULL;
+}
+
+int  ClaseCola::TipoError(){
+    if (this->isEmpty()!=true){
+    NodoCola* actual = new NodoCola();
+    actual = this->First;
+    do{
+        if (actual->getTip() ==1 && actual->getTipo2() == 1){
+                return 11;
+        }else if (actual->getTip() ==1 && actual->getTipo2() == 2){
+                return 12;
+        }else if (actual->getTip() ==1 && actual->getTipo2() == 2){
+                return 13;
+        }else if (actual->getTip() ==2 && actual->getTipo2() == 1){
+                return 21;
+        }else if (actual->getTip() ==2 && actual->getTipo2() == 2){
+                return 22;
+        }else if (actual->getTip() ==3){
+                return 3;
+        }
+        actual = actual->getSiguiente();
+    }while(actual!=NULL);
+    }
+    return -1;
+
+}
+
+bool ClaseCola::ErrorUsuario(){
+    if (this->isEmpty()!=true){
+    NodoCola* actual = new NodoCola();
+    actual = this->First;
+    do{
+        if (actual->getTip() ==1){
+                return true;
+        }
+        actual = actual->getSiguiente();
+    }while(actual!=NULL);
+    }
+    return false;
+}
+
+bool ClaseCola::ErrorTarea2(){
+    if (this->isEmpty()!=true){
+    NodoCola* actual = new NodoCola();
+    actual = this->First;
+    do{
+        if (actual->getTip() ==2){
+                return true;
+        }
+        actual = actual->getSiguiente();
+    }while(actual!=NULL);
+    }
+    return false;
+}
+bool ClaseCola::ErrorTarea3(){
+    if (this->isEmpty()!=true){
+    NodoCola* actual = new NodoCola();
+    actual = this->First;
+    do{
+        if (actual->getTip() ==3){
+                return true;
+        }
+        actual = actual->getSiguiente();
+    }while(actual!=NULL);
+    }
+    return false;
 }
 
 void ClaseCola::getList(){
@@ -54,9 +120,9 @@ void ClaseCola::getListReverse(){
     delete aux;
 }
 
-void ClaseCola::insertList(string Descrip,string Tipo, int tip_){
+void ClaseCola::insertList(string Descrip,string Tipo, int tip_, int tipo2){
 
-    NodoCola *newNode = new NodoCola(this->cont,Descrip,Tipo,tip_, NULL, NULL);
+    NodoCola *newNode = new NodoCola(this->cont,Descrip,Tipo,tip_,tipo2, NULL, NULL);
     this->contador++;
     this->cont++;
     if(isEmpty()){
@@ -77,6 +143,8 @@ void ClaseCola :: Desencolar(){
             if(aux == this->First){
                 aux = this->First->getSiguiente();
                 aux->setAnterior(NULL);
+                this->contador--;
+                this->cont--;
                 break;
             }
             this->First = this->First->getSiguiente();
@@ -88,8 +156,8 @@ void ClaseCola :: Desencolar(){
 void ClaseCola :: generaError(){
 
         int tam = this->contador;
-        string generar = "dot -Tpng error.dot -o graf"+to_string(this->archi)+".png";
-        string abrir = "start graf"+to_string(this->archi)+".png ";
+        string generar = "dot -Tpng error.dot -o error"+to_string(this->archi)+".png";
+        string abrir = "start error"+to_string(this->archi)+".png ";
         // verificando que la lista este vacia
         if (isEmpty()){
             cout<<"\n La lista esta vacia!\n "<<endl;

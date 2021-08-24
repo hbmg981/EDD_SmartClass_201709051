@@ -129,31 +129,82 @@ int main()
                                     case 1: // Agregar Tarea
                                     {   int diax,mesx,horax;
 
-                                        string nombre,descrip,materia,fecha,hora,estado,carnet;
+                                        int index;
+                                        cout<<" *  Ingrese el Mes de la Tarea *\n"<<endl;
+                                        cin>>mesx;
+                                        cout<<" *  Ingrese el Dia de la tarea *\n"<<endl;
+                                        cin>>diax;
+                                        cout<<" *  Ingrese la hora de la tarea *\n"<<endl;
+                                        cin>>horax;
+                                        int mes1=getIndiceMes(to_string(mesx));
+                                        int hora1= getIndiceHora(to_string(horax));
+                                        int dia1 = diax-1;
+                                        index = hora1+9*((dia1)+30*(mes1));
+
+                                        string carnet, descrip,nombre,materia,fecha,hora,estado;
                                         cin.ignore();
                                         cout<<" *  Ingrese el numero de Carnet *\n"<<endl;
                                         getline(cin,carnet);
-                                        //cin>>carnet;
-                                        cout<<" *  Ingrese el Nombre de la Tarea  *\n"<<endl;
+                                        cout<<" *  Ingrese el nombre de la tarea *\n"<<endl;
                                         getline(cin,nombre);
-                                        cout<<" *  Ingrese la Descripcion *\n"<<endl;
+                                        cout<<" *  Ingrese la descripcion *\n"<<endl;
                                         getline(cin,descrip);
-                                        cout<<" *  Ingrese la Materia      *\n"<<endl;
-                                         getline(cin,materia);
-                                        cout<<" *  Ingrese la Fecha       *\n"<<endl;
-                                         getline(cin,fecha);
-                                        cout<<" *  Ingrese la Hora      *\n"<<endl;
-                                         getline(cin,hora);
-                                        cout<<" *  Ingrese el Estado *\n"<<endl;
-                                         getline(cin,estado);
+                                        cout<<" *  Ingrese la Materia *\n"<<endl;
+                                        getline(cin,materia);
+                                        cout<<" *  Ingrese la Fecha en formato dd/mm/aaaa*\n"<<endl;
+                                        getline(cin,fecha);
+                                        cout<<" *  Ingrese la Hora *\n"<<endl;
+                                        getline(cin,hora);
+                                        cout<<" *  Ingrese el estado de la tarea *\n"<<endl;
+                                        getline(cin,estado);
+
+                                        if (estudiantes->buscarUsuarioCarnet(carnet)==true){
+                                        cout << "\n El carnet es valido" << endl;
+                                        tareas->ModificarNodo(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                                        }else{
+                                        cout << "\n No se encontro estudiante con el numero  de carnet" << endl;
+                                        ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet+"\n Ref. Index: "+to_string(index), "Tarea",2,1);
+                                            }
                                     }break;
                                     case 2:// Modificar Tarea
+                                        {
+                                        int index;
+                                        cout<<" *  Ingrese el ID de la tarea a Modificar *\n"<<endl;
+                                        cin>>index;
+
+                                        string carnet, descrip,nombre,materia,fecha,hora,estado;
+                                        cin.ignore();
+                                        cout<<" *  Ingrese el numero de Carnet *\n"<<endl;
+                                        getline(cin,carnet);
+                                        cout<<" *  Ingrese el nombre de la tarea *\n"<<endl;
+                                        getline(cin,nombre);
+                                        cout<<" *  Ingrese la descripcion *\n"<<endl;
+                                        getline(cin,descrip);
+                                        cout<<" *  Ingrese la Materia *\n"<<endl;
+                                        getline(cin,materia);
+                                        cout<<" *  Ingrese la Fecha en formato dd/mm/aaaa*\n"<<endl;
+                                        getline(cin,fecha);
+                                        cout<<" *  Ingrese la Hora *\n"<<endl;
+                                        getline(cin,hora);
+                                        cout<<" *  Ingrese el estado de la tarea *\n"<<endl;
+                                        getline(cin,estado);
+
+                                        if (estudiantes->buscarUsuarioCarnet(carnet)==true){
+                                        cout << "\n El carnet es valido" << endl;
+                                        tareas->ModificarNodo(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                                        }else{
+                                        cout << "\n No se encontro estudiante con el numero  de carnet" << endl;
+                                        ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet+"\n Ref. Index: "+to_string(index), "Tarea",2,1);
+                                        }
+
+
+
+                                        }
 
                                     break;
                                     case 3:// Eliminar Tarea
                                         {
                                         int index;
-                                        string oper;
                                         int op;
                                         cout<<" *  Ingrese el ID de la tarea a eliminar *\n"<<endl;
                                         cin>>index;
@@ -186,7 +237,24 @@ int main()
                             {
                                 int cont=1;
                                 if (ClaseC->isEmpty()==false){
+                                    // error de tipo estudiante
+                                    NodoCola *aux = new NodoCola;
 
+                                    if (ClaseC->ErrorUsuario()==true){
+                                        string dpi;
+                                        cin.ignore();
+                                        cout<<" *  Ingrese el numero de DPI del usuario con error para modificar *\n"<<endl;
+                                        getline(cin,dpi);
+
+                                        estudiantes->ModificarNodo(dpi);
+                                        ClaseC->Desencolar();
+                                    }else if (ClaseC->ErrorTarea2()==true){
+
+                                        cout<<" *  Error en la tarea *\n"<<endl;
+
+                                    }else if(ClaseC->ErrorTarea3()==true){
+                                        cout<<" *  Error de rango *\n"<<endl;
+                                    }
 
                                 }else{
                                     cout<<" *  Lista de Errores Vacia *\n"<<endl;
@@ -451,15 +519,15 @@ void ReporteErrores(){
 void AgregarUsuario(string carnet, string dpi, string nombre, string carrera,string correo, string pass, string creditos,string edad){
 
         if (estudiantes->validarCarnet(carnet) == false){
-            ClaseC->insertList(" El Carnet "+carnet+" es invalido", "Estudiante",1);
+            ClaseC->insertList(" El Carnet "+carnet+" es invalido,\n Ref. DPI: "+dpi, "Estudiante",1,1);
         }
 
         if(estudiantes->validarDpi(dpi) == false){
-            ClaseC->insertList(" El DPI "+dpi+" es invalido", "Estudiante",1);
+            ClaseC->insertList(" El DPI "+dpi+" es invalido", "Estudiante",1,2);
         }
 
         if(estudiantes->validarCorreo(correo) == false){
-            ClaseC->insertList(" El correo "+correo+" es invalido", "Estudiante",1);
+            ClaseC->insertList(" El correo "+correo+" es invalido,\n Ref. DPI: "+dpi, "Estudiante",1,3);
         }
 
         if (estudiantes->buscarUsuarioCarnet(carnet)==false){
@@ -468,11 +536,11 @@ void AgregarUsuario(string carnet, string dpi, string nombre, string carrera,str
             estudiantes->insertList(carnet,dpi,nombre,carrera,correo,pass,creditos,edad);
         }else{
             cout << "\n El estudiante con numero de DPI: "+dpi+" ya existe" << endl;
-            ClaseC->insertList(" El DPI:  "+dpi+" ya esta registrado", "Estudiante",1);
+            ClaseC->insertList(" El DPI:  "+dpi+" ya esta registrado", "Estudiante",1,4);
         }
         }else{
             cout << "\n El estudiante con numero de Carnet: "+carnet+" ya existe" << endl;
-            ClaseC->insertList(" El Carnet:  "+carnet+" ya esta registrado", "Estudiante",1);
+            ClaseC->insertList(" El Carnet:  "+carnet+" ya esta registrado", "Estudiante",1,4);
         }
 
 
@@ -537,16 +605,16 @@ void cargarTarea(){
                                     //counter = 0;
                             }else{
                                 cout<<"hora "+hora+" fuera de rango: "<<endl;
-                                ClaseC->insertList("Hora "+hora+" fuera de rango","Tarea",3);
+                                ClaseC->insertList("Hora "+hora+" fuera de rango","Tarea",3,0);
                             }
 
                     }else{
                        cout<<"Dia "+ to_string(dia) +" fuera de rango: "<<endl;
-                       ClaseC->insertList("Dia "+ to_string(dia) +" fuera de rango","Tarea",3);
+                       ClaseC->insertList("Dia "+ to_string(dia) +" fuera de rango","Tarea",3,0);
 
             }}else{
             cout<<"Mes "+mes+" fuera de rango: "<<endl;
-            ClaseC->insertList("Mes "+mes+" fuera de rango","Tarea",3);
+            ClaseC->insertList("Mes "+mes+" fuera de rango","Tarea",3,0);
             }
 
 
@@ -645,37 +713,44 @@ int getIndiceHora(string hora){
     }
 }
 void AgregarTarea(string carnet, string nombre, string descrip, string materia,string fecha,string hora, string estado, int index){
-    //validar que el carnet tenga 9 digitos
+            string dia, mes, a, nuevaFecha, fe;
+            if (tareas->validarFecha(fecha)==true){
+            string fechaF[3] = {"","",""};
+            string dato = "";
+            int contador =0;
+            for (int i=0;i<fecha.length(); i++){
+                if (fecha[i]!= '/'){
+                    dato+=fecha[i];
+                }else{
+                    fechaF[contador]=dato;
+                    dato ="";
+                    contador++;
+                }
+            }
+            fechaF[contador]=dato;
+            dia = fechaF[2];
+            mes = fechaF[1];
+            a = fechaF[0];
+            nuevaFecha= dia+"/"+mes+"/"+a;
+            fe=nuevaFecha;
+            //cout << "\n Nueva Fecha: "+fe<< endl;
+
+            }else{
+                ClaseC->insertList(" La fecha: "+fecha+" No tiene el formato valido,\n Ref. Index:"+to_string(index), "Tarea",2,2);
+            }
+
 
             if (estudiantes->buscarUsuarioCarnet(carnet)==true){
                     cout << "\n El estudiante fue encontrado, tarea asignada" << endl;
+                    if (tareas->validarFecha(fecha)==true){
+                    tareas->insertList(carnet,nombre,descrip,materia,fe,hora,estado,index);}
+                    else{
                     tareas->insertList(carnet,nombre,descrip,materia,fecha,hora,estado,index);
+                    }
             }else{
             cout << "\n No se encontro estudiante con el numero  de carnet" << endl;
-            ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet, "Tarea",2);
+            ClaseC->insertList(" No hay estudiante con el # de carnet: "+carnet+"\n Ref. Index: "+to_string(index), "Tarea",2,1);
             }
-            if (tareas->validarFecha(fecha)==false){
-            ClaseC->insertList(" La fecha: "+fecha+" No tiene el formato valido", "Tarea",2);
-            }
-
-
-            /*try{
-
-            }catch(exception e){
-            }*/
-
-
-
-        /*if (estudiantes->validarCarnet(carnet) == true){
-            }
-        else{
-        //cout << "\nEl Carne  no cumple con 9 digitos\n" << endl;
-        ClaseC->insertList(" El Carnet es invalido", " Tarea ");
-
-        }*/
-
-
-
 
 
 }

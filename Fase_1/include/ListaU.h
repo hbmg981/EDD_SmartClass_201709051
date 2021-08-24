@@ -22,6 +22,7 @@ public:
     bool validarCorreo(const string&);
 
     void getList();
+    void ModificarDato(string dato);
     void getListReverse();
 
     void insertList(string carnet_,string dpi_,string nombre_,string carrera_,string correo_,string pass_,string creditos_,string edad_);

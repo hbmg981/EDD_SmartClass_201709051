@@ -17,7 +17,11 @@ public:
     void getList();
     void getListReverse();
 
-    void insertList( string Descrip, string Tipo, int tip);
+    void insertList( string Descrip, string Tipo, int tip, int tipo2);
     void Desencolar();
     void generaError();
+    bool ErrorUsuario();
+    bool ErrorTarea2();
+    bool ErrorTarea3();
+    int TipoError();
 };

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <regex>
+#include <ListaU.h>
 ListaTarea::ListaTarea(){
     this->First = NULL;
     this->Last = 0;
@@ -96,25 +97,38 @@ void ListaTarea::deleteValue(int index) {
     }
    // this->First = aux;
 }
-void ListaTarea::ModificarNodo(string id) {
+void ListaTarea::ModificarNodo(string carnet_,string nombre_, string descrip_, string materia_, string fecha_,string hora_, string estado_,int index) {
     NodoTarea* actual = new NodoTarea();
     actual = this->First;
     bool encontrado = false;
-    //int DPI = 0;
-    cout<<"Ingrese el ID de la tarea a buscar "<<endl;
-    cin>> id;
     if (this->First != NULL){
-
-        while (actual!=NULL && encontrado!=true){
-
-            if (actual->getid() ==stoi(id)){
+        do{
+             if (actual->getindex() ==index){
                 cout<<"Tarea Encontrada "<<endl;
-
-
-            }
+                encontrado=true;
+                actual->setcarnet(carnet_);
+                actual->setnombre(nombre_);
+                actual->setdescrip(descrip_);
+                actual->setmateria(materia_);
+                actual->setfecha(fecha_);
+                actual->sethora(hora_);
+                actual->setestado(estado_);
+                cout<<"Tarea Modificada con exito "<<endl;
+        }
+        actual = actual->getNext();
 
         }
+        while (actual!=NULL && encontrado!=true);
+
+        if(!encontrado){
+            cout<<"Tarea no encontrada\n "<<endl;
+        }
+
+    }else {
+    cout<<" * La lista esta vacia!!  *\n"<<endl;
     }
+
+
 
 
 
@@ -307,4 +321,24 @@ bool ListaTarea::validarFecha(const string& fecha_){
         return false;
     }
     return true;
+}
+void ListaTarea::CambiarFecha(string fecha_){
+            string fechaF[3] = {"","",""};
+            string dato = "";
+            int contador =0;
+            for (int i=0;i<fecha_.length(); i++){
+                if (fecha_[i]!= '/'){
+                    dato+=fecha_[i];
+                }else{
+                    fechaF[contador]=dato;
+                    dato ="";
+                    contador++;
+
+                }
+
+            }
+            fechaF[contador]=dato;
+            string dia, mes, a, nuevaFecha;
+            nuevaFecha= dia+"/"+mes+"/"+a;
+           // return nuevaFecha;
 }

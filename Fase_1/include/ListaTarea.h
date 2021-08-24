@@ -21,9 +21,10 @@ public:
     void BuscarTarea(int mes_, int dia_, int hora_);
     void insertList(string carnet_, string nombre_,string descrip_, string materia_, string fecha_,string hora, string estado_,int index_);
     void deleteValue(int index);
-    void ModificarNodo(string id);
+    void ModificarNodo(string carnet_, string nombre_,string descrip_, string materia_, string fecha_,string hora, string estado_,int index_);
     bool validarFecha(const string&);
     void generaTarea();
     void generaTarea1();
+    void CambiarFecha(string fecha_);
 
 };

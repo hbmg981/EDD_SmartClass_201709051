@@ -60,6 +60,34 @@ bool ListaU::buscarUsuarioCarnet(string Carnet){
 
 
 }
+void ListaU::ModificarDato(string dato){
+    if (this->isEmpty()!=true){
+    NodoU* actual = new NodoU();
+    actual = this->First;
+    do{
+        if (actual->getcarnet() ==dato){
+
+                actual->setcarnet(dato);
+                cout<<" Carnet Cambiado!\n "<<endl;
+        }else if(actual->getdpi() ==dato){
+                actual->setdpi(dato);
+                cout<<" Dpi Cambiado!\n "<<endl;
+        }else if(actual->getcorreo() ==dato){
+                actual->setcorreo(dato);
+                cout<<" Correo Cambiado!\n "<<endl;
+        }else{
+            cout<<" No se encontro el dato !\n " + dato <<endl;
+        }
+
+        actual = actual->getNext();
+    }while(actual!=this->First);
+
+
+    }
+    //return false;
+
+
+}
 
 void ListaU::getList(){
     NodoU *aux = First;
@@ -73,7 +101,7 @@ void ListaU::getList(){
         cout<<" ID: "<<aux->getid()<<" Carnet: "<<aux->getcarnet()<<"\t DPI: "<<aux->getdpi()<<"\t Nombre: "<<aux->getnombre()<<"\t Carrera: "<<aux->getcarrera()<<endl;
         cout<<" Correo: "<<aux->getcorreo()<<"\t PassWord: "<<aux->getpass()<<"\t Creditos: "<<aux->getcreditos()<<"\t Edad : "<<aux->getedad()<<" \n"<<endl;
     }else{
-            cout<<" La lista esta vacia!\n ";
+            cout<<" La lista esta vacia!\n "<<endl;
     }
     delete aux;
 }
@@ -298,8 +326,8 @@ void ListaU::generaDot(){
             //iniciando comandos para el grafo
             archivo<<"digraph D { \n";
             archivo<<"\t rankdir =LR \n";
-            archivo<<"\t graph [dpi=300]; \n";
-            archivo<<"\t nodo_inicio [shape = point]; \n";
+            archivo<<"\t graph [dpi=600]; \n";
+            archivo<<"\t node [shape = record, color=blue , style=filled,fillcolor=darkseagreen1]; \n";
 
             NodoU *aux = First;
             int contador=0;
