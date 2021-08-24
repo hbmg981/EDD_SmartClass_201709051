@@ -32,6 +32,7 @@ public:
     //Setters
     void setcarnet(string carnet);
     void setindex(int index);
+    void setid(int id);
     void setnombre(string nombre);
     void sethora(string hora);
     void setdescrip(string descrip );

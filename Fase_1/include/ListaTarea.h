@@ -26,5 +26,6 @@ public:
     void generaTarea();
     void generaTarea1();
     void CambiarFecha(string fecha_);
+    void generatxt();
 
 };

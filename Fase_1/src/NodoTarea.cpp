@@ -69,6 +69,9 @@ void NodoTarea::setcarnet(string carnet){
 void NodoTarea::setindex(int index){
     this->index = index;
 }
+void NodoTarea::setid(int id){
+    this->id = id;
+}
 void NodoTarea::setnombre(string nombre){
     this->nombre = nombre ;
 }

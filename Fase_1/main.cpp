@@ -333,7 +333,12 @@ int main()
                                 ReporteErrores();
                                 }
                             break;
-                            case 6:
+                            case 6:// Reporte txt
+                            {
+                                estudiantes->generatxt();
+                                tareas->generatxt();
+                            }
+
                             break;
                             case 7:
                             break;

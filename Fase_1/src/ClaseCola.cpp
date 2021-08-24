@@ -168,6 +168,7 @@ void ClaseCola :: generaError(){
             archivo<<"digraph D { \n";
             archivo<<"\t rankdir =LR \n";
             archivo<<"\t graph [dpi=300]; \n";
+            archivo<<"\t node [shape = record, color=blue , style=filled,fillcolor=moccasin]; \n";
             //archivo<<"\t nodo_inicio [shape = point]; \n";
 
             NodoCola *aux = First;

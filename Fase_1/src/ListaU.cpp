@@ -315,8 +315,8 @@ string ListaU:: obtenerListaGraphviz(){
 void ListaU::generaDot(){
         //this->getList();
         int tam = this->tam;
-        string generar = "dot -Tpng archivo.dot -o graf"+to_string(this->archi)+".png";
-        string abrir = "start graf"+to_string(this->archi)+".png ";
+        string generar = "dot -Tsvg archivo.dot -o graf"+to_string(this->archi)+".svg";
+        string abrir = "start graf"+to_string(this->archi)+".svg ";
         // verificando que la lista este vacia
         if (isEmpty()){
             cout<<"\n La lista esta vacia!\n "<<endl;
@@ -326,8 +326,8 @@ void ListaU::generaDot(){
             //iniciando comandos para el grafo
             archivo<<"digraph D { \n";
             archivo<<"\t rankdir =LR \n";
-            archivo<<"\t graph [dpi=600]; \n";
-            archivo<<"\t node [shape = record, color=blue , style=filled,fillcolor=darkseagreen1]; \n";
+            //archivo<<"\t graph [dpi=600]; \n";
+            archivo<<"\t node [shape = record, color=blue , style=filled,fillcolor=thistle1]; \n";
 
             NodoU *aux = First;
             int contador=0;
@@ -380,6 +380,51 @@ void ListaU::generaDot(){
         system(abrir.c_str());
         this->archi++;
         }
+
+
+}
+
+void ListaU::generatxt(){
+        // verificando que la lista este vacia
+        if (isEmpty()){
+            cout<<"\n La lista esta vacia!\n "<<endl;
+        }else{
+            ofstream archivo;
+            archivo.open("repo6.txt",ios::out);
+            //iniciando comandos para el grafo
+            archivo<<"¿Elements?\n";
+            NodoU *aux = First;
+            int contador=0;
+            do{
+                    string info= "\t ¿element type=\"user\"? \n \t \t ¿item Carnet=\""+aux->getcarnet()+"\" $?"
+                    +"\n \t \t ¿item DPI=\" "+ aux->getdpi()+"\" $?"
+                    +"\n \t \t ¿item Nombre=\" "+aux->getnombre()+"\" $?"
+                    +"\n \t \t ¿item Carrera=\" "+aux->getcarrera()+"\" $?"
+                    +"\n \t \t ¿item Password=\" "+aux->getpass()+"\" $?"
+                    +"\n \t \t ¿item Creditos=\" "+aux->getcreditos()+"\" $?"
+                    +"\n \t \t ¿item Edad=\" "+aux->getedad()+"\" $?"
+                    +"\n \t \t ¿item Correo=\" "+aux->getcorreo()+"\" $?";
+            //archivo<<"\t nodo_"<<contador<<"[shape=box, label= \"";
+            archivo<<info;
+            archivo<<"\n \t ¿$element?\n";
+
+            aux = aux->getNext();
+            contador++;
+
+            }while(aux != First);
+            archivo<<"\n";
+
+
+
+            }
+
+       // archivo<<"}\n";
+      //  archivo.close();
+
+       // system(generar.c_str());
+       // system(abrir.c_str());
+       // this->archi++;
+
 
 
 }

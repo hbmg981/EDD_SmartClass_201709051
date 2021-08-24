@@ -29,4 +29,5 @@ public:
     void deleteValue(string carnet);
     void ModificarNodo(string DPI);
     void generaDot();
+    void generatxt();
 };

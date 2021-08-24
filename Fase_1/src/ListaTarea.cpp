@@ -113,6 +113,7 @@ void ListaTarea::ModificarNodo(string carnet_,string nombre_, string descrip_, s
                 actual->setfecha(fecha_);
                 actual->sethora(hora_);
                 actual->setestado(estado_);
+                actual->setid(this->id);
                 cout<<"Tarea Modificada con exito "<<endl;
         }
         actual = actual->getNext();
@@ -282,6 +283,55 @@ void ListaTarea::generaTarea1(){
 
     delete aux;
 }
+void ListaTarea::generatxt(){
+        string abrir = "start repo6.txt";
+        if (isEmpty()){
+            cout<<"\n La lista esta vacia!\n "<<endl;
+        }else{
+            ofstream archivo;
+            archivo.open("repo6.txt",ios::app);
+            //iniciando comandos para el grafo
+            //archivo<<"¿Elements?\n";
+            NodoTarea *aux = First;
+            int contador=0;
+
+            do{
+                if (aux->getid() != -1){
+                    string info= "\t ¿element type=\"task\"? \n \t \t ¿item ID=\""+to_string(aux->getid())+"\" $?"
+                    +"\n \t \t ¿item Carnet=\""+aux->getcarnet()+"\" $?"
+                    +"\n \t \t ¿item Nombre=\" "+aux->getnombre()+"\" $?"
+                    +"\n \t \t ¿item Descripcion=\" "+ aux->getdescrip()+"\" $?"
+                    +"\n \t \t ¿item Materia=\" "+aux->getmateria()+"\" $?"
+                    +"\n \t \t ¿item Fecha=\" "+aux->getfecha()+"\" $?"
+                    +"\n \t \t ¿item Hora=\" "+aux->gethora()+"\" $?"
+                    +"\n \t \t ¿item Estado=\" "+aux->getestado()+"\" $?";
+            archivo<<info;
+            archivo<<"\n \t ¿$element?\n";
+
+            }
+
+
+            aux = aux->getNext();
+            contador++;
+
+            }while(aux != NULL);
+            archivo<<"\n";
+            archivo<<"¿$Elements?\n";
+            archivo.close();
+
+
+            }
+
+
+
+       //system(generar.c_str());
+        system(abrir.c_str());
+       // this->archi++;
+
+
+}
+
+
 bool ListaTarea::validarFecha(const string& fecha_){
     //Regex para la fecha
     const regex expReg("^[0-9]{4}/[0-9]{2}/[0-9]{2}$");
