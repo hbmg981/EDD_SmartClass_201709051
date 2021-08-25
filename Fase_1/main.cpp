@@ -284,6 +284,7 @@ int main()
                                             ClaseC->Desencolar();
                                             }else if (ClaseC->TipoError()==22){
                                             cout<<" *  Primer error Tarea, Fecha*\n"<<endl;
+                                            cin.ignore();
                                             cout<<" *  Ingrese fecha valida aaaa/mm/dd para la tarea*\n"<<endl;
                                             getline(cin,datonuevo);
                                             tareas->ModificarDato(datonuevo,22,index);
@@ -429,8 +430,13 @@ int main()
                             break;
                             case 6:// Reporte txt
                             {
-                                estudiantes->generatxt();
-                                tareas->generatxt();
+                                if (ClaseC->isEmpty()==true){
+                                    estudiantes->generatxt();
+                                    tareas->generatxt();
+                                }else{
+                                cout<<"\n Debe vaciar la lista de errores para generar el archivo de salida "<<endl;
+                                }
+
                             }
 
                             break;

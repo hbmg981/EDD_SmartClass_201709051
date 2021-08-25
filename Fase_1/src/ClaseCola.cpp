@@ -143,6 +143,17 @@ void ClaseCola::insertList(string Descrip,string Tipo, int tip_, int tipo2){
 
 void ClaseCola :: Desencolar(){
     NodoCola *aux = this->First;
+    if (this->First ==this->Last){
+        this->First =NULL;
+        this->Last=NULL;
+
+    }else{
+        this->First = this->First->getSiguiente();
+
+    }
+    delete aux;
+
+   /* NodoCola *aux = this->First;
     while(this->First != NULL){
 
             if(aux == this->First){
@@ -154,7 +165,7 @@ void ClaseCola :: Desencolar(){
             }
             this->First = this->First->getSiguiente();
     }
-    this->First = aux;
+    this->First = aux;*/
 
 
 }

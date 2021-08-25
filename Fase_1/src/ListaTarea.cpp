@@ -334,7 +334,7 @@ void ListaTarea::ModificarDato(string dato, int tipoerror, int index){
         }
 
         actual = actual->getNext();
-    }while(actual!=this->First);
+    }while(actual!=NULL);
 
 
     }
