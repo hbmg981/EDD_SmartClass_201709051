@@ -1,19 +1,28 @@
 from flask import Flask, request, jsonify
 
+
 app = Flask(__name__)
 
-@app.route('/hola', methods=['GET'])
+@app.route('/bienvenido', methods=['GET'])
 def hello_world():
-    return jsonify({"response":"hello world"})
+    return jsonify({"response":"Welcome to SmartClass"})
 
-@app.route('/insert/value', methods=['POST'])
+@app.route('/carga', methods=['POST'])
 def insert_value():
     data = request.get_json(force=True)
-    valor = data['character']
-    valor2 = data['power']
-    print("el valor 1 es: ",valor)
-    print("el valor 2 es: ",valor2)
+    tipo = data['tipo']
+    path = data['path']
+    print("el tipo es: ",tipo)
+    print("el path es: ",path)
     return jsonify({"response":"informacion recibida"})
 
-if __name__ == "__main__":
-    app.run("localhost", port=3000)
+
+
+
+
+
+#if __name__ == "__main__":
+   # app.run("localhost", port=3000)
+   # matriz_dispersa()
+
+
