@@ -31,6 +31,8 @@ avl.insert(130)
 avl.insert(90)
 avl.insert(85)
 avl.insert(135)
+avl.insert(15)
+avl.insert(195)
 
 avl.pre_orden()
 
@@ -46,4 +48,5 @@ simple.Modificar(2060,2080,"elisa","tarea7","orga2", "10/10/80","9:00","realizad
 print("\n *** Lista Final *** : ")
 simple.getList()
 simple.obtener(2067)
+simple.graficar()
 

@@ -1,6 +1,8 @@
 from Estructuras.Nodo_simple import NodoTarea
+import os
 
 class ListaSimple:
+    conta=1
     def __init__(self):
         self.first = None
         self.Size = 0
@@ -30,10 +32,12 @@ class ListaSimple:
                         if prev == None:
                             self.first = aux.next
                             aux.next = None
+
                         else:
                             prev.next = aux.next
                             aux.next=None
                         found = True
+                        self.Size -=1
                     prev = aux
                     aux = aux.next
             else:
@@ -79,3 +83,38 @@ class ListaSimple:
                 actual = actual.next
         else:
             print("Estudiante NO encontrado")
+
+    def graficar(self):
+        grafo = "digraph"
+        grafo += str("{\nnode[shape=record];\n")
+        grafo += str("graph[pencolor=transparent];\n")
+        grafo+=str("rankdir=LR;\n")
+        grafo += str("node [style=filled,fillcolor=thistle1];\n")
+
+        aux = self.first
+        cont = 0
+
+        while True:
+            info = "Carnet: "+ str(aux.carnet) + "\\nNombre:"+ aux.nombre+ "\\nDescripcion:"+ aux.descrip
+            grafo += "\t nodo_"+str(cont)+ "[label = \"" + info + "\"];\n"
+            aux = aux.next
+            cont +=1
+            if aux == None:
+                break
+        grafo += "\n"
+        if self.Size == 1:
+            grafo += "\t nodo_0 -> nodo_0 \n"
+        else:
+            for i in range(1,self.Size):
+                grafo += "\tnodo_"+str(i-1)+"-> nodo_"+ str(i)+"\n"
+
+
+
+        grafo += str("}\n")
+        tmp = self.conta
+        f = open("tarea"+str(self.conta)+".dot", "w+")
+        f.write(grafo)
+        f.close()
+        print("********* Se realizo Grafica  Tareas *********  ")
+        os.system("fdp -Tpng -o tare"+str(self.conta)+".png tarea"+str(self.conta)+".dot")
+        self.conta +=1
