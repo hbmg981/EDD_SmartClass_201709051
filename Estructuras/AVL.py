@@ -37,7 +37,7 @@ class AVL:
             elif carnet > root.carnet :
                 root.right = self.insert_inter(carnet, root.right)
                 if self.height(root.right) - self.height(root.left) == 2:
-                    if carnet > root.left.carnet:
+                    if carnet > root.right.carnet:
                         root = self.RD(root)
                         print("Rotacion simple derecha")
                     else:
