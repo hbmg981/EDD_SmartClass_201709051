@@ -1,8 +1,11 @@
 from Estructuras.Matriz_Dispersa import Matriz_dispersa
 from Estructuras.AVL import AVL
 from Estructuras.Lista_simple import ListaSimple
+from analyzers.Syntactic import parser
+from analyzers.Syntactic import user_list, task_list
+from Estructuras.Lista_A import ListaA
 import os
-
+'''
 nueva_matriz = Matriz_dispersa()
 
 nueva_matriz.insertar(1, 5, "nuevo nodo")
@@ -50,3 +53,35 @@ simple.getList()
 simple.obtener(2067)
 simple.graficar()
 
+f = open('repo.txt', "r", encoding="utf-8")
+mensaje = f.read()
+print(mensaje)
+f.close()
+parser.parse('¿ Elements ? ¿Element type = "task"?  ¿item Carnet = "201901425" $? ¿$Element? ¿ $Elements ?')
+parser.parse(mensaje)
+
+user_list.getList()
+print("------------------------")
+task_list.getList()
+
+fecha= "12/05/2021"
+lista =fecha.split("/")
+print(lista)
+print (lista[0])
+print (lista[1])
+
+
+
+listaaño = ListaA()
+listaaño.insertValue(2020)
+listaaño.insertValue(2021)
+listaaño.insertValue(2019)
+listaaño.insertValue(2022)
+listaaño.buscar(2021)
+print(str(listaaño.buscarRetornar(2021).año) + " Año actual")
+
+
+listaaño.getList()
+listaaño.getListRev()
+
+'''

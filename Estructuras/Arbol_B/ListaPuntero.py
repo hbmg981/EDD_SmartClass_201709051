@@ -12,11 +12,11 @@ class ListaPuntero:
     def InsertarPuntero(self, puntero):
         nuevo = NodoPuntero(puntero)
         if self.cuenta <5 :
-            if vacio():
+            if self.vacio():
                 self.primero = nuevo
                 self.ultimo = self.primero
             else:
-                self.ultimo.siguiente(nuevo)
+                self.ultimo.siguienteP = nuevo
                 nuevo.anteriorP = self.ultimo
                 self.ultimo = nuevo
             self.cuenta +=1
@@ -26,7 +26,7 @@ class ListaPuntero:
         while posicion!=0:
             posicion -=1
             aux= aux.siguienteP
-        aux = NodoPuntero(pagina)
+        aux.puntero = pagina
 
     def DevolverPuntero(self, posicion):
         aux = self.primero

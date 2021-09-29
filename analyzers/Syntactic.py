@@ -31,14 +31,34 @@ def p_elementos_group(t):
 def p_elemento(t):
     'elemento : LQUESTION TELEMENT  tipoElemento RQUESTION items LQUESTION DOLAR TELEMENT RQUESTION'
 
+    hora = 0
+    dia = 0
+    mes = 0
+    año = 0
+    if element_node.Fecha !="":
+        fechan = element_node.Fecha.split("/")
+        dia = fechan[0]
+        mes =fechan[1]
+        año = fechan[2]
+        #print(fechan)
+        #print("Mes: "+fechan[1])
+   #       print("Listado de dias")
+
+    if element_node.Hora != "":
+        horan = element_node.Hora.split(":")
+        hora= horan[0]
+        #print("hora: "+hora)
+
+
     if t[3] == "user":
+
         user_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
-                              element_node.Fecha, element_node.Hora, element_node.Estado)
+                              element_node.Fecha, hora, element_node.Estado)
     else:
         task_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
-                              element_node.Fecha, element_node.Hora, element_node.Estado)
+                              element_node.Fecha, hora, element_node.Estado)
     element_node.clean_values()
 
 def p_tipoElemento(t):
