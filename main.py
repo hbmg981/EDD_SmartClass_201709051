@@ -4,6 +4,7 @@ from Estructuras.Lista_simple import ListaSimple
 from analyzers.Syntactic import parser
 from analyzers.Syntactic import user_list, task_list
 from Estructuras.Lista_A import ListaA
+from Estructuras.Arbol_B.BTree import BTree
 import os
 '''
 nueva_matriz = Matriz_dispersa()
@@ -85,3 +86,7 @@ listaaño.getList()
 listaaño.getListRev()
 
 '''
+btree = BTree()
+btree.InsertarDatos(200,"Heidy",250,"Io2","No")
+btree.InsertarDatos(300,"Miranda",20,"Analisis","si")
+btree.InsertarDatos(400,"Beatriz",240,"Io1","No")

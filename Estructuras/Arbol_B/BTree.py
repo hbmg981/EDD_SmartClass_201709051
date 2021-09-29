@@ -1,27 +1,28 @@
 from Estructuras.Arbol_B.PaginaB import PaginaB
 
 class BTree:
-    Raiz = PaginaB()
-    codigo = 0
-    nombre = ""
-    obligario = ""
-    prerequisitos = ""
-    creditos = 0
+    def __init__(self):
+        self.Raiz = PaginaB()
+        self.codigo = 0
+        self.nombre = ""
+        self.obligario = ""
+        self.prerequisitos = ""
+        self.creditos = 0
 
-    aux2 = paginaB()
-    aux1 = False
-    subeArriba= False
-    estado = False
-    comparador = False
+        self.aux2 = paginaB()
+        self.aux1 = False
+        self.subeArriba= False
+        self.estado = False
+        self.comparador = False
 
-    grafica = ""
-    grafica2 = ""
-    codigo1 = 0
-    nombre1 = ""
-    nodos = 0
+        self.grafica = ""
+        self.grafica2 = ""
+        self.codigo1 = 0
+        self.nombre1 = ""
+        self.odos = 0
 
     def Vacio(self,raiz):
-        return (raiz ==null || raiz.cuenta == 0)
+        return raiz == None or raiz.cuenta == 0
 
     def InsertarDatos(self, codigo, nombre, creditos,prerequisito,obligatorio):
             InsertarDatos2(self.Raiz, codigo, nombre, creditos, prerequisito,obligatorio)
@@ -59,7 +60,7 @@ class BTree:
                     self.subeArriba=False
                 else:
                     self.Empujar(raiz.getApuntador(posicion), codigo,nombre, creditos, prerequisito,obligatorio)
-                    if self.subeArriba
+                    if self.subeArriba:
                         if raiz.cuenta < 4:
                             self.subeArriba = False
                             MeterHoja(raiz, posicion, self.codigo,self.nombre,self.creditos,self.prerequisitos,self.obligario)
@@ -129,7 +130,64 @@ class BTree:
                 paginaDerecha.setCreditos(posicion2 - posicionMedia - 1, raiz.getCreditos(posicion2 - 1))
                 paginaDerecha.setPrerequisito(posicion2 - posicionMedia - 1, raiz.getPrerequisito(posicion2 - 1))
                 paginaDerecha.setObligatorio(posicion2 - posicionMedia - 1, raiz.getObligatorio(posicion2 - 1))
-                
+                paginaDerecha.setApuntador(posicion2-posicionMedia-1, raiz.getApuntador(posicion2))
+            posicion2+=1
 
+        paginaDerecha.cuenta = 4- posicionMedia
+        raiz.cuenta = posicionMedia
+
+        if posicion<=2:
+            self.aux1 = True
+            MeterHoja(raiz,posicion,codigo,nombre, creditos, prerequisito,obligatorio)
+        else:
+            self.aux1=True
+            MeterHoja(paginaDerecha, posicion-posicionMedia,codigo,nombre, creditos, prerequisito,obligatorio)
+
+        self.codigo = raiz.getCodigo(raiz.cuenta -1)
+        self.nombre = raiz.getNombre(raiz.cuenta -1)
+        self.creditos = raiz.getCreditos(raiz.cuenta - 1)
+        self.prerequisitos = raiz.getPrerequisito(raiz.cuenta - 1)
+        self.obligario = raiz.getObligatorio(raiz.cuenta - 1)
+
+        paginaDerecha.setApuntador(0, raiz.getApuntador(raiz.cuenta))
+
+        raiz.cuenta = raiz.cuenta -1
+        self.aux2= paginaDerecha
+
+        if self.aux1:
+            raiz.setCodigo(3,"")
+            raiz.setNombre(3,"")
+            raiz.setCreditos(3,"")
+            raiz.setPrerequisito(3, "")
+            raiz.setObligatorio(3, "")
+            raiz.setApuntador(4, None)
+
+            raiz.setCodigo(2, "")
+            raiz.setNombre(2, "")
+            raiz.setCreditos(2, "")
+            raiz.setPrerequisito(2, "")
+            raiz.setObligatorio(2, "")
+            raiz.setApuntador(3, None)
+
+
+    def Preorden(self):
+        Preorden2(self.Raiz)
+
+
+    def Preorden2(self,pagina):
+        if pagina!=None:
+
+                for i in range(0,pagina.cuenta):
+                    if pagina.getCodigo(i) != None:
+                        if pagina.getCodigo(i)!="":
+                            print(pagina.getCodigo(i) + "_")
+
+                print("")
+
+                Preorden2(pagina.getApuntador(0))
+                Preorden2(pagina.getApuntador(1))
+                Preorden2(pagina.getApuntador(2))
+                Preorden2(pagina.getApuntador(3))
+                Preorden2(pagina.getApuntador(4))
 
 
