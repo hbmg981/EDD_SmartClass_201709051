@@ -56,11 +56,6 @@ print("------------------------")
 task_list.getList()
 
 
-
-
-#listaaño.getListRev()
-
-
 #--------------PROBANDO DATOS LISTA SIMPLE DE TAREAS QUE VA EN LA MATRIZ-----------
 simple = ListaSimple()
 simple.InsertarTarea(2047,"nombre","descrip","materia", "fecha","hora","estado")
@@ -75,21 +70,6 @@ simple.getList()
 simple.obtener(2067)
 simple.graficar()
 
-#----------- MATRIZ DISPERSA -----------------
-nueva_matriz = Matriz_dispersa()
-nueva_matriz.insertar(1, 5, "nuevo nodo")
-nueva_matriz.insertar(1, 1, "nuevo nodo")
-nueva_matriz.insertar(2, 4, "nuevo nodo")
-nueva_matriz.insertar(2, 9, "nuevo nodo")
-nueva_matriz.insertar(3, 7, "nuevo nodo")
-nueva_matriz.insertar(3, 1, "nuevo nodo")
-nueva_matriz.insertar(3, 8, "nuevo nodo")
-nueva_matriz.insertar(3, 9, "nuevo nodo")
-nueva_matriz.insertar(6, 6, "nuevo nodo")
-nueva_matriz.insertar(6, 1, "nuevo nodo")
-nueva_matriz.insertar(6, 5, "nuevo nodo")
-nueva_matriz.insertar(9, 9, "nuevo nodo")
-nueva_matriz.graficar_matriz()
 
 
 
@@ -107,8 +87,6 @@ listaaño.getList()
 listaaño.graficar()
 #listaaño.getListRev()
 
-
-'''
 #---------LISTA DE AÑOS -------------
 listaaño = ListaA()
 listaaño.insertValue(2020)
@@ -121,6 +99,33 @@ print("Despues de eliminar")
 listaaño.orden()
 listaaño.getList()
 listaaño.graficar()
+
+
+
+'''
+#----------- MATRIZ DISPERSA -----------------
+nueva_matriz = Matriz_dispersa()
+nueva_matriz.insertar(1, 5, " taarea")
+nueva_matriz.insertar(1, 1, " nodo")
+nueva_matriz.insertar(2, 4, "nuevo")
+nueva_matriz.insertar(22, 9, "ro")
+nueva_matriz.insertar(3, 7, "nh")
+nueva_matriz.insertar(3, 1, "nur")
+nueva_matriz.insertar(3, 8, "nyo")
+nueva_matriz.insertar(3, 9, "nwero")
+nueva_matriz.insertar(6, 6, "nfddo")
+nueva_matriz.insertar(3, 19, "nwero")
+nueva_matriz.insertar(6, 6, "nfddo")
+nueva_matriz.insertar(6, 1, "asdfdo")
+nueva_matriz.insertar(6, 5, "bla")
+nueva_matriz.insertar(16, 5, "repetido")
+nueva_matriz.insertar(9, 9, "as")
+nueva_matriz.graficar_matriz()
+
+
+
+
+
 
 
 

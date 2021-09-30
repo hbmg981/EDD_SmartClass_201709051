@@ -6,8 +6,10 @@ import os
 
 class Matriz_dispersa:
     cont =1;
+
     def __init__(self):
         self.NodoRaiz=None
+        self.contTarea = 1
         
     def insertar_nodo_fila(self,nodo):
         temporalfila = self.NodoRaiz.NodoFilas 
@@ -59,24 +61,35 @@ class Matriz_dispersa:
                 current.siguiente = nuevaCabecera
                 
     def insertar(self,dia,hora,ntareas):
-        #if self.buscar(x,y):
 
-        nodoN = NodoMatriz(dia=dia,hora=hora,ntareas=ntareas)
+
+        # Cuando no existe ningun valor en la matriz
         if  self.NodoRaiz is None:
+            nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
             self.NodoRaiz = NodoRaiz()
             self.NodoRaiz.NodoColumnas=NodoCabecera(tipo="Columna",indice=dia)
             self.NodoRaiz.NodoFilas=NodoCabecera(tipo="Fila",indice=hora)
-            self.NodoRaiz.NodoColumnas.siguiente =None   
+            self.NodoRaiz.NodoColumnas.siguiente =None
             self.NodoRaiz.NodoFilas.siguiente =None
             self.NodoRaiz.NodoColumnas.abajo=nodoN
             self.NodoRaiz.NodoFilas.derecha=nodoN
+        # Cuando ya hay elementos en la matriz
         else:
-            Nodotemporal=self.NodoRaiz
-            self.insertar_cabercera(Nodotemporal.NodoFilas,hora,"Fila")
-            Nodotemporal=self.NodoRaiz
-            self.insertar_cabercera(Nodotemporal.NodoColumnas,dia,"Columna")
-            self.insertar_nodo_fila(nodo=nodoN)
-            self.insertar_nodo_col(nodo=nodoN)
+            if self.buscar(dia,hora) ==False:
+                nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
+                Nodotemporal = self.NodoRaiz
+                self.insertar_cabercera(Nodotemporal.NodoFilas, hora, "Fila")
+                Nodotemporal = self.NodoRaiz
+                self.insertar_cabercera(Nodotemporal.NodoColumnas, dia, "Columna")
+                self.insertar_nodo_fila(nodo=nodoN)
+                self.insertar_nodo_col(nodo=nodoN)
+            else:
+                # implementar un metodo buscar y retornar el nodo repetido para acceder a su lista
+                self.buscarRetornar(dia,hora).cont += 1
+                print("Elemento duplicado")
+                print("Dato en el nodo: "+  str(self.buscarRetornar(dia,hora).ntareas))
+                #self.buscarRetornar(dia,hora)
+
 
 
    # def insertarTarea(self):
@@ -93,6 +106,17 @@ class Matriz_dispersa:
             nodo=nodo.siguiente
         return False
 
+    def buscarRetornar(self,dia,hora):
+        nodo = self.NodoRaiz.NodoFilas
+        while(nodo is not None):
+            nodo_temp = nodo.derecha
+            while(nodo_temp is not None):
+                if nodo_temp.dia ==dia and nodo_temp.hora==hora:
+                    return nodo_temp
+                nodo_temp=nodo_temp.derecha
+            nodo=nodo.siguiente
+        return nodo
+
     def graficar_matriz(self):
         grafo = "digraph"
         grafo += str("{\nnode[shape=record];\n")
@@ -101,12 +125,12 @@ class Matriz_dispersa:
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
         nodo = self.NodoRaiz.NodoFilas
 
-        for hora in range(1, 11):
+        for hora in range(1, 24):
             nodo_temp = nodo.derecha
-            for dia in range(1, 11):
+            for dia in range(1, 31):
                 if (self.buscar(dia, hora)):
                     grafo += str(
-                        "p" + str(dia) +"_"+ str(hora) + "[label=\"{<data>" + "Dia: "+ str(dia) + "\\n" +"Hora: "+ str(hora) + "| info }\" pos=\"" + str(
+                        "p" + str(dia) +"_"+ str(hora) + "[label=\"{<data>" + "Dia: "+ str(dia) + "\\n" +"Hora: "+ str(hora) + "| "+ str(nodo_temp.cont) +" }\" pos=\"" + str(
                             dia) + "," + str(10 - hora) + "!\"];\n")
                     if (nodo_temp.derecha != None):
                         nodo_2 = nodo_temp
@@ -119,9 +143,9 @@ class Matriz_dispersa:
                     if nodo.siguiente.indice == hora + 1:
                         nodo = nodo.siguiente
         nodo = self.NodoRaiz.NodoColumnas
-        for dia in range(1, 11):
+        for dia in range(1, 31):
             nodo_temp = nodo.abajo
-            for hora in range(1, 11):
+            for hora in range(1, 24):
                 if (self.buscar(dia, hora)):
                     if (nodo_temp.abajo != None):
                         nodo_2 = nodo_temp

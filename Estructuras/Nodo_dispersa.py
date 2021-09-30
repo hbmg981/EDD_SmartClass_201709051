@@ -10,7 +10,7 @@ class NodoMatriz:
         self.izquierda= izquierda
         self.derecha = derecha
         self.lista = ListaSimple()
-        self.cont = 0
+        self.cont = 1
 
 class NodoCabecera:
     def __init__(self,tipo=None,indice=None,siguiente=None,derecha=None,abajo=None):
