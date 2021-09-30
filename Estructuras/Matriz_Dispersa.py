@@ -11,35 +11,35 @@ class Matriz_dispersa:
         
     def insertar_nodo_fila(self,nodo):
         temporalfila = self.NodoRaiz.NodoFilas 
-        while(temporalfila.indice!=nodo.y): 
+        while(temporalfila.indice!=nodo.hora):
             temporalfila = temporalfila.siguiente
         #temporalfila=temporalfila.derecha
         if temporalfila.derecha is None:
             nodo.derecha=temporalfila.derecha 
             temporalfila.derecha = nodo 
-        elif temporalfila.derecha.x >= nodo.x: 
+        elif temporalfila.derecha.dia >= nodo.dia:
             nodo.derecha = temporalfila.derecha
             temporalfila.derecha = nodo 
         else : 
             current = temporalfila.derecha 
-            while(current.derecha is not None and current.derecha.x < nodo.x): 
+            while(current.derecha is not None and current.derecha.dia < nodo.dia):
                 current = current.derecha
             nodo.derecha = current.derecha
             current.derecha = nodo
     def insertar_nodo_col(self,nodo):
         temporalcol = self.NodoRaiz.NodoColumnas 
-        while(temporalcol.indice!=nodo.x): 
+        while(temporalcol.indice!=nodo.dia):
             temporalcol= temporalcol.siguiente
         #temporalcol=temporalcol.abajo
         if temporalcol.abajo is None: 
             nodo.abajo = temporalcol.abajo
             temporalcol.abajo = nodo
-        elif temporalcol.abajo.y >= nodo.y: 
+        elif temporalcol.abajo.hora >= nodo.hora:
             nodo.abajo = temporalcol.abajo
             temporalcol.abajo = nodo
         else : 
             current = temporalcol.abajo
-            while(current.abajo is not None and current.abajo.y < nodo.y): 
+            while(current.abajo is not None and current.abajo.hora < nodo.hora):
                 current = current.abajo
             nodo.abajo = current.abajo
             current.abajo = nodo    
@@ -58,23 +58,23 @@ class Matriz_dispersa:
                 nuevaCabecera.siguiente = current.siguiente
                 current.siguiente = nuevaCabecera
                 
-    def insertar(self,x,y,informacion):
+    def insertar(self,dia,hora,ntareas):
         #if self.buscar(x,y):
 
-        nodoN = NodoMatriz(x=x,y=y,dato=informacion)
+        nodoN = NodoMatriz(dia=dia,hora=hora,ntareas=ntareas)
         if  self.NodoRaiz is None:
             self.NodoRaiz = NodoRaiz()
-            self.NodoRaiz.NodoColumnas=NodoCabecera(tipo="Columna",indice=x) 
-            self.NodoRaiz.NodoFilas=NodoCabecera(tipo="Fila",indice=y)
+            self.NodoRaiz.NodoColumnas=NodoCabecera(tipo="Columna",indice=dia)
+            self.NodoRaiz.NodoFilas=NodoCabecera(tipo="Fila",indice=hora)
             self.NodoRaiz.NodoColumnas.siguiente =None   
             self.NodoRaiz.NodoFilas.siguiente =None
             self.NodoRaiz.NodoColumnas.abajo=nodoN
             self.NodoRaiz.NodoFilas.derecha=nodoN
         else:
             Nodotemporal=self.NodoRaiz
-            self.insertar_cabercera(Nodotemporal.NodoFilas,y,"Fila")
+            self.insertar_cabercera(Nodotemporal.NodoFilas,hora,"Fila")
             Nodotemporal=self.NodoRaiz
-            self.insertar_cabercera(Nodotemporal.NodoColumnas,x,"Columna")
+            self.insertar_cabercera(Nodotemporal.NodoColumnas,dia,"Columna")
             self.insertar_nodo_fila(nodo=nodoN)
             self.insertar_nodo_col(nodo=nodoN)
 
@@ -82,12 +82,12 @@ class Matriz_dispersa:
    # def insertarTarea(self):
 
 
-    def buscar(self,x,y):
+    def buscar(self,dia,hora):
         nodo = self.NodoRaiz.NodoFilas
         while(nodo is not None):
             nodo_temp = nodo.derecha
             while(nodo_temp is not None):
-                if nodo_temp.x ==x and nodo_temp.y==y:
+                if nodo_temp.dia ==dia and nodo_temp.hora==hora:
                     return True
                 nodo_temp=nodo_temp.derecha
             nodo=nodo.siguiente
@@ -101,36 +101,36 @@ class Matriz_dispersa:
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
         nodo = self.NodoRaiz.NodoFilas
 
-        for y in range(1, 11):
+        for hora in range(1, 11):
             nodo_temp = nodo.derecha
-            for x in range(1, 11):
-                if (self.buscar(x, y)):
+            for dia in range(1, 11):
+                if (self.buscar(dia, hora)):
                     grafo += str(
-                        "p" + str(x) + str(y) + "[label=\"{<data>" + "Dia: "+ str(x) + "\\n" +"Hora: "+ str(y) + "| info }\" pos=\"" + str(
-                            x) + "," + str(10 - y) + "!\"];\n")
+                        "p" + str(dia) +"_"+ str(hora) + "[label=\"{<data>" + "Dia: "+ str(dia) + "\\n" +"Hora: "+ str(hora) + "| info }\" pos=\"" + str(
+                            dia) + "," + str(10 - hora) + "!\"];\n")
                     if (nodo_temp.derecha != None):
                         nodo_2 = nodo_temp
                         nodo_temp = nodo_temp.derecha
-                        grafo += str("p" + str(nodo_2.x) + str(nodo_2.y) + "->" + "p" + str(nodo_temp.x) + str(
-                            nodo_temp.y) + "[dir=both];\n")
+                        grafo += str("p" + str(nodo_2.dia) +"_"+ str(nodo_2.hora) + "->" + "p" + str(nodo_temp.dia) +"_"+ str(
+                            nodo_temp.hora) + "[dir=both];\n")
                 else:
                     pass
                 if nodo.siguiente != None:
-                    if nodo.siguiente.indice == y + 1:
+                    if nodo.siguiente.indice == hora + 1:
                         nodo = nodo.siguiente
         nodo = self.NodoRaiz.NodoColumnas
-        for x in range(1, 11):
+        for dia in range(1, 11):
             nodo_temp = nodo.abajo
-            for y in range(1, 11):
-                if (self.buscar(x, y)):
+            for hora in range(1, 11):
+                if (self.buscar(dia, hora)):
                     if (nodo_temp.abajo != None):
                         nodo_2 = nodo_temp
                         nodo_temp = nodo_temp.abajo
-                        grafo += str("p" + str(nodo_2.x) + str(nodo_2.y) + "->" + "p" + str(nodo_temp.x) + str(nodo_temp.y) + "[dir=both];\n")
+                        grafo += str("p" + str(nodo_2.dia)+"_" + str(nodo_2.hora) + "->" + "p" + str(nodo_temp.dia) +"_"+ str(nodo_temp.hora) + "[dir=both];\n")
                 else:
                     pass
                 if nodo.siguiente != None:
-                    if nodo.siguiente.indice == x + 1:
+                    if nodo.siguiente.indice == dia + 1:
                         nodo = nodo.siguiente
         grafo += str("}\n")
         tmp = self.cont

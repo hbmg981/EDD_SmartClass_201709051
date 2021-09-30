@@ -6,4 +6,7 @@ class NodoA:
         self.Next = None
         self.Previous = None
         # Aca van las listas, los punteros hacia lista de semestres y meses
+        #self.semestres
+        #self.meses
+
 

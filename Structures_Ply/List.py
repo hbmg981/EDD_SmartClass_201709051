@@ -20,7 +20,7 @@ class List:
     def getList(self):
         aux = self.First
         while aux is not None:
-            print(aux.Carnet + " - " + aux.Nombre + "-" + aux.DPI + "-" + aux.Descripcion + "-" + aux.Correo)
+            print(aux.Carnet + " - " + aux.Nombre + "-" + aux.DPI + "-" + aux.Descripcion + "-" + aux.Correo+ "-" + aux.Hora)
             aux = aux.Next
 
     def insertValue(self, carnet, dpi, nombre, carrera, password, creditos, edad, correo, descripcion, materia, fecha, hora, estado):

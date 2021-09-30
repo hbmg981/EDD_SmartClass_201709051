@@ -2,10 +2,12 @@
 from analyzers.Lex import tokens
 from Structures_Ply.List import List
 from Structures_Ply.Node import Node
+from Estructuras.AVL import AVL
 
 # Lists for save the information about users and tasks
 user_list = List()
 task_list = List()
+avl = AVL()
 
 # This node allows to store information about one user or task
 element_node = Node()
@@ -52,9 +54,11 @@ def p_elemento(t):
 
     if t[3] == "user":
 
-        user_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
+
+        avl.insert(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Correo, element_node.Password, element_node.Creditos, element_node.Edad)
+        '''user_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
-                              element_node.Fecha, hora, element_node.Estado)
+                              element_node.Fecha, hora, element_node.Estado)'''
     else:
         task_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,

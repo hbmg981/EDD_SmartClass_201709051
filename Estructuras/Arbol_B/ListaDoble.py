@@ -28,21 +28,21 @@ class ListaDoble:
         Aux = self.primero
         while posicion!=0:
             posicion -=1
-            Aux = Aux.siguiente
+            Aux = Aux.Siguiente
         Aux.codigo = codigo
 
     def DevolverDato(self, posicion):
         Aux = self.primero
         while posicion!=0:
             posicion -=1
-            Aux = Aux.siguiente
+            Aux = Aux.Siguiente
         return Aux
 
     def MostrarDatos(self):
         Aux = self.primero
         while Aux!=None:
             print("dato: "+Aux.codigo)
-            Aux = Aux.siguiente
+            Aux = Aux.Siguiente
 
 
 

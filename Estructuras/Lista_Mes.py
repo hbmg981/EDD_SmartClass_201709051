@@ -1,12 +1,12 @@
-from Estructuras.Nodo_Año import NodoA
+from Estructuras.Nodo_Mes import NodoMes
 import os
-class ListaA:
+class ListaM:
 
     def __init__(self):
         self.First = None
         self.Last = None
-        self.contador = 0
-        self.conta = 1
+        self.conta = 0
+        self.contador =0
 
     def getSize(self):
         aux = self.First
@@ -17,16 +17,16 @@ class ListaA:
 
         return counter
 
-    def buscar(self, año):
+    def buscar(self, mes):
         temp = self.First
-        while(temp != None and temp.año != año):
+        while(temp != None and temp.mes != mes):
             temp = temp.Next
-        print("Se encontro el año: " + str(temp.año))
+        print("Se encontro el año: " + str(temp.mes))
         return  temp != None
 
-    def buscarRetornar(self, año):
+    def buscarRetornar(self, mes):
         temp = self.First
-        while(temp!=None and temp.año!=año):
+        while(temp!=None and temp.mes!=mes):
             temp = temp.Next
         return temp
 
@@ -35,20 +35,19 @@ class ListaA:
         return self.First is None
 
     def getList(self):
-        self.orden()
         aux = self.First
         while aux is not None:
-            print(aux.año)
+            print(aux.mes)
             aux = aux.Next
 
     def getListRev(self):
         aux = self.Last
         while aux is not None:
-            print(aux.año)
+            print(aux.mes)
             aux = aux.Previous
 
-    def insertValue(self, año):
-        new_node = NodoA(año)
+    def insertValue(self, mes):
+        new_node = NodoMes(mes)
 
         if self.isEmpty():
             self.Last = new_node
@@ -60,61 +59,29 @@ class ListaA:
             self.Last = new_node
             self.contador += 1
 
-    def eliminar(self, año):
+    def eliminar(self, mes):
         actual = self.First
         eliminado = False
 
         if actual is None:
             eliminado = False
-        elif actual.año == año:
+        elif actual.mes == mes:
             self.First = actual.Next
             self.First.Previous = None
             eliminado = True
-        elif self.Last.año ==año:
+        elif self.Last.mes ==mes:
             self.Last = self.Last.Previous
             self.Last.Next = None
             eliminado = True
         else:
             while actual:
-                if actual.año == año:
+                if actual.mes == mes:
                     actual.Previous.Next = actual.Next
                     actual.Next.Previous = actual.Previous
                     eliminado = True
                 actual = actual.Next
         if eliminado:
             self.contador -=1
-
-
-    def ordenar(self):
-        ayuda = self.First
-        while ayuda != None:
-            ini = ayuda.Next
-            if ayuda.año > ini.año:
-                aux = ayuda.año
-                ayuda.año = ini.año
-                ini.año = aux
-
-            ini = ini.Next
-
-        ayuda = ayuda.Next
-
-        #self.getList()
-
-
-    def orden(self):
-        aux = self.First
-
-        while aux.Next != None:
-            aux2 = aux.Next
-            while aux2 != None:
-                if aux2.año < aux.año:
-                    temp = aux.año
-                    aux.año = aux2.año
-                    aux2.año = temp
-
-                aux2= aux2.Next
-
-            aux = aux.Next
 
     def graficar(self):
         grafo = "digraph"
@@ -128,7 +95,7 @@ class ListaA:
         cont = 0
 
         while True:
-            info = "Mes: "+ str(aux.año)
+            info = "Mes: "+ str(aux.mes)
             grafo += "\t nodo_"+str(cont)+ "[label = \"" + info + "\"];\n"
             aux = aux.Next
             cont +=1
@@ -146,12 +113,25 @@ class ListaA:
 
         grafo += str("}\n")
         tmp = self.conta
-        f = open("año"+str(self.conta)+".dot", "w+")
+        f = open("mes"+str(self.conta)+".dot", "w+")
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("fdp -Tpng -o añog"+str(self.conta)+".png año"+str(self.conta)+".dot")
+        os.system("fdp -Tpng -o mesg"+str(self.conta)+".png mes"+str(self.conta)+".dot")
         self.conta +=1
 
 
+    def orden(self):
+        aux = self.First
 
+        while aux.Next != None:
+            aux2 = aux.Next
+            while aux2 != None:
+                if aux2.mes < aux.mes:
+                    temp = aux.mes
+                    aux.mes = aux2.mes
+                    aux2.mes = temp
+
+                aux2= aux2.Next
+
+            aux = aux.Next

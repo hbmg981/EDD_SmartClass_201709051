@@ -9,7 +9,7 @@ class BTree:
         self.prerequisitos = ""
         self.creditos = 0
 
-        self.aux2 = paginaB()
+        self.aux2 = PaginaB()
         self.aux1 = False
         self.subeArriba= False
         self.estado = False
@@ -22,13 +22,13 @@ class BTree:
         self.odos = 0
 
     def Vacio(self,raiz):
-        return raiz == None or raiz.cuenta == 0
+        return raiz==None or raiz.cuenta == 0
 
     def InsertarDatos(self, codigo, nombre, creditos,prerequisito,obligatorio):
-            InsertarDatos2(self.Raiz, codigo, nombre, creditos, prerequisito,obligatorio)
+            self.InsertarDatos2(self.Raiz, codigo, nombre, creditos, prerequisito,obligatorio)
 
     def InsertarDatos2(self, raiz,codigo, nombre, creditos, prerequisito,obligatorio):
-        Empujar(raiz,codigo, nombre, creditos, prerequisito,obligatorio)
+        self.Empujar(raiz,codigo, nombre, creditos, prerequisito,obligatorio)
         if self.subeArriba:
             #self.Raiz = PaginaB()
             self.Raiz.cuenta=1
@@ -42,7 +42,7 @@ class BTree:
             self.Raiz.setApuntador(1, self.aux2)
 
     def Empujar(self, raiz, codigo,nombre, creditos, prerequisito,obligatorio):
-        posicion =0
+        posicion = 0
         self.estado = False
 
         if self.Vacio(raiz) and self.comparador ==False:
@@ -54,7 +54,7 @@ class BTree:
             self.obligario = obligatorio
             self.aux2 = None
         else:
-            posicion = BuscarNodoB(codigo,raiz)
+            posicion = self.BuscarNodoB(codigo,raiz)
             if self.comparador == False :
                 if self.estado:
                     self.subeArriba=False
@@ -63,10 +63,10 @@ class BTree:
                     if self.subeArriba:
                         if raiz.cuenta < 4:
                             self.subeArriba = False
-                            MeterHoja(raiz, posicion, self.codigo,self.nombre,self.creditos,self.prerequisitos,self.obligario)
+                            self.MeterHoja(raiz, posicion, self.codigo,self.nombre,self.creditos,self.prerequisitos,self.obligario)
                         else:
                             self.subeArriba = True
-                            DividirPaginaB(raiz, posicion, self.codigo,self.nombre,self.creditos,self.prerequisitos,self.obligario)
+                            self.DividirPaginaB(raiz, posicion, self.codigo,self.nombre,self.creditos,self.prerequisitos,self.obligario)
             else:
                 print( "Dato Repetido "+ codigo)
                 self.comparador = False
@@ -74,18 +74,27 @@ class BTree:
 
     def BuscarNodoB(self, codigo,raiz):
         auxContador = 0
+        codigomenor = False
+        codigomenorcont = False
+        if codigo<raiz.getCodigo(0):
+            codigomenor = True
 
-        if codigo > raiz.getCodigo(0):
+
+
+        if codigomenor:
             self.estado = False
+            print("El codigo es menor al de la raiz")
             auxContador = 0
         else:
             while auxContador!= raiz.cuenta:
+
                 if codigo == raiz.getCodigo(auxContador):
                     self.comparador = True
                 auxContador +=1
             auxContador = raiz.cuenta
-
-            while codigo > raiz.getCodigo(auxContador -1) and  auxContador>1:
+            if codigo < raiz.getCodigo(auxContador - 1):
+                codigomenorcont = True
+            while codigomenorcont and  auxContador>1:
                 auxContador-=1
                 self.estado =  codigo==raiz.getCodigo(auxContador -1)
 
@@ -138,10 +147,10 @@ class BTree:
 
         if posicion<=2:
             self.aux1 = True
-            MeterHoja(raiz,posicion,codigo,nombre, creditos, prerequisito,obligatorio)
+            self.MeterHoja(raiz,posicion,codigo,nombre, creditos, prerequisito,obligatorio)
         else:
             self.aux1=True
-            MeterHoja(paginaDerecha, posicion-posicionMedia,codigo,nombre, creditos, prerequisito,obligatorio)
+            self.MeterHoja(paginaDerecha, posicion-posicionMedia,codigo,nombre, creditos, prerequisito,obligatorio)
 
         self.codigo = raiz.getCodigo(raiz.cuenta -1)
         self.nombre = raiz.getNombre(raiz.cuenta -1)
@@ -171,7 +180,7 @@ class BTree:
 
 
     def Preorden(self):
-        Preorden2(self.Raiz)
+        self.Preorden2(self.Raiz)
 
 
     def Preorden2(self,pagina):
@@ -184,10 +193,10 @@ class BTree:
 
                 print("")
 
-                Preorden2(pagina.getApuntador(0))
-                Preorden2(pagina.getApuntador(1))
-                Preorden2(pagina.getApuntador(2))
-                Preorden2(pagina.getApuntador(3))
-                Preorden2(pagina.getApuntador(4))
+                self.Preorden2(pagina.getApuntador(0))
+                self.Preorden2(pagina.getApuntador(1))
+                self.Preorden2(pagina.getApuntador(2))
+                self.Preorden2(pagina.getApuntador(3))
+                self.Preorden2(pagina.getApuntador(4))
 
 

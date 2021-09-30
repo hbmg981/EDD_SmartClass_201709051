@@ -1,9 +1,7 @@
 from Estructuras.Arbol_B.ListaPuntero import ListaPuntero
 from Estructuras.Arbol_B.ListaDoble import ListaDoble
 
-
 class PaginaB:
-
 
     def __init__(self):
         self.cuenta = 0
@@ -11,8 +9,8 @@ class PaginaB:
         self.punteros = ListaPuntero()
         self.datos = ListaDoble()
 
-        for i in range(5):
-            if i!=4 :
+        for i in range(0,5):
+            if i!=4:
                  self.datos.InsertarNodoD(0,"",0,"","")
 
             self.punteros.InsertarPuntero(None)
@@ -55,7 +53,7 @@ class PaginaB:
         self.datos.DevolverDato(posicion).obligatorio = obligatorio
 
     def getApuntador(self, posicion):
-        return self.punteros.DevolverDato(posicion).puntero
+        return self.punteros.DevolverPuntero(posicion).puntero
 
     def setApuntador(self, posicion,puntero):
         self.punteros.InsertarPunteroP(puntero,posicion)

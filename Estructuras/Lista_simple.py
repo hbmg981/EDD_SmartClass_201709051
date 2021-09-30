@@ -21,7 +21,7 @@ class ListaSimple:
 
         return Nodo
 
-    def Remove(self, carnet):
+    def eliminar(self, carnet):
         aux = self.first
         prev = None
         found = False
@@ -107,6 +107,7 @@ class ListaSimple:
         else:
             for i in range(1,self.Size):
                 grafo += "\tnodo_"+str(i-1)+"-> nodo_"+ str(i)+"\n"
+
 
 
 
