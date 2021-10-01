@@ -23,6 +23,7 @@ class AVL:
 
     def insert_inter(self, carnet,dpi,nombre,carrera,correo,password,creditos,edad ,root):
         if root is None:
+            # cuando no hay datos en el avl
             return Nodo(carnet,dpi,nombre,carrera,correo,password,creditos,edad)
         else:
             if carnet < root.carnet:
@@ -149,4 +150,31 @@ class AVL:
             current = current.right
 
         return current
+
+    def buscarDato(self, raiz, carnet):
+        if raiz is None:
+            return False
+        elif raiz.carnet == carnet:
+            return True
+        elif carnet < raiz.carnet:
+            return self.buscarDato(raiz.izquierda, carnet)
+        else:
+            return self.buscarDato(raiz.izquierda,carnet)
+
+    def buscarRetornar(self, raiz, carnet):
+        if raiz is None:
+            return raiz
+        elif raiz.carnet == carnet:
+            return raiz
+        elif carnet < raiz.carnet:
+            return self.buscarDato(raiz.izquierda, carnet)
+        else:
+            return self.buscarDato(raiz.izquierda,carnet)
+
+
+    #def graficarListaTareas(self, carnet, año, mes, dia, hora):
+        #if self.buscarDato(self.Root, carnet):
+            #self.buscarRetornar(self.Root, carnet).lista.
+
+
 

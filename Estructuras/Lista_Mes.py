@@ -7,6 +7,7 @@ class ListaM:
         self.Last = None
         self.conta = 0
         self.contador =0
+        self.ngraf = 1
 
     def getSize(self):
         aux = self.First
@@ -19,14 +20,20 @@ class ListaM:
 
     def buscar(self, mes):
         temp = self.First
-        while(temp != None and temp.mes != mes):
+        while temp != None:
+            if temp.mes == mes:
+                print("Se encontro el mes: " + str(temp.mes))
+                return True
             temp = temp.Next
-        print("Se encontro el año: " + str(temp.mes))
         return  temp != None
+
 
     def buscarRetornar(self, mes):
         temp = self.First
-        while(temp!=None and temp.mes!=mes):
+        while temp!=None:
+            if temp.mes == mes:
+                print("Se encontro el mes para retornar: " + str(temp.mes))
+                return temp
             temp = temp.Next
         return temp
 
@@ -46,18 +53,25 @@ class ListaM:
             print(aux.mes)
             aux = aux.Previous
 
-    def insertValue(self, mes):
+    def insertValue(self, mes,dia,hora,carnet, nombre, descrip, materia, fecha, estado):
         new_node = NodoMes(mes)
-
+        # Cuando no hay datos en la lista de meses
         if self.isEmpty():
             self.Last = new_node
             self.First = self.Last
             self.contador +=1
         else:
-            self.Last.Next = new_node
-            new_node.Previous = self.Last
-            self.Last = new_node
-            self.contador += 1
+            # Cuando ya hay datos en la lista de meses
+            if self.buscar(mes) == False:
+                self.Last.Next = new_node
+                new_node.Previous = self.Last
+                self.Last = new_node
+                self.contador += 1
+            else:
+                #Cuando ya existe ese mes, mandar a llamar a la matriz dispersa
+                self.buscarRetornar(mes).tareas.insertar(dia,hora,carnet, nombre, descrip, materia, fecha, estado)
+                print("El mes: "+ str(mes) + " ya existe, se manda a llenar la matriz dispersa ")
+
 
     def eliminar(self, mes):
         actual = self.First
@@ -83,7 +97,16 @@ class ListaM:
         if eliminado:
             self.contador -=1
 
-    def graficar(self):
+    def graficarMatriz(self,carnet, año, mes):
+        # graficar lista de tareas de la matriz
+        #self.buscarRetornar(mes).buscarRetornar(dia,hora).lista.graficar(self.ngraf)
+        self.buscarRetornar(mes).graficar_matriz(self.ngraf)
+
+        self.ngraf +=1
+
+
+
+    def graficar(self, ngraf):
         grafo = "digraph"
         grafo += str("{\nnode[shape=record];\n")
         grafo += str("graph[pencolor=transparent];\n")
@@ -113,11 +136,11 @@ class ListaM:
 
         grafo += str("}\n")
         tmp = self.conta
-        f = open("mes"+str(self.conta)+".dot", "w+")
+        f = open("mes"+str(ngraf)+".dot", "w+")
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("fdp -Tpng -o mesg"+str(self.conta)+".png mes"+str(self.conta)+".dot")
+        os.system("fdp -Tpng -o mesg"+str(ngraf)+".png mes"+str(ngraf)+".dot")
         self.conta +=1
 
 

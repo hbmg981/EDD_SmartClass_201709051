@@ -3,12 +3,23 @@ from analyzers.Lex import tokens
 from Structures_Ply.List import List
 from Structures_Ply.Node import Node
 from Estructuras.AVL import AVL
+from Estructuras.Lista_A import ListaA
+from Estructuras.Lista_Mes import ListaM
+from Estructuras.Matriz_Dispersa import Matriz_dispersa
+
+hora = 0
+dia = 0
+mes = 0
+año = 0
+semestre = 0
+
 
 # Lists for save the information about users and tasks
 user_list = List()
 task_list = List()
 avl = AVL()
-
+listaAños = ListaA()
+Dispersa = Matriz_dispersa()
 # This node allows to store information about one user or task
 element_node = Node()
 
@@ -33,18 +44,23 @@ def p_elementos_group(t):
 def p_elemento(t):
     'elemento : LQUESTION TELEMENT  tipoElemento RQUESTION items LQUESTION DOLAR TELEMENT RQUESTION'
 
-    hora = 0
-    dia = 0
-    mes = 0
-    año = 0
+
+
     if element_node.Fecha !="":
         fechan = element_node.Fecha.split("/")
         dia = fechan[0]
         mes =fechan[1]
         año = fechan[2]
+
+        if int(mes) >= 7:
+            semestre = 2
+        else:
+            semestre = 1
+
         #print(fechan)
         #print("Mes: "+fechan[1])
    #       print("Listado de dias")
+
 
     if element_node.Hora != "":
         horan = element_node.Hora.split(":")
@@ -60,6 +76,8 @@ def p_elemento(t):
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
                               element_node.Fecha, hora, element_node.Estado)'''
     else:
+        #nueva_matriz.insertar(1, 5, 20210859, "nombre", "descripcion", "Materia", "Fecha", "estado")
+        listaAños.insertValue(int(año),int(semestre), int(mes), dia, hora,element_node.Carnet,element_node.Nombre,element_node.Descripcion, element_node.Materia,element_node.Fecha, element_node.Estado )
         task_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
                               element_node.Fecha, hora, element_node.Estado)

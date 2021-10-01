@@ -9,8 +9,7 @@ class NodoTarea:
         self.estado = estado
         self.next = None
         self.prev = None
-        self.up = None
-        self.down = None
+
 
 
 

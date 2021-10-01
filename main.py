@@ -6,6 +6,7 @@ from analyzers.Syntactic import user_list, task_list, avl
 from Estructuras.Lista_A import ListaA
 from Estructuras.Lista_Mes import ListaM
 from Estructuras.Arbol_B.BTree import BTree
+from Estructuras.Lista_Sem import ListaSem
 import os
 '''
 
@@ -100,27 +101,72 @@ listaaño.orden()
 listaaño.getList()
 listaaño.graficar()
 
+#----------- MATRIZ DISPERSA -----------------
+nueva_matriz = Matriz_dispersa()
+#insertar(self,dia,hora,carnet, nombre, descrip, materia, fecha,horas, estado)
+nueva_matriz.insertar(1, 5,20210859, "nombre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(1, 1,20210860, "nosfe","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(2, 4,20210859, "nfdse","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(22, 9,20210259, "sdfbre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(3, 7, 20268859, "dfmbre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(3, 1,2011159, "nwwbre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(3, 8, 2022259, "nomdfe","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(3, 9, 20213359, "nwbre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(6, 6, 244459, "nooure","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(3, 19,20266859, "asdfombre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(6, 6, 20277569, "tembre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(6, 1, 20210359, "fgsdmbre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(6, 5, 20210859, "sdfbre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(16, 5, 20210859, "nsdfbre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.insertar(9, 9, 20210279, "nooytre","descripcion", "Materia", "Fecha", "estado")
+nueva_matriz.graficarLista(6,6)
+nueva_matriz.graficarLista(9,9)
+nueva_matriz.graficar_matriz()
+
+
+#--------------PROBANDO DATOS LISTA SIMPLE DE SEMESTRES QUE VA EN LA MATRIZ-----------
+simple = ListaSem()
+simple.Insertar(1)
+simple.Insertar(2)
+simple.Insertar(2087)
+print("Lista de semestres .....")
+simple.getList()
+#simple.eliminar(2047)
+print("Modificar el semestre 2 por el 1")
+simple.Modificar(2,1)
+print("\n *** Lista Final *** : ")
+simple.getList()
+simple.obtener(1)
+simple.graficar(1)
+
+
+#-----------------Metodo para llamar al analizador-------------
+f = open('repo.txt', "r", encoding="utf-8")
+mensaje = f.read()
+print(mensaje)
+f.close()
+parser.parse('¿ Elements ? ¿Element type = "task"?  ¿item Carnet = "201901425" $? ¿$Element? ¿ $Elements ?')
+parser.parse(mensaje)
+
+#user_list.getList()
+avl.pre_orden()
+print("------------------------")
+task_list.getList()
 
 
 '''
-#----------- MATRIZ DISPERSA -----------------
-nueva_matriz = Matriz_dispersa()
-nueva_matriz.insertar(1, 5, " taarea")
-nueva_matriz.insertar(1, 1, " nodo")
-nueva_matriz.insertar(2, 4, "nuevo")
-nueva_matriz.insertar(22, 9, "ro")
-nueva_matriz.insertar(3, 7, "nh")
-nueva_matriz.insertar(3, 1, "nur")
-nueva_matriz.insertar(3, 8, "nyo")
-nueva_matriz.insertar(3, 9, "nwero")
-nueva_matriz.insertar(6, 6, "nfddo")
-nueva_matriz.insertar(3, 19, "nwero")
-nueva_matriz.insertar(6, 6, "nfddo")
-nueva_matriz.insertar(6, 1, "asdfdo")
-nueva_matriz.insertar(6, 5, "bla")
-nueva_matriz.insertar(16, 5, "repetido")
-nueva_matriz.insertar(9, 9, "as")
-nueva_matriz.graficar_matriz()
+
+
+
+btree = BTree()
+btree.InsertarDatos(200,"Heidy",250,"Io2","No")
+btree.InsertarDatos(100,"Miranda",20,"Analisis","si")
+btree.InsertarDatos(400,"Beatriz",240,"Io1","No")
+btree.InsertarDatos(300,"Beatriz",240,"Io1","No")
+btree.InsertarDatos(500,"Beatriz",240,"Io1","No")
+
+btree.Preorden()
+btree.Graficar(1)
 
 
 

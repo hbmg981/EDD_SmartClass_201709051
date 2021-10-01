@@ -19,14 +19,20 @@ class ListaA:
 
     def buscar(self, año):
         temp = self.First
-        while(temp != None and temp.año != año):
+        while temp != None :
+            if temp.año ==año:
+                print("Se encontro el año en buscar: " + str(temp.año))
+                return True
             temp = temp.Next
-        print("Se encontro el año: " + str(temp.año))
+
         return  temp != None
 
     def buscarRetornar(self, año):
         temp = self.First
-        while(temp!=None and temp.año!=año):
+        while temp!=None:
+            if temp.año ==año:
+                print("Se encontro el año para retornar: " + str(temp.año))
+                return temp
             temp = temp.Next
         return temp
 
@@ -47,18 +53,30 @@ class ListaA:
             print(aux.año)
             aux = aux.Previous
 
-    def insertValue(self, año):
-        new_node = NodoA(año)
+    def insertValue(self, año,semestre,mes,dia,hora,carnet, nombre, descrip, materia, fecha, estado):
 
+        # Cuando hay datos en la lista
         if self.isEmpty():
+            new_node = NodoA(año)
             self.Last = new_node
             self.First = self.Last
             self.contador +=1
         else:
-            self.Last.Next = new_node
-            new_node.Previous = self.Last
-            self.Last = new_node
-            self.contador += 1
+            # Cuando ya hay datos en la lista
+            if self.buscar(año) == False:
+                new_node = NodoA(año)
+                self.Last.Next = new_node
+                new_node.Previous = self.Last
+                self.Last = new_node
+                self.contador += 1
+            else:
+                #Cuando el año ya existe, se manda a llenar el mes y el semestre
+                self.buscarRetornar(año).mes.insertValue(mes,dia,hora,carnet, nombre, descrip, materia, fecha, estado)
+                print("El año ya existia, insertando mes " + str(mes)+ " Y semestre "+ str(semestre))
+                self.buscarRetornar(año).semestre.Insertar(semestre)
+
+
+
 
     def eliminar(self, año):
         actual = self.First

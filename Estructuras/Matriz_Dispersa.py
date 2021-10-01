@@ -10,6 +10,7 @@ class Matriz_dispersa:
     def __init__(self):
         self.NodoRaiz=None
         self.contTarea = 1
+        self.ngraf =1
         
     def insertar_nodo_fila(self,nodo):
         temporalfila = self.NodoRaiz.NodoFilas 
@@ -60,12 +61,13 @@ class Matriz_dispersa:
                 nuevaCabecera.siguiente = current.siguiente
                 current.siguiente = nuevaCabecera
                 
-    def insertar(self,dia,hora,ntareas):
+    def insertar(self,dia,hora,carnet, nombre, descrip, materia, fecha, estado):
 
 
         # Cuando no existe ningun valor en la matriz
         if  self.NodoRaiz is None:
             nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
+            nodoN.lista.InsertarTarea(carnet,nombre, descrip, materia, fecha, hora, estado)
             self.NodoRaiz = NodoRaiz()
             self.NodoRaiz.NodoColumnas=NodoCabecera(tipo="Columna",indice=dia)
             self.NodoRaiz.NodoFilas=NodoCabecera(tipo="Fila",indice=hora)
@@ -77,6 +79,7 @@ class Matriz_dispersa:
         else:
             if self.buscar(dia,hora) ==False:
                 nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
+                nodoN.lista.InsertarTarea(carnet, nombre, descrip, materia, fecha, hora, estado)
                 Nodotemporal = self.NodoRaiz
                 self.insertar_cabercera(Nodotemporal.NodoFilas, hora, "Fila")
                 Nodotemporal = self.NodoRaiz
@@ -86,6 +89,7 @@ class Matriz_dispersa:
             else:
                 # implementar un metodo buscar y retornar el nodo repetido para acceder a su lista
                 self.buscarRetornar(dia,hora).cont += 1
+                self.buscarRetornar(dia, hora).lista.InsertarTarea(carnet, nombre, descrip, materia, fecha, hora, estado)
                 print("Elemento duplicado")
                 print("Dato en el nodo: "+  str(self.buscarRetornar(dia,hora).ntareas))
                 #self.buscarRetornar(dia,hora)
@@ -117,7 +121,12 @@ class Matriz_dispersa:
             nodo=nodo.siguiente
         return nodo
 
-    def graficar_matriz(self):
+    def graficarLista(self, dia, hora):
+        self.buscarRetornar(dia,hora).lista.graficar(self.ngraf)
+        self.ngraf +=1
+
+
+    def graficar_matriz(self, ngraf):
         grafo = "digraph"
         grafo += str("{\nnode[shape=record];\n")
         grafo += str("graph[pencolor=transparent];\n")
@@ -158,11 +167,11 @@ class Matriz_dispersa:
                         nodo = nodo.siguiente
         grafo += str("}\n")
         tmp = self.cont
-        f = open("dispersa"+str(self.cont)+".dot", "w+")
+        f = open("dispersa"+str(ngraf)+".dot", "w+")
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica *********  ")
-        os.system("fdp -Tpng -o disp"+str(self.cont)+".png dispersa"+str(self.cont)+".dot")
+        os.system("fdp -Tpng -o disp"+str(ngraf)+".png dispersa"+str(ngraf)+".dot")
         self.cont +=1
 
 

@@ -10,7 +10,7 @@ class List:
         counter = 0
         while aux is not None:
             counter += 1
-            aux = aux.Next()
+            aux = aux.Next
 
         return counter
 

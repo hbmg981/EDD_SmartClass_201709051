@@ -84,11 +84,11 @@ class ListaSimple:
         else:
             print("Estudiante NO encontrado")
 
-    def graficar(self):
+    def graficar(self, ngraf):
         grafo = "digraph"
         grafo += str("{\nnode[shape=record];\n")
         grafo += str("graph[pencolor=transparent];\n")
-        grafo+=str("rankdir=LR;\n")
+        grafo+=str("rankdir=LR\n")
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
 
         aux = self.first
@@ -103,7 +103,7 @@ class ListaSimple:
                 break
         grafo += "\n"
         if self.Size == 1:
-            grafo += "\t nodo_0 -> nodo_0 \n"
+            grafo += "\t  \n"
         else:
             for i in range(1,self.Size):
                 grafo += "\tnodo_"+str(i-1)+"-> nodo_"+ str(i)+"\n"
@@ -113,9 +113,9 @@ class ListaSimple:
 
         grafo += str("}\n")
         tmp = self.conta
-        f = open("tarea"+str(self.conta)+".dot", "w+")
+        f = open("tarea"+str(ngraf)+".dot", "w+")
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("fdp -Tpng -o tare"+str(self.conta)+".png tarea"+str(self.conta)+".dot")
+        os.system("fdp -Tsvg -o tare"+str(ngraf)+".svg tarea"+str(ngraf)+".dot")
         self.conta +=1

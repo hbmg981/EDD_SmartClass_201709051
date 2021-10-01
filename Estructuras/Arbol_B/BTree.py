@@ -1,15 +1,15 @@
 from Estructuras.Arbol_B.PaginaB import PaginaB
-
+import  os
 class BTree:
     def __init__(self):
-        self.Raiz = PaginaB()
+        self.Raiz = None
         self.codigo = 0
         self.nombre = ""
         self.obligario = ""
         self.prerequisitos = ""
         self.creditos = 0
 
-        self.aux2 = PaginaB()
+        self.aux2 = None
         self.aux1 = False
         self.subeArriba= False
         self.estado = False
@@ -19,10 +19,10 @@ class BTree:
         self.grafica2 = ""
         self.codigo1 = 0
         self.nombre1 = ""
-        self.odos = 0
+        self.nodos = 0
 
     def Vacio(self,raiz):
-        return raiz==None or raiz.cuenta == 0
+        return raiz is None or raiz.cuenta == 0
 
     def InsertarDatos(self, codigo, nombre, creditos,prerequisito,obligatorio):
             self.InsertarDatos2(self.Raiz, codigo, nombre, creditos, prerequisito,obligatorio)
@@ -30,7 +30,7 @@ class BTree:
     def InsertarDatos2(self, raiz,codigo, nombre, creditos, prerequisito,obligatorio):
         self.Empujar(raiz,codigo, nombre, creditos, prerequisito,obligatorio)
         if self.subeArriba:
-            #self.Raiz = PaginaB()
+            self.Raiz = PaginaB()
             self.Raiz.cuenta=1
             self.Raiz.setCodigo(0,self.codigo)
             self.Raiz.setNombre(0,nombre)
@@ -72,14 +72,13 @@ class BTree:
                 self.comparador = False
 
 
-    def BuscarNodoB(self, codigo,raiz):
+    def _BuscarNodoB(self, codigo,raiz):
         auxContador = 0
         codigomenor = False
         codigomenorcont = False
+
         if codigo<raiz.getCodigo(0):
             codigomenor = True
-
-
 
         if codigomenor:
             self.estado = False
@@ -99,6 +98,31 @@ class BTree:
                 self.estado =  codigo==raiz.getCodigo(auxContador -1)
 
         return auxContador
+
+    def BuscarNodoB(self,codigo,raiz ):
+        auxContador = 0
+
+        if codigo < raiz.getCodigo(0):
+            self.estado = False
+            auxContador = 0
+        else:
+            while auxContador!= raiz.cuenta:
+                if codigo==raiz.getCodigo(auxContador):
+                    self.comparador = True
+                auxContador+=1
+
+            auxContador = raiz.cuenta
+
+            while codigo < raiz.getCodigo(auxContador-1) and auxContador>1:
+                auxContador-=1
+
+                self.estado = codigo==raiz.getCodigo(auxContador-1)
+
+        return auxContador
+
+
+
+
 
     def MeterHoja(self, raiz,posicion, codigo,nombre, creditos, prerequisito,obligatorio):
         auxC = raiz.cuenta
@@ -189,7 +213,7 @@ class BTree:
                 for i in range(0,pagina.cuenta):
                     if pagina.getCodigo(i) != None:
                         if pagina.getCodigo(i)!="":
-                            print(pagina.getCodigo(i) + "_")
+                            print( str(pagina.getCodigo(i)) + "_")
 
                 print("")
 
@@ -198,5 +222,82 @@ class BTree:
                 self.Preorden2(pagina.getApuntador(2))
                 self.Preorden2(pagina.getApuntador(3))
                 self.Preorden2(pagina.getApuntador(4))
+
+
+    def Graficar(self, ngraf):
+        self.grafica = "digraph ArbolB { \n"
+        #self.grafica+= "\nrankdir=TB;\n"
+        self.grafica+= "node [color=\"blue\", style = \"rounded,filled\",fillcolor=lightgray, shape=record];\n"
+
+        self.Graficar2(self.Raiz)
+        self.Graficar3(self.Raiz)
+
+        self.grafica+="\n}\n"
+
+        #mandar a graficar
+
+        f = open("ArbolB" + str(ngraf) + ".dot", "w+")
+        f.write(self.grafica)
+        f.close()
+        print("********* Se realizo Grafica de Arbol B *********  ")
+        os.system("fdp -Tsvg -o Arbol" + str(ngraf) + ".svg ArbolB" + str(ngraf) + ".dot")
+
+
+    def Graficar2(self, pagina):
+        contador = 0
+        if pagina is not None:
+            self.nodos =0
+            for i in range(0, pagina.cuenta):
+                if pagina.getCodigo(i) is not None:
+                    if pagina.getCodigo(i) != "":
+                        self.nodos +=1
+                        if i !=0:
+                            self.grafica += "|"
+
+                        if self.nodos ==1:
+                            self.grafica += "\nNodo"+str(pagina.getCodigo(i))+"[label=\"<f0> |"
+
+                        if i==0:
+                            self.grafica += "<f" + str(i+1) + ">" + str(pagina.getCodigo(i)) + "\\n" + pagina.getNombre(i) + "|<f" + str(i + 2) + "> "
+                            contador = 3
+                        else:
+                            self.grafica += "<f" + str(contador) + ">" + str(pagina.getCodigo(i)) + "\\n" + pagina.getNombre(i) + "|<f" + str(contador + 1) + "> "
+                            contador += 2
+
+                        if i == pagina.cuenta -1:
+                            contador = 0
+                            self.grafica += " \",group=0];\n"
+
+            self.Graficar2(pagina.getApuntador(0))
+            self.Graficar2(pagina.getApuntador(1))
+            self.Graficar2(pagina.getApuntador(2))
+            self.Graficar2(pagina.getApuntador(3))
+            self.Graficar2(pagina.getApuntador(4))
+
+
+    def Graficar3(self, pagina):
+        if pagina is not None:
+            if pagina.getCodigo(0 ) is not None:
+                if pagina.getCodigo(0) != "":
+                    if pagina.getApuntador(0) is not None and pagina.getApuntador(0).getCodigo(0) is not None:
+                        self.grafica += "\nNodo"+str(pagina.getCodigo(0))+":f0->"+"Nodo"+ str(pagina.getApuntador(0).getCodigo(0))
+
+                    if pagina.getApuntador(1) is not None and pagina.getApuntador(1).getCodigo(0) is not None:
+                        self.grafica += "\nNodo" + str(pagina.getCodigo(0)) + ":f2->" + "Nodo" + str(pagina.getApuntador(1).getCodigo(0))
+
+                    if pagina.getApuntador(2) is not None and pagina.getApuntador(2).getCodigo(0) is not None:
+                        self.grafica += "\nNodo" + str(pagina.getCodigo(0)) + ":f4->" + "Nodo" + str(pagina.getApuntador(2).getCodigo(0))
+
+                    if pagina.getApuntador(3) is not None and pagina.getApuntador(3).getCodigo(0) is not None:
+                        self.grafica += "\nNodo" + str(pagina.getCodigo(0)) + ":f6->" + "Nodo" + str(pagina.getApuntador(3).getCodigo(0))
+
+                    if pagina.getApuntador(4) is not None and pagina.getApuntador(4).getCodigo(0) is not None:
+                        self.grafica += "\nNodo" + str(pagina.getCodigo(0))+ ":f8->" + "Nodo" + str(pagina.getApuntador(4).getCodigo(0))
+
+            self.Graficar3(pagina.getApuntador(0))
+            self.Graficar3(pagina.getApuntador(1))
+            self.Graficar3(pagina.getApuntador(2))
+            self.Graficar3(pagina.getApuntador(3))
+            self.Graficar3(pagina.getApuntador(4))
 
 

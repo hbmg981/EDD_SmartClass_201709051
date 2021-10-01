@@ -7,7 +7,7 @@ class ListaDoble:
         self.cuenta = 0
 
     def vacia(self):
-        return self.primero == None
+        return self.primero is None
 
     def InsertarNodoD(self, codigo, nombre,creditos,prerequisito,obligatorio):
         NodoD = NodoDoble(codigo, nombre, creditos, prerequisito, obligatorio)

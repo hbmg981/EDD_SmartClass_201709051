@@ -1,4 +1,5 @@
-
+from Estructuras.Lista_Mes import ListaM
+from Estructuras.Lista_Sem import ListaSem
 
 class NodoA:
     def __init__(self, año):
@@ -7,6 +8,7 @@ class NodoA:
         self.Previous = None
         # Aca van las listas, los punteros hacia lista de semestres y meses
         #self.semestres
-        #self.meses
+        self.mes = ListaM()
+        self.semestre = ListaSem()
 
 
