@@ -30,7 +30,7 @@ class ListaA:
     def buscarRetornar(self, año):
         temp = self.First
         while temp!=None:
-            if temp.año ==año:
+            if temp.año == año:
                 print("Se encontro el año para retornar: " + str(temp.año))
                 return temp
             temp = temp.Next
@@ -41,10 +41,10 @@ class ListaA:
         return self.First is None
 
     def getList(self):
-        self.orden()
+        #self.orden()
         aux = self.First
         while aux is not None:
-            print(aux.año)
+            print("Año: "+ str(aux.año))
             aux = aux.Next
 
     def getListRev(self):
@@ -75,8 +75,25 @@ class ListaA:
                 print("El año ya existia, insertando mes " + str(mes)+ " Y semestre "+ str(semestre))
                 self.buscarRetornar(año).semestre.Insertar(semestre)
 
-
-
+    def GraficarPrueba(self, año, mes, dia, hora):
+        if self.buscarRetornar(año) is not None:
+            print("El año: " + str(año) + " Existe")
+            if self.buscarRetornar(año).mes.buscarRetornar(mes) is not None:
+                print("El mes: " + str(mes) + " Existe")
+                if self.buscarRetornar(año).mes.buscarRetornar(mes).tareas.buscarRetornar(
+                        dia, hora) is not None:
+                    print("La matriz de dia: " + str(dia) + " Hora: " + str(hora) + " Existe")
+                    # Graficar lista de tareas
+                    self.buscarRetornar(año).mes.buscarRetornar(mes).tareas.graficarLista(dia,hora, self.conta)
+                    self.conta += 1
+                else:
+                    print("La matriz de dia: " + str(dia) + " Hora: " + str(hora) + "  No Existe")
+            else:
+                print("El mes: " + str(mes) + " No se encontro")
+        else:
+            print("El año: " + str(año) + " No Se encontro")
+            print("Mostrando lista de años: ")
+           # self.buscarRetornar(carnet).lista.getList()
 
     def eliminar(self, año):
         actual = self.First

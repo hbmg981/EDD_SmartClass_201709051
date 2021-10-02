@@ -68,6 +68,7 @@ class Matriz_dispersa:
         if  self.NodoRaiz is None:
             nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
             nodoN.lista.InsertarTarea(carnet,nombre, descrip, materia, fecha, hora, estado)
+            print("Insertando datos:  dia: "+ str(dia)+ " hora: "+ str(hora))
             self.NodoRaiz = NodoRaiz()
             self.NodoRaiz.NodoColumnas=NodoCabecera(tipo="Columna",indice=dia)
             self.NodoRaiz.NodoFilas=NodoCabecera(tipo="Fila",indice=hora)
@@ -77,9 +78,11 @@ class Matriz_dispersa:
             self.NodoRaiz.NodoFilas.derecha=nodoN
         # Cuando ya hay elementos en la matriz
         else:
+            #Cuando no existe nodo con ese dia y hora, se crea uno
             if self.buscar(dia,hora) ==False:
                 nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
                 nodoN.lista.InsertarTarea(carnet, nombre, descrip, materia, fecha, hora, estado)
+                print("Insertando datos:  dia: " + str(dia) + " hora: " + str(hora))
                 Nodotemporal = self.NodoRaiz
                 self.insertar_cabercera(Nodotemporal.NodoFilas, hora, "Fila")
                 Nodotemporal = self.NodoRaiz
@@ -88,6 +91,7 @@ class Matriz_dispersa:
                 self.insertar_nodo_col(nodo=nodoN)
             else:
                 # implementar un metodo buscar y retornar el nodo repetido para acceder a su lista
+                print("el dato ya existia  dia: " + str(dia) + " hora: " + str(hora))
                 self.buscarRetornar(dia,hora).cont += 1
                 self.buscarRetornar(dia, hora).lista.InsertarTarea(carnet, nombre, descrip, materia, fecha, hora, estado)
                 print("Elemento duplicado")
@@ -121,9 +125,12 @@ class Matriz_dispersa:
             nodo=nodo.siguiente
         return nodo
 
-    def graficarLista(self, dia, hora):
-        self.buscarRetornar(dia,hora).lista.graficar(self.ngraf)
-        self.ngraf +=1
+    def graficarLista(self, dia, hora, n):
+        if self.buscarRetornar(dia,hora) is not None:
+            self.buscarRetornar(dia,hora).lista.graficar(n)
+            self.ngraf +=1
+        else:
+            print("No se encontro la matriz del dia: "+ str(dia)+" Hora: "+str(hora))
 
 
     def graficar_matriz(self, ngraf):

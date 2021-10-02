@@ -3,6 +3,7 @@ from Estructuras.Nodo_AVL import Nodo
 class AVL:
     def __init__(self):
         self.Root = None
+        self.ngraf =1
 
     def MAX(self, carnet1,carnet2):
         if carnet1 > carnet2:
@@ -74,14 +75,7 @@ class AVL:
         node.right = self.RD(node.right)
         return self.RI(node)
 
-    def pre_orden(self):
-        self.pre_orden_intern(self.Root)
 
-    def pre_orden_intern(self, root):
-        if root is not None:
-            print("CARNET: "+ str(root.carnet) + " NOMBRE: "+ root.nombre)
-            self.pre_orden_intern(root.left)
-            self.pre_orden_intern(root.right)
 
     def eliminar(self, carnet):
         self.Root = self.eliminarAVL(self.Root, carnet)
@@ -151,30 +145,101 @@ class AVL:
 
         return current
 
-    def buscarDato(self, raiz, carnet):
-        if raiz is None:
-            return False
-        elif raiz.carnet == carnet:
-            return True
-        elif carnet < raiz.carnet:
-            return self.buscarDato(raiz.izquierda, carnet)
+
+    def buscarDato(self, carnet):
+        raiz = self.Root
+        while int(raiz.carnet) != carnet:
+            if carnet < int(raiz.carnet):
+                raiz = raiz.left
+            else:
+                raiz = raiz.right
+            if raiz is None:
+                return False
+
+        return True
+
+    def pre_orden(self):
+        self.pre_orden_intern(self.Root)
+
+    def pre_orden_intern(self, root):
+        if root is not None:
+            print("CARNET: "+ str(root.carnet) + " NOMBRE: "+ root.nombre+ " Año: ")
+            #root.lista.getList()
+            self.pre_orden_intern(root.left)
+            self.pre_orden_intern(root.right)
+
+
+    def buscarRetornar(self, carnet):
+        raiz = self.Root
+        while int(raiz.carnet) != carnet:
+            if carnet < int(raiz.carnet):
+                raiz = raiz.left
+            else:
+                raiz = raiz.right
+            if raiz is None:
+                return raiz
+
+        return raiz
+
+
+    def graficarListaTareas(self, carnet, año, mes, dia, hora):
+        if self.buscarDato( carnet):
+            print("El carnet: "+str(carnet)+ " Existe")
+
         else:
-            return self.buscarDato(raiz.izquierda,carnet)
+            print("No se encontro el carnet: "+ str(carnet))
 
-    def buscarRetornar(self, raiz, carnet):
-        if raiz is None:
-            return raiz
-        elif raiz.carnet == carnet:
-            return raiz
-        elif carnet < raiz.carnet:
-            return self.buscarDato(raiz.izquierda, carnet)
+    def graficar(self):
+        grafo = "digraph"
+        grafo += str("{\nnode[shape=record];\n")
+        grafo += str("graph[pencolor=transparent];\n")
+        grafo+=str("rankdir=LR;\n")
+        grafo += str("node [style=filled,fillcolor=thistle1];\n")
+
+
+        aux = self.Root
+        cont = 0
+
+        while True:
+            info = "Carnet: "+ str(aux.carnet) + "\nNombre: "+ aux.nombre + "\nCarrera"+ aux.carrera
+            grafo += "\t nodo_"+str(cont)+ "[label = \"" + info + "\"];\n"
+            aux = aux.Next
+            cont +=1
+            if aux == None:
+                break
+        grafo += "\n"
+        if self.getSize() == 1:
+            grafo += "\t  \n"
         else:
-            return self.buscarDato(raiz.izquierda,carnet)
+            for i in range(1,self.getSize()):
+                grafo += "\tnodo_"+str(i-1)+"-> nodo_"+ str(i)+"\n"
+                grafo += "\tnodo_" + str(i ) + "-> nodo_" + str(i-1) + "\n"
 
 
-    #def graficarListaTareas(self, carnet, año, mes, dia, hora):
-        #if self.buscarDato(self.Root, carnet):
-            #self.buscarRetornar(self.Root, carnet).lista.
+
+        grafo += str("}\n")
+        tmp = self.conta
+        f = open("año"+str(self.conta)+".dot", "w+")
+        f.write(grafo)
+        f.close()
+        print("********* Se realizo Grafica  Tareas *********  ")
+        os.system("fdp -Tpng -o añog"+str(self.conta)+".png año"+str(self.conta)+".dot")
+        self.conta +=1
+
+    def textoG(self):
+        self.textoGraf(self.Root)
+
+    def textoGraf(self, raiz):
+        if raiz.left is None and raiz.right is None:
+            cadena = raiz.carnet
+            return cadena
+        else:
+            if raiz.left is not None:
+                texto = raiz.carnet +"->"+ self.textoGraf(raiz.left)+"\n"
+
+            if raiz.right is not None:
+                texto += raiz.carnet + "->" + self.textoGraf(raiz.right) + "\n"
+            return texto
 
 
 

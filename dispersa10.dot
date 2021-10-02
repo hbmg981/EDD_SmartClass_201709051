@@ -1,0 +1,8 @@
+digraph{
+node[shape=record];
+graph[pencolor=transparent];
+node [style=filled,fillcolor=thistle1];
+p14_10[label="{<data>Dia: 14\nHora: 10| 1 }" pos="14,0!"];
+p14_16[label="{<data>Dia: 14\nHora: 16| 1 }" pos="14,-6!"];
+p14_10->p14_16[dir=both];
+}

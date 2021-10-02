@@ -1,0 +1,9 @@
+digraph{
+node[shape=record];
+graph[pencolor=transparent];
+rankdir=LR
+node [style=filled,fillcolor=thistle1];
+	 nodo_0[label = "Carnet: 201704186\nNombre: Tarea de Estadística\nDescripcion: Realizar la tarea del curso de Estadística 1."];
+
+	  
+}

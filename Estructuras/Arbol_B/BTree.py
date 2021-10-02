@@ -226,7 +226,7 @@ class BTree:
 
     def Graficar(self, ngraf):
         self.grafica = "digraph ArbolB { \n"
-        #self.grafica+= "\nrankdir=TB;\n"
+        self.grafica+= "\n\trankdir= TB;\n"
         self.grafica+= "node [color=\"blue\", style = \"rounded,filled\",fillcolor=lightgray, shape=record];\n"
 
         self.Graficar2(self.Raiz)

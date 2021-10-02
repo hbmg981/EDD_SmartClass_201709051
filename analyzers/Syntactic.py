@@ -57,27 +57,20 @@ def p_elemento(t):
         else:
             semestre = 1
 
-        #print(fechan)
-        #print("Mes: "+fechan[1])
-   #       print("Listado de dias")
-
 
     if element_node.Hora != "":
         horan = element_node.Hora.split(":")
         hora= horan[0]
-        #print("hora: "+hora)
 
 
     if t[3] == "user":
-
-
         avl.insert(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Correo, element_node.Password, element_node.Creditos, element_node.Edad)
-        '''user_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
+        user_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
-                              element_node.Fecha, hora, element_node.Estado)'''
+                              element_node.Fecha,element_node.Hora, element_node.Estado)
     else:
         #nueva_matriz.insertar(1, 5, 20210859, "nombre", "descripcion", "Materia", "Fecha", "estado")
-        listaAños.insertValue(int(año),int(semestre), int(mes), dia, hora,element_node.Carnet,element_node.Nombre,element_node.Descripcion, element_node.Materia,element_node.Fecha, element_node.Estado )
+        listaAños.insertValue(int(año),int(semestre), int(mes), int(dia), int(hora),element_node.Carnet,element_node.Nombre,element_node.Descripcion, element_node.Materia,element_node.Fecha, element_node.Estado )
         task_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
                               element_node.Fecha, hora, element_node.Estado)

@@ -13,8 +13,7 @@ class Nodo:
         self.creditos = creditos
         self.edad = edad
         self.lista = ListaA()
-        
-# insertar estos parametros en el nodo
-#
+
+
 
 

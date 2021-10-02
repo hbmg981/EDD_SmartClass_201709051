@@ -37,6 +37,9 @@ class ListaM:
             temp = temp.Next
         return temp
 
+    def graficarMatriz(self, mes,dia, hora):
+        self.buscarRetornar(mes).buscarRetornar(dia, hora).lista.graficar(self.ngraf)
+        self.ngraf += 1
 
     def isEmpty(self):
         return self.First is None

@@ -2,7 +2,7 @@ from Estructuras.Matriz_Dispersa import Matriz_dispersa
 from Estructuras.AVL import AVL
 from Estructuras.Lista_simple import ListaSimple
 from analyzers.Syntactic import parser
-from analyzers.Syntactic import user_list, task_list, avl
+from analyzers.Syntactic import user_list, task_list, avl, listaAños
 from Estructuras.Lista_A import ListaA
 from Estructuras.Lista_Mes import ListaM
 from Estructuras.Arbol_B.BTree import BTree
@@ -154,10 +154,6 @@ print("------------------------")
 task_list.getList()
 
 
-'''
-
-
-
 btree = BTree()
 btree.InsertarDatos(200,"Heidy",250,"Io2","No")
 btree.InsertarDatos(100,"Miranda",20,"Analisis","si")
@@ -167,6 +163,43 @@ btree.InsertarDatos(500,"Beatriz",240,"Io1","No")
 
 btree.Preorden()
 btree.Graficar(1)
+
+
+'''
+
+#-----------------Metodo para llamar al analizador-------------
+f = open('repo.txt', "r", encoding="utf-8")
+mensaje = f.read()
+print(mensaje)
+f.close()
+#¿Elements? ¿element type="user"?  ¿item Carnet="201700886" $?
+parser.parse('¿ Elements ? ¿element type = "user"?  ¿item Carnet = "201700886" $? ¿$element? ¿ $Elements ?')
+parser.parse(mensaje)
+
+user_list.getList()
+print("Preorden del AVL:")
+avl.pre_orden()
+print("------------------------")
+task_list.getList()
+avl.buscarDato(2015000)
+print(avl.buscarDato(201501785))
+listaAños.GraficarPrueba(2021,7,1,8)
+listaAños.GraficarPrueba(2021,7,14,10)
+listaAños.GraficarPrueba(2021,7,14,16)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficar_matriz(10)
+
+'''
+
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(1,8,10)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(1,11,2)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(14,10,3)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(14,16,4)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(10).tareas.graficarLista(21,8,5)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(10).tareas.graficarLista(21,13,6)
+'''
+
+
+
 
 
 

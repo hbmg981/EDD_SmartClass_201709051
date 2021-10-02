@@ -99,7 +99,6 @@
  	 	 ¿item Edad=" 20" $?
  	 	 ¿item Correo=" horacio.tejada15@yahoo.com" $?
  	 ¿$element?
-
 	 ¿element type="task"? 
  	 	 ¿item Carnet="201901425" $?
  	 	 ¿item Nombre=" Tarea de Matematica" $?
