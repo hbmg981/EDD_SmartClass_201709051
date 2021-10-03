@@ -52,6 +52,44 @@ class AVL:
         root.height = self.MAX(self.height(root.left), self.height(root.right)) + 1
         return root
 
+    def insertAños(self, carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado):
+        self.Root = self.insert_interAños(carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado, self.Root)
+
+    def insert_interAños(self, carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado,root):
+        if root is None:
+            print("No hay datos en el avl")
+            # cuando no hay datos en el avl, no hay carnet, lo primero que viene es una tarea
+            #Entonces no se puede insertar en la lista de años
+            #Nodo.lista.insertValue(año,semestre,mes,dia,hora,carnet, nombreTarea, descrip, materia, fecha, estado)
+        else:
+            #Cuando ya hay datos
+            if carnet < root.carnet:
+                root.left = self.insert_interAños(carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado, root.left)
+                if self.height(root.right) - self.height(root.left) == -2:
+                    if carnet < root.left.carnet:
+                        root = self.RD(root)
+                        print("Rotacion simple derecha")
+                    else:
+                        root = self.RID(root)
+                        print("Rotacion doble derecha")
+            elif carnet > root.carnet :
+                root.right = self.insert_interAños(carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado, root.right)
+                if self.height(root.right) - self.height(root.left) == 2:
+                    if carnet > root.right.carnet:
+                        root = self.RI(root)
+                        print("Rotacion simple izquierda")
+                    else:
+                        root = self.RDI(root)
+                        print("Rotacion doble izquierda")
+            else:
+                root.carnet = carnet
+
+        root.height = self.MAX(self.height(root.left), self.height(root.right)) + 1
+        return root
+
+
+
+
     def RD(self, node):
         aux = node.left
         node.left = aux.right
@@ -84,9 +122,9 @@ class AVL:
     def eliminarAVL(self,nodoActual, carnet):
         if nodoActual == None:
             return nodoActual
-        if carnet < nodoActual.carnet:
+        if int(carnet) < int (nodoActual.carnet):
             nodoActual.left = self.eliminarAVL(nodoActual.left,carnet)
-        elif carnet> nodoActual.carnet:
+        elif int(carnet) > int(nodoActual.carnet):
             nodoActual.right = self.eliminarAVL(nodoActual.right, carnet)
         else:
             if nodoActual.left ==None or nodoActual.right:
@@ -150,7 +188,7 @@ class AVL:
     def buscarDato(self, carnet):
         raiz = self.Root
         while int(raiz.carnet) != carnet:
-            if carnet < int(raiz.carnet):
+            if int(carnet) < int(raiz.carnet):
                 raiz = raiz.left
             else:
                 raiz = raiz.right
@@ -173,7 +211,7 @@ class AVL:
     def buscarRetornar(self, carnet):
         raiz = self.Root
         while int(raiz.carnet) != carnet:
-            if carnet < int(raiz.carnet):
+            if int(carnet) < int(raiz.carnet):
                 raiz = raiz.left
             else:
                 raiz = raiz.right
@@ -190,7 +228,7 @@ class AVL:
         else:
             print("No se encontro el carnet: "+ str(carnet))
 
-    def graficar(self, graf):
+    def graficar(self):
         grafo = "digraph"
         grafo += str("{\nnode[shape=record];\n")
         grafo += str("graph[pencolor=transparent];\n")
@@ -209,12 +247,12 @@ class AVL:
 
         grafo += str("}\n")
 
-        f = open("avldot"+str(graf)+".dot", 'w',encoding='utf-8')
+        f = open("avldot"+str(self.ngraf)+".dot", 'w',encoding='utf-8')
         f.write(grafo)
         f.close()
-        print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("dot -Tsvg -o avlg"+str(graf)+".svg avldot"+str(graf)+".dot")
-        #self.conta +=1
+        print("********* Se realizo Grafica  AVL *********  " + str(self.ngraf))
+        os.system("dot -Tsvg -o avlg"+str(self.ngraf)+".svg avldot"+str(self.ngraf)+".dot")
+        self.ngraf +=1
 
 
 

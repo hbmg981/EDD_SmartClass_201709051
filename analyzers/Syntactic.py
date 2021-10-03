@@ -28,7 +28,7 @@ names = {}
 
 def p_statement_group(t):
     'statement : LQUESTION TELEMENTS RQUESTION elementos LQUESTION DOLAR TELEMENTS RQUESTION'
-    print('Ok')
+    print('No se encontraron errores')
 
 def p_elementos_group(t):
     """elementos : elementos elemento
@@ -71,9 +71,11 @@ def p_elemento(t):
     else:
         #nueva_matriz.insertar(1, 5, 20210859, "nombre", "descripcion", "Materia", "Fecha", "estado")
         listaAños.insertValue(int(año),int(semestre), int(mes), int(dia), int(hora),element_node.Carnet,element_node.Nombre,element_node.Descripcion, element_node.Materia,element_node.Fecha, element_node.Estado )
+
         task_list.insertValue(element_node.Carnet, element_node.DPI, element_node.Nombre, element_node.Carrera, element_node.Password,
                               element_node.Creditos, element_node.Edad, element_node.Correo, element_node.Descripcion, element_node.Materia,
                               element_node.Fecha, hora, element_node.Estado)
+
     element_node.clean_values()
 
 def p_tipoElemento(t):

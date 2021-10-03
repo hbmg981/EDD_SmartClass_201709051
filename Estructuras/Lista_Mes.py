@@ -100,10 +100,10 @@ class ListaM:
         if eliminado:
             self.contador -=1
 
-    def graficarMatriz(self,carnet, año, mes):
+    def graficarM(self,mes, n):
         # graficar lista de tareas de la matriz
         #self.buscarRetornar(mes).buscarRetornar(dia,hora).lista.graficar(self.ngraf)
-        self.buscarRetornar(mes).graficar_matriz(self.ngraf)
+        self.buscarRetornar(mes).graficar_matriz(n)
 
         self.ngraf +=1
 

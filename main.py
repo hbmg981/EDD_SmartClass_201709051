@@ -8,6 +8,7 @@ from Estructuras.Lista_Mes import ListaM
 from Estructuras.Arbol_B.BTree import BTree
 from Estructuras.Lista_Sem import ListaSem
 import os
+import json
 '''
 
 
@@ -187,23 +188,6 @@ listaAños.GraficarPrueba(2021,7,14,10)
 listaAños.GraficarPrueba(2021,7,14,16)
 listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficar_matriz(10)
 
-
-
-'''
-
-
-
-'''
-
-listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(1,8,10)
-listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(1,11,2)
-listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(14,10,3)
-listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(14,16,4)
-listaAños.buscarRetornar(2021).mes.buscarRetornar(10).tareas.graficarLista(21,8,5)
-listaAños.buscarRetornar(2021).mes.buscarRetornar(10).tareas.graficarLista(21,13,6)
-'''
-
-
 #--------------PROBANDO DATOS DEL AVL-----------
 avl = AVL()
 avl.insert(120,123,"HEIDY", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
@@ -236,6 +220,60 @@ btree.Graficar(1)
 
 
 
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(1,8,10)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(1,11,2)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(14,10,3)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficarLista(14,16,4)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(10).tareas.graficarLista(21,8,5)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(10).tareas.graficarLista(21,13,6)
+
+
+simple = ListaSimple()
+simple.InsertarTarea(2047,"nombre","descrip","materia", "fecha","hora","estado")
+simple.InsertarTarea(2067,"heidy","tarea1","mate", "12/12/45","7:00","pendiente")
+simple.InsertarTarea(2087,"bea","tarea2","progra", "62/12/45","8:00","cumplido")
+simple.InsertarTarea(2060,"mira","tarea5","orga", "12/10/80","9:00","realizado")
+simple.getList()
+
+simple.Modificar(2060,2080,"elisa","tarea7","orga2", "10/10/80","9:00","realizado")
+print("\n *** Lista Final *** : ")
+simple.getList()
+simple.obtener(2067)
+simple.graficar(30)
+
+#-----------------Metodo para llamar al analizador-------------
+
+avl.buscarDato(2015000)
+print(avl.buscarDato(201501786))
+avl.graficar()
+avl.eliminar(201501786)
+avl.graficar()
+
+
+listaAños.GraficarPrueba(2021,7,1,8)
+listaAños.GraficarPrueba(2021,7,14,10)
+listaAños.GraficarPrueba(2021,7,14,16)
+listaAños.buscarRetornar(2021).mes.buscarRetornar(7).tareas.graficar_matriz(10)
+
+
+
+f = open('repo.txt', "r", encoding="utf-8")
+mensaje = f.read()
+print(mensaje)
+f.close()
+parser.parse(mensaje)
+
+user_list.getList()
+print("Preorden del AVL:")
+avl.pre_orden()
+avl.eliminar(201502186)
+print("------------------------")
+avl.pre_orden()
+task_list.getList()
+
+listaAños.GraficarDispersa(2021,10)
+
+'''
 
 
 
@@ -246,5 +284,32 @@ btree.Graficar(1)
 
 
 
+
+
+def CargaCursos(ruta):
+    with open(ruta) as contenido:
+        cursos = json.load(contenido)
+        print(cursos)
+        lista= cursos['Cursos']
+        print(lista)
+        for elemento in lista:
+            codigo= elemento['Codigo']
+            nombre = elemento['Nombre']
+            creditos= elemento['Creditos']
+            prerequisito= elemento['Prerequisitos']
+            obligatorio= elemento['Obligatorio']
+            print(elemento)
+            print(codigo)
+            print(nombre)
+            print(creditos)
+            print(prerequisito)
+            print(obligatorio)
+
+
+
+
+
+ruta="CursosPensum.json"
+CargaCursos(ruta)
 
 

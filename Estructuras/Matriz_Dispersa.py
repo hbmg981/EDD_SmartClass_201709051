@@ -177,7 +177,7 @@ class Matriz_dispersa:
         f = open("dispersa"+str(ngraf)+".dot", "w+")
         f.write(grafo)
         f.close()
-        print("********* Se realizo Grafica *********  ")
+        print("********* Se realizo Grafica MAtriz Dispersa *********  ")
         os.system("fdp -Tsvg -o disp"+str(ngraf)+".svg dispersa"+str(ngraf)+".dot")
         self.cont +=1
 

@@ -224,7 +224,8 @@ class BTree:
                 self.Preorden2(pagina.getApuntador(4))
 
 
-    def Graficar(self, ngraf):
+    def Graficar(self,ngraf):
+        ngraf+=1
         self.grafica = "digraph ArbolB { \n"
         self.grafica+= "\n\trankdir= TB;\n"
         self.grafica+= "node [color=\"blue\", style = \"rounded,filled\",fillcolor=lightgray, shape=record];\n"

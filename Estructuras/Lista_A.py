@@ -62,7 +62,7 @@ class ListaA:
             self.First = self.Last
             self.contador +=1
         else:
-            # Cuando ya hay datos en la lista
+            # Cuando ya hay datos en la lista pero el año no existe
             if self.buscar(año) == False:
                 new_node = NodoA(año)
                 self.Last.Next = new_node
@@ -75,7 +75,7 @@ class ListaA:
                 print("El año ya existia, insertando mes " + str(mes)+ " Y semestre "+ str(semestre))
                 self.buscarRetornar(año).semestre.Insertar(semestre)
 
-    def GraficarPrueba(self, año, mes, dia, hora):
+    def GraficarTareas(self, año, mes, dia, hora):
         if self.buscarRetornar(año) is not None:
             print("El año: " + str(año) + " Existe")
             if self.buscarRetornar(año).mes.buscarRetornar(mes) is not None:
@@ -94,6 +94,25 @@ class ListaA:
             print("El año: " + str(año) + " No Se encontro")
             print("Mostrando lista de años: ")
            # self.buscarRetornar(carnet).lista.getList()
+
+
+
+    def GraficarDispersa(self, año, mes):
+        if self.buscarRetornar(año) is not None:
+            print("El año: " + str(año) + " Existe")
+            if self.buscarRetornar(año).mes.buscarRetornar(mes) is not None:
+                print("El mes: " + str(mes) + " Existe")
+                self.buscarRetornar(año).mes.buscarRetornar(mes).tareas.graficar_matriz(self.conta)
+                self.conta+=1
+
+            else:
+                print("El mes: " + str(mes) + " No se encontro")
+        else:
+            print("El año: " + str(año) + " No Se encontro")
+            print("Mostrando lista de años: ")
+           # self.buscarRetornar(carnet).lista.getList()
+
+
 
     def eliminar(self, año):
         actual = self.First
@@ -187,6 +206,8 @@ class ListaA:
         print("********* Se realizo Grafica  Tareas *********  ")
         os.system("dot -Tsvg -o añog"+str(self.conta)+".svg año"+str(self.conta)+".dot")
         self.conta +=1
+
+
 
 
 
