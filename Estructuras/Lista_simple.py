@@ -117,5 +117,5 @@ class ListaSimple:
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("fdp -Tsvg -o tare"+str(ngraf)+".svg tarea"+str(ngraf)+".dot")
+        os.system("dot -Tsvg -o tare"+str(ngraf)+".svg tarea"+str(ngraf)+".dot")
         self.conta +=1

@@ -1,4 +1,5 @@
 from Estructuras.Nodo_AVL import Nodo
+import  os
 
 class AVL:
     def __init__(self):
@@ -189,57 +190,35 @@ class AVL:
         else:
             print("No se encontro el carnet: "+ str(carnet))
 
-    def graficar(self):
+    def graficar(self, graf):
         grafo = "digraph"
         grafo += str("{\nnode[shape=record];\n")
         grafo += str("graph[pencolor=transparent];\n")
-        grafo+=str("rankdir=LR;\n")
+        grafo+=str("rankdir=TB;\n")
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
 
 
         aux = self.Root
         cont = 0
 
-        while True:
-            info = "Carnet: "+ str(aux.carnet) + "\nNombre: "+ aux.nombre + "\nCarrera"+ aux.carrera
-            grafo += "\t nodo_"+str(cont)+ "[label = \"" + info + "\"];\n"
-            aux = aux.Next
-            cont +=1
-            if aux == None:
-                break
-        grafo += "\n"
-        if self.getSize() == 1:
-            grafo += "\t  \n"
-        else:
-            for i in range(1,self.getSize()):
-                grafo += "\tnodo_"+str(i-1)+"-> nodo_"+ str(i)+"\n"
-                grafo += "\tnodo_" + str(i ) + "-> nodo_" + str(i-1) + "\n"
+        if self.Root is not None:
 
+            grafo+=self.Root.textoLabel()
+            grafo+=self.Root.textoGraf()
 
 
         grafo += str("}\n")
-        tmp = self.conta
-        f = open("año"+str(self.conta)+".dot", "w+")
+
+        f = open("avldot"+str(graf)+".dot", 'w',encoding='utf-8')
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("fdp -Tpng -o añog"+str(self.conta)+".png año"+str(self.conta)+".dot")
-        self.conta +=1
+        os.system("dot -Tsvg -o avlg"+str(graf)+".svg avldot"+str(graf)+".dot")
+        #self.conta +=1
 
-    def textoG(self):
-        self.textoGraf(self.Root)
 
-    def textoGraf(self, raiz):
-        if raiz.left is None and raiz.right is None:
-            cadena = raiz.carnet
-            return cadena
-        else:
-            if raiz.left is not None:
-                texto = raiz.carnet +"->"+ self.textoGraf(raiz.left)+"\n"
 
-            if raiz.right is not None:
-                texto += raiz.carnet + "->" + self.textoGraf(raiz.right) + "\n"
-            return texto
+
 
 
 

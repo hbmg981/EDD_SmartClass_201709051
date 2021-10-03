@@ -142,5 +142,5 @@ class ListaSem:
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica de Semestres *********  " + str(ngraf))
-        os.system("fdp -Tsvg -o sem"+str(ngraf)+".svg semestre"+str(ngraf)+".dot")
+        os.system("dot -Tsvg -o sem"+str(ngraf)+".svg semestre"+str(ngraf)+".dot")
         self.conta +=1

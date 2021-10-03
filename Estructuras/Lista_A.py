@@ -185,7 +185,7 @@ class ListaA:
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("fdp -Tpng -o añog"+str(self.conta)+".png año"+str(self.conta)+".dot")
+        os.system("dot -Tsvg -o añog"+str(self.conta)+".svg año"+str(self.conta)+".dot")
         self.conta +=1
 
 

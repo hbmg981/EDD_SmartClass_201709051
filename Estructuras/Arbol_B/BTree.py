@@ -240,7 +240,7 @@ class BTree:
         f.write(self.grafica)
         f.close()
         print("********* Se realizo Grafica de Arbol B *********  ")
-        os.system("fdp -Tsvg -o Arbol" + str(ngraf) + ".svg ArbolB" + str(ngraf) + ".dot")
+        os.system("dot -Tsvg -o Arbol" + str(ngraf) + ".svg ArbolB" + str(ngraf) + ".dot")
 
 
     def Graficar2(self, pagina):

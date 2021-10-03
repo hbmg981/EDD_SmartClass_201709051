@@ -143,7 +143,7 @@ class ListaM:
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  Tareas *********  ")
-        os.system("fdp -Tpng -o mesg"+str(ngraf)+".png mes"+str(ngraf)+".dot")
+        os.system("dot -Tsvg -o mesg"+str(ngraf)+".svg mes"+str(ngraf)+".dot")
         self.conta +=1
 
 
