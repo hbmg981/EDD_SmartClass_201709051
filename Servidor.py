@@ -59,6 +59,7 @@ def reporte():
     if int(tipo) ==0:
         print("----- Mandar a graficar el arbol AVL... ----- ")
         avl.graficar()
+        return jsonify({"response": "Arbol AVL graficado"})
     elif int(tipo) ==1:
         print("----- Mandar a graficar MATRIZ con Carnet, Año, Mes... ----- ")
         listaAños.GraficarDispersa(año,mes)
@@ -68,6 +69,7 @@ def reporte():
     elif int(tipo) ==3:
         print("----- Mandar a graficar Arbol B de cursos... ----- ")
         bt.Graficar(0)
+        return jsonify({"response": "Graficando Arbol B de Cursos Pensum"})
     elif int(tipo) ==4:
         print("----- Mandar a graficar Arbol B de cursos de estudiante con Carnet, Año y Semestre... ----- ")
 
@@ -133,6 +135,11 @@ def ObtenerEstudiante():
     edad = avl.buscarRetornar(carnet).edad
     return jsonify({"Carnet":carnet2,"Nombre":nombre, "DPI":DPI,"Carrera":carrera,"Correo":correo,"Password":password,"Creditos":creditos,"Edad":edad})
 
+@app.route('/cursosPensum', methods=['POST'])
+def CrearCurso():
+    data = request.get_json(force=True)
+    CargaCursosServer(data)
+    return jsonify({"Cursos insertados"})
 
 
 
@@ -151,24 +158,33 @@ def CargaMasiva(ruta):
 def CargaCursos(ruta):
     with open(ruta) as contenido:
         cursos = json.load(contenido)
-        print(cursos)
+        #print(cursos)
         lista= cursos['Cursos']
-        print(lista)
+        #print(lista)
         for elemento in lista:
             codigo= elemento['Codigo']
             nombre = elemento['Nombre']
             creditos= elemento['Creditos']
             prerequisito= elemento['Prerequisitos']
             obligatorio= elemento['Obligatorio']
-            print(elemento)
-            print(codigo)
-            print(nombre)
-            print(creditos)
-            print(prerequisito)
-            print(obligatorio)
+
 
             bt.InsertarDatos(codigo,nombre,creditos,prerequisito,obligatorio)
 
+def CargaCursosServer(contenido):
+        cursos = contenido
+        #print(cursos)
+        lista= cursos['Cursos']
+        #print(lista)
+        for elemento in lista:
+            codigo= elemento['Codigo']
+            nombre = elemento['Nombre']
+            creditos= elemento['Creditos']
+            prerequisito= elemento['Prerequisitos']
+            obligatorio= elemento['Obligatorio']
+
+
+            bt.InsertarDatos(codigo,nombre,creditos,prerequisito,obligatorio)
 
 
 

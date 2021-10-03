@@ -228,7 +228,7 @@ class BTree:
         ngraf+=1
         self.grafica = "digraph ArbolB { \n"
         self.grafica+= "\n\trankdir= TB;\n"
-        self.grafica+= "node [color=\"blue\", style = \"rounded,filled\",fillcolor=lightgray, shape=record];\n"
+        self.grafica+= "node [color=\"mediumvioletred\", style = \"rounded,filled\",fillcolor=thistle1, shape=record];\n"
 
         self.Graficar2(self.Raiz)
         self.Graficar3(self.Raiz)
