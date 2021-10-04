@@ -28,19 +28,19 @@ class AVL:
             # cuando no hay datos en el avl
             return Nodo(carnet,dpi,nombre,carrera,correo,password,creditos,edad)
         else:
-            if carnet < root.carnet:
+            if int(carnet) < int(root.carnet):
                 root.left = self.insert_inter(carnet,dpi,nombre,carrera,correo,password,creditos,edad, root.left)
                 if self.height(root.right) - self.height(root.left) == -2:
-                    if carnet < root.left.carnet:
+                    if int(carnet) < int(root.left.carnet):
                         root = self.RD(root)
                         print("Rotacion simple derecha")
                     else:
                         root = self.RID(root)
                         print("Rotacion doble derecha")
-            elif carnet > root.carnet :
+            elif int(carnet) > int(root.carnet) :
                 root.right = self.insert_inter(carnet,dpi,nombre,carrera,correo,password,creditos,edad, root.right)
                 if self.height(root.right) - self.height(root.left) == 2:
-                    if carnet > root.right.carnet:
+                    if int(carnet) > int(root.right.carnet):
                         root = self.RI(root)
                         print("Rotacion simple izquierda")
                     else:
