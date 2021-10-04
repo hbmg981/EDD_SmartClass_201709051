@@ -137,8 +137,8 @@ def ModificarEstudiante():
     creditos= data['creditos']
     edad= data['edad']
 
-    #avl.insert(carnet,DPI,nombre,carrera,correo,password,creditos,edad)
-    return jsonify({"Estudiante Insertado la AVL"})
+    avl.Modificar(carnet,DPI,nombre,carrera,correo,password,creditos,edad)
+    return jsonify({"Estudiante Modificado AVL"})
 
 @app.route('/estudiante', methods=['DELETE'])
 def EliminarEstudiante():

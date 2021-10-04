@@ -254,6 +254,16 @@ class AVL:
         os.system("dot -Tsvg -o avlg"+str(self.ngraf)+".svg avldot"+str(self.ngraf)+".dot")
         self.ngraf +=1
 
+    def Modificar(self,carnet,dpi,nombre,carrera,correo,password,creditos,edad):
+        self.buscarRetornar(carnet).dpi = dpi
+        self.buscarRetornar(carnet).nombre = nombre
+        self.buscarRetornar(carnet).carrera =carrera
+        self.buscarRetornar(carnet).coreo = correo
+        self.buscarRetornar(carnet).password =password
+        self.buscarRetornar(carnet).creditos = creditos
+        self.buscarRetornar(carnet).edad = edad
+
+
 
 
 
