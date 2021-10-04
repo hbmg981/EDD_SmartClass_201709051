@@ -57,15 +57,17 @@ class ListaM:
             aux = aux.Previous
 
     def insertValue(self, mes,dia,hora,carnet, nombre, descrip, materia, fecha, estado):
-        new_node = NodoMes(mes)
+
         # Cuando no hay datos en la lista de meses
         if self.isEmpty():
+            new_node = NodoMes(mes)
             self.Last = new_node
             self.First = self.Last
             self.contador +=1
         else:
             # Cuando ya hay datos en la lista de meses
             if self.buscar(mes) == False:
+                new_node = NodoMes(mes)
                 self.Last.Next = new_node
                 new_node.Previous = self.Last
                 self.Last = new_node

@@ -95,7 +95,8 @@ class ListaSimple:
         cont = 0
 
         while True:
-            info = "Carnet: "+ str(aux.carnet) + "\\nNombre:"+ aux.nombre+ "\\nDescripcion:"+ aux.descrip
+            info = "Carnet: "+ str(aux.carnet) + "\\nNombre:"+ aux.nombre+ "\\nDescripcion:"+ aux.descrip+"\\nMateria: "+ aux.materia+"\\nFecha: "+ aux.fecha+"\\nHora: "+ str(aux.hora)+"\\nEstado: "+ aux.estado
+
             grafo += "\t nodo_"+str(cont)+ "[label = \"" + info + "\"];\n"
             aux = aux.next
             cont +=1

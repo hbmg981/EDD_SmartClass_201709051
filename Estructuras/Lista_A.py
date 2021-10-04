@@ -55,7 +55,7 @@ class ListaA:
 
     def insertValue(self, año,semestre,mes,dia,hora,carnet, nombre, descrip, materia, fecha, estado):
 
-        # Cuando hay datos en la lista
+        # Cuando no hay datos en la lista
         if self.isEmpty():
             new_node = NodoA(año)
             self.Last = new_node

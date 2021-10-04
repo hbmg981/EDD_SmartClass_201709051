@@ -62,11 +62,12 @@ def reporte():
         avl.graficar()
         return jsonify({"response": "Arbol AVL graficado"})
     elif int(tipo) ==1:
-        print("----- Mandar a graficar MATRIZ con Carnet, Año, Mes... ----- ")
+        print("----- Mandar a graficar MATRIZ con Carnet, Año:" + str(año)+ ", Mes: "+str(mes)+" ----- ")
         listaAños.GraficarDispersa(año,mes)
     elif int(tipo) ==2:
         print("----- Mandar a graficar Lista Tareas con Carnet, Año, Mes, Dia, Hora... ----- ")
-        listaAños.GraficarPrueba(año, mes, dia, hora)
+        listaAños.GraficarTareas(año, mes, dia, hora)
+
     elif int(tipo) ==3:
         print("----- Mandar a graficar Arbol B de cursos... ----- ")
         bt.Graficar(0)
@@ -92,6 +93,38 @@ def CrearEstudiante():
     avl.insert(carnet,DPI,nombre,carrera,correo,password,creditos,edad)
     return jsonify({"Estudiante Insertado la AVL"})
 
+@app.route('/recordatorios', methods=['POST'])
+def CrearRecordatorio():
+    data = request.get_json(force=True)
+    descripcion = data['descripcion']
+    carnet = data['carnet']
+    nombre= data['nombre']
+    materia= data['materia']
+    fecha= data['fecha']
+    hora= data['hora']
+    estado= data['estado']
+
+    fechan = fecha.split("/")
+    dia = fechan[0]
+    mes = fechan[1]
+    año = fechan[2]
+    horan = hora.split(":")
+    hora = horan[0]
+
+    if int(mes) >= 7:
+        semestre = 2
+    else:
+        semestre = 1
+
+    print(semestre)
+
+
+    listaAños.insertValue(año,semestre,mes,dia,hora,carnet,nombre,descripcion,materia,fecha,estado)
+    print(listaAños.buscarRetornar(año).mes.buscarRetornar(mes))
+    return jsonify({"Recordatorio Insertado"})
+
+
+
 @app.route('/estudiante', methods=['PUT'])
 def ModificarEstudiante():
     data = request.get_json(force=True)
@@ -109,15 +142,18 @@ def ModificarEstudiante():
 
 @app.route('/estudiante', methods=['DELETE'])
 def EliminarEstudiante():
-    data = request.get_json(force=True)
-    carnet = data['carnet']
+    try:
+        data = request.get_json(force=True)
+        carnet = data['carnet']
 
-    if avl.buscarRetornar(carnet) is not None:
-        avl.eliminar(carnet)
-        cadena= "Estudiante eliminado"
-    else:
-        cadena= "No se encontro el estudiante"
-    return jsonify({cadena})
+        if avl.buscarDato(carnet):
+            avl.eliminar(carnet)
+            return jsonify({"Estudiante eliminado"})
+        else:
+            cadena= "No se encontro el estudiante"
+            return jsonify({"Estudiante no eliminado"})
+    except:
+        return jsonify({"Verifique los datos"})
 
 
 @app.route('/estudiante', methods=['GET'])
@@ -192,8 +228,7 @@ def CargaCursosServer(contenido):
 def LlenarAVL():
     aux = user_list.First
     while aux is not None:
-        print(
-            aux.Carnet + " - " + aux.Nombre + "-" + aux.DPI + "-" + aux.Carrera + "-" + aux.Correo + "-" + aux.Edad)
+       # print( aux.Carnet + " - " + aux.Nombre + "-" + aux.DPI + "-" + aux.Carrera + "-" + aux.Correo + "-" + aux.Edad)
         avl.insert(aux.Carnet, aux.DPI, aux.Nombre, aux.Carrera,
                    aux.Correo, aux.Password, aux.Creditos, aux.Edad)
         aux = aux.Next
@@ -201,12 +236,14 @@ def LlenarAVL():
 def LlenarTarea():
     aux = task_list.First
     while aux is not None:
+
         fechan = aux.Fecha.split("/")
         dia = fechan[0]
         mes = fechan[1]
         año = fechan[2]
         horan = aux.Hora.split(":")
         hora = horan[0]
+
 
         if int(mes) >= 7:
             semestre = 2

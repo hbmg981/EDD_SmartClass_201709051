@@ -67,6 +67,8 @@ class Matriz_dispersa:
         # Cuando no existe ningun valor en la matriz
         if  self.NodoRaiz is None:
             nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
+            nodoN.lista.InsertarTarea(carnet, nombre, descrip, materia, fecha, hora, estado)
+            print("Insertando datos cuando no hay datos:  dia: " + str(dia) + " hora: " + str(hora))
             self.NodoRaiz = NodoRaiz()
             self.NodoRaiz.NodoColumnas=NodoCabecera(tipo="Columna",indice=dia)
             self.NodoRaiz.NodoFilas=NodoCabecera(tipo="Fila",indice=hora)
