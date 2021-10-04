@@ -67,8 +67,6 @@ class Matriz_dispersa:
         # Cuando no existe ningun valor en la matriz
         if  self.NodoRaiz is None:
             nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
-            nodoN.lista.InsertarTarea(carnet,nombre, descrip, materia, fecha, hora, estado)
-            print("Insertando datos:  dia: "+ str(dia)+ " hora: "+ str(hora))
             self.NodoRaiz = NodoRaiz()
             self.NodoRaiz.NodoColumnas=NodoCabecera(tipo="Columna",indice=dia)
             self.NodoRaiz.NodoFilas=NodoCabecera(tipo="Fila",indice=hora)
@@ -76,19 +74,22 @@ class Matriz_dispersa:
             self.NodoRaiz.NodoFilas.siguiente =None
             self.NodoRaiz.NodoColumnas.abajo=nodoN
             self.NodoRaiz.NodoFilas.derecha=nodoN
+            nodoN.lista.InsertarTarea(carnet, nombre, descrip, materia, fecha, hora, estado)
+            print("Insertando datos cuando no hay datos:  dia: " + str(dia) + " hora: " + str(hora))
         # Cuando ya hay elementos en la matriz
         else:
             #Cuando no existe nodo con ese dia y hora, se crea uno
+            nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
+            Nodotemporal = self.NodoRaiz
+            self.insertar_cabercera(Nodotemporal.NodoFilas, hora, "Fila")
+            Nodotemporal = self.NodoRaiz
+            self.insertar_cabercera(Nodotemporal.NodoColumnas, dia, "Columna")
+            self.insertar_nodo_fila(nodo=nodoN)
+            self.insertar_nodo_col(nodo=nodoN)
+
             if self.buscar(dia,hora) ==False:
-                nodoN = NodoMatriz(dia=dia, hora=hora, ntareas=self.contTarea)
                 nodoN.lista.InsertarTarea(carnet, nombre, descrip, materia, fecha, hora, estado)
-                print("Insertando datos:  dia: " + str(dia) + " hora: " + str(hora))
-                Nodotemporal = self.NodoRaiz
-                self.insertar_cabercera(Nodotemporal.NodoFilas, hora, "Fila")
-                Nodotemporal = self.NodoRaiz
-                self.insertar_cabercera(Nodotemporal.NodoColumnas, dia, "Columna")
-                self.insertar_nodo_fila(nodo=nodoN)
-                self.insertar_nodo_col(nodo=nodoN)
+                print("Insertando datos cuando ya hay datos:  dia: " + str(dia) + " hora: " + str(hora))
             else:
                 # implementar un metodo buscar y retornar el nodo repetido para acceder a su lista
                 print("el dato ya existia  dia: " + str(dia) + " hora: " + str(hora))

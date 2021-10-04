@@ -61,6 +61,8 @@ class ListaA:
             self.Last = new_node
             self.First = self.Last
             self.contador +=1
+            self.buscarRetornar(año).mes.insertValue(mes, dia, hora, carnet, nombre, descrip, materia, fecha, estado)
+            self.buscarRetornar(año).semestre.Insertar(semestre)
         else:
             # Cuando ya hay datos en la lista pero el año no existe
             if self.buscar(año) == False:
@@ -69,6 +71,9 @@ class ListaA:
                 new_node.Previous = self.Last
                 self.Last = new_node
                 self.contador += 1
+                self.buscarRetornar(año).mes.insertValue(mes, dia, hora, carnet, nombre, descrip, materia, fecha,
+                                                         estado)
+                self.buscarRetornar(año).semestre.Insertar(semestre)
             else:
                 #Cuando el año ya existe, se manda a llenar el mes y el semestre
                 self.buscarRetornar(año).mes.insertValue(mes,dia,hora,carnet, nombre, descrip, materia, fecha, estado)

@@ -5,7 +5,7 @@ from Estructuras.Matriz_Dispersa import Matriz_dispersa
 from Estructuras.AVL import AVL
 from Estructuras.Lista_simple import ListaSimple
 from analyzers.Syntactic import parser
-from analyzers.Syntactic import user_list, task_list, avl, listaAños
+from analyzers.Syntactic import user_list, task_list, listaAños
 from Estructuras.Lista_A import ListaA
 from Estructuras.Lista_Mes import ListaM
 from Estructuras.Arbol_B.BTree import BTree
@@ -13,6 +13,7 @@ from Estructuras.Lista_Sem import ListaSem
 import os
 
 bt= BTree()
+avl=AVL()
 
 
 app = Flask(__name__)
@@ -150,6 +151,8 @@ def CargaMasiva(ruta):
     f.close()
     parser.parse(mensaje)
     user_list.getList()
+    LlenarAVL()
+    LlenarTarea()
     print("Preorden del AVL:")
     avl.pre_orden()
     print("------------------------")
@@ -158,7 +161,7 @@ def CargaMasiva(ruta):
 def CargaCursos(ruta):
     with open(ruta) as contenido:
         cursos = json.load(contenido)
-        #print(cursos)
+        print(cursos)
         lista= cursos['Cursos']
         #print(lista)
         for elemento in lista:
@@ -186,8 +189,36 @@ def CargaCursosServer(contenido):
 
             bt.InsertarDatos(codigo,nombre,creditos,prerequisito,obligatorio)
 
+def LlenarAVL():
+    aux = user_list.First
+    while aux is not None:
+        print(
+            aux.Carnet + " - " + aux.Nombre + "-" + aux.DPI + "-" + aux.Carrera + "-" + aux.Correo + "-" + aux.Edad)
+        avl.insert(aux.Carnet, aux.DPI, aux.Nombre, aux.Carrera,
+                   aux.Correo, aux.Password, aux.Creditos, aux.Edad)
+        aux = aux.Next
 
+def LlenarTarea():
+    aux = task_list.First
+    while aux is not None:
+        fechan = aux.Fecha.split("/")
+        dia = fechan[0]
+        mes = fechan[1]
+        año = fechan[2]
+        horan = aux.Hora.split(":")
+        hora = horan[0]
 
+        if int(mes) >= 7:
+            semestre = 2
+        else:
+            semestre = 1
+
+        print(
+            aux.Carnet + " - " + aux.Nombre + "-" + aux.Descripcion + "-" + aux.Materia + "-" + aux.Fecha + "-" + aux.Estado)
+        listaAños.insertValue(int(año), int(semestre), int(mes), int(dia), int(hora), aux.Carnet,
+                              aux.Nombre, aux.Descripcion, aux.Materia, aux.Fecha,
+                              aux.Estado)
+        aux = aux.Next
 
 
 
@@ -197,5 +228,6 @@ if __name__ == "__main__":
    # matriz_dispersa()
     ruta="CursosPensum.json"
     CargaCursos(ruta)
+    #LlenarAVL()
 
 

@@ -60,7 +60,7 @@ class AVL:
             print("No hay datos en el avl")
             # cuando no hay datos en el avl, no hay carnet, lo primero que viene es una tarea
             #Entonces no se puede insertar en la lista de años
-            #Nodo.lista.insertValue(año,semestre,mes,dia,hora,carnet, nombreTarea, descrip, materia, fecha, estado)
+            self.buscarRetornar(carnet).lista.insertValue(año,semestre,mes,dia,hora,carnet, nombreTarea, descrip, materia, fecha, estado)
         else:
             #Cuando ya hay datos
             if carnet < root.carnet:

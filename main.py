@@ -178,9 +178,13 @@ parser.parse(mensaje)
 
 user_list.getList()
 print("Preorden del AVL:")
-avl.pre_orden()
+#avl.pre_orden()
 print("------------------------")
 task_list.getList()
+
+
+
+
 avl.buscarDato(2015000)
 print(avl.buscarDato(201501785))
 listaAños.GraficarPrueba(2021,7,1,8)
@@ -312,4 +316,31 @@ def CargaCursos(ruta):
 ruta="CursosPensum.json"
 CargaCursos(ruta)
 
+
+#-----------------Metodo para llamar al analizador-------------
+f = open('repo.txt', "r", encoding="utf-8")
+mensaje = f.read()
+print(mensaje)
+f.close()
+#¿Elements? ¿element type="user"?  ¿item Carnet="201700886" $?
+#parser.parse('¿ Elements ? ¿element type = "user"?  ¿item Carnet = "201700886" $? ¿$element? ¿ $Elements ?')
+parser.parse(mensaje)
+
+user_list.getList()
+
+
+def getList():
+    aux = user_list.First
+    while aux is not None:
+        print(
+            aux.Carnet + " - " + aux.Nombre + "-" + aux.DPI + "-" + aux.Descripcion + "-" + aux.Correo + "-" + aux.Hora)
+        aux = aux.Next
+
+
+print("Preorden del AVL:")
+#avl.pre_orden()
+print("------------------------")
+task_list.getList()
+user_list.getList()
+getList()
 
