@@ -79,7 +79,7 @@ class Hash:
         else:
             print("El carnet ya existe: ")
             nodoactual = self.retornar(carnet)
-            nlist = NodoLista(titulo,"contenido")
+            nlist = NodoLista(titulo,contenido)
             nodoactual.lista.append(nlist)
             print("Insertando datos, carnet: "+ str(carnet) +" info: "+ titulo)
             nodoactual.contlista += 1
@@ -228,14 +228,14 @@ class Hash:
         for i in self.vector:
             if i:
                 # print("indice:", i.indice, "carnet:", i.carnet)
-                grafo += "<f"+str(i.carnet)+">"+"\\n"+str(i.carnet)+"\\n"+"\\n"+" |"
+                grafo += "<f"+str(i.carnet)+">"+"\\n "+str(i.carnet)+" \\n"+"\\n"+" |"
 
             else:
                 grafo += "<f" +str(cont)+ ">" +"\\n"+"\\n"+"\\n"+ "|"
 
             cont += 1
         grafo+= "\",height=10.5]; \n"
-        grafo += "node [width = 2.5];\n"
+        grafo += "node [width = 3.5];\n"
         cont = 0
         for i in self.vector:
             if i:
@@ -256,9 +256,10 @@ class Hash:
                 grafo += "\t nodet:f" + str(i.carnet) + ""
                 a = 0
                 for x in i.lista:
-                    grafo += "-> "+"\t node"+str(i.carnet)+ "_" + str(a) + ""+"   \n"
+                    grafo += "\t-> "+"node"+str(i.carnet)+ "_" + str(a) + ""+""
                     # print("Apuntes: " + str(x.titulo) + " Contenido: " + x.contenido)
                     a += 1
+                grafo += "\n"
                 #grafo += "point_"+str(i.carnet)
             else:
                 print("indice:", contador, "carnet:", i)
@@ -294,6 +295,8 @@ tabla.insertar(174,  "10 valor 174", "realizar tarea")
 tabla.insertar(203,  "11 valor 203", "realizar tarea")
 tabla.insertar(232,  "12 valor 232", "realizar tarea")
 tabla.insertar(203,  "13 valor 203", "realizar tarea")
+
+
 
 #tabla.print()
 #tabla.print2()
