@@ -1,22 +1,24 @@
 
 
-
 #--------------PROBANDO DATOS DEL AVL-----------
 from Estructuras.AVL import AVL
 avl = AVL()
-avl.insert(120,123,"HEIDY", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
-avl.insert(105,123,"BEATRIZ", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
-avl.insert(185,123,"MIRANDA", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
-avl.insert(100,123,"GAMEZ", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
-avl.insert(95,123,"LOPEZ", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
-avl.insert(115,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
+avl.insert(120,123,"HEIDY", "SISTEMAS", "CORREO@GMAIL", "devnami", 25, 150)
+avl.insert(105,123,"BEATRIZ", "SISTEMAS", "CORREO@GMAIL", "12340", 20, 105)
+avl.insert(185,123,"MIRANDA", "SISTEMAS", "CORREO@GMAIL", "12341", 12, 125)
+avl.insert(100,123,"GAMEZ", "SISTEMAS", "CORREO@GMAIL", "12342", 16, 155)
+avl.insert(95,123,"LOPEZ", "SISTEMAS", "CORREO@GMAIL", "12343", 19, 175)
+avl.insert(115,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "12344", 22, 195)
 avl.pre_orden()
 print("------- DESPUES DE ELIMINAR -----------")
-avl.eliminar(115)
-avl.insert(103,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
-avl.pre_orden()
+#avl.eliminar(115)
+avl.insert(103,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "51234", 23, 135)
+avl._pre_orden()
+avl._graficar()
 avl.graficar()
 
+
+'''
 #-------------Probando el arbol B -----------------------
 from Estructuras.Arbol_B.BTree import BTree
 btree = BTree()
@@ -34,7 +36,11 @@ btree.Graficar(1)
 
 
 
-'''
+
+
+
+
+
 import json
 
 from flask import Flask, request, jsonify
@@ -53,21 +59,7 @@ def hello_world():
     cadena="Welcome to SmartClass "
     return jsonify({"response":cadena})
 
-@app.route('/carga', methods=['POST'])
-def carga():
-    data = request.get_json(force=True)
-    tipo = data['tipo']
-    path = data['path']
-    print("el tipo es: ",tipo)
-    print("el path es: ",path)
-    if tipo == "estudiante" or tipo=="recordatorio":
-        print("Mandamos a llamar al analizador con la ruta")
-        CargaMasiva(path)
-    elif tipo =="curso":
-        print("Mandamos a leer el archivo .json")
-        CargaCursos(path)
 
-    return jsonify({"response":"informacion recibida"})
 
 @app.route('/reporte', methods=['GET'])
 def reporte():
@@ -209,7 +201,6 @@ def CrearCurso():
     return jsonify({"Cursos insertados"})
 
 
-
 def CargaMasiva(ruta):
     f = open(ruta, "r", encoding="utf-8")
     mensaje = f.read()
@@ -262,6 +253,7 @@ def LlenarAVL():
         avl.insert(aux.Carnet, aux.DPI, aux.Nombre, aux.Carrera,
                    aux.Correo, aux.Password, aux.Creditos, aux.Edad)
         aux = aux.Next
+
 
 def LlenarTarea():
     aux = task_list.First

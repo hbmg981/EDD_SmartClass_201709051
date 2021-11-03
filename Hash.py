@@ -280,9 +280,10 @@ class Hash:
 
 
 
-tabla = Hash()
+#tabla = Hash()
 #tabla.graficarHash()
-tabla.insertar(0, "primera clase", "realizar tarea")
+'''
+tabla.insertar(0, "", "")
 tabla.insertar(15,  "segundo valor 15", "realizar tarea")
 tabla.insertar(29,  "tercer valor 29", "realizar tarea")
 tabla.insertar(44,  "4to valor 44", "realizar tarea")
@@ -295,10 +296,11 @@ tabla.insertar(174,  "10 valor 174", "realizar tarea")
 tabla.insertar(203,  "11 valor 203", "realizar tarea")
 tabla.insertar(232,  "12 valor 232", "realizar tarea")
 tabla.insertar(203,  "13 valor 203", "realizar tarea")
+'''
 
 
 
 #tabla.print()
 #tabla.print2()
 #print(tabla.buscar(365))
-tabla.graficarHash2()
+#tabla.graficarHash2()

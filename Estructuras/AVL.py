@@ -1,5 +1,10 @@
-from Estructuras.Nodo_AVL import Nodo
+from Estructuras.Nodo_AVL import Nodo,f
 import  os
+#from cryptography.fernet import Fernet
+
+#key = Fernet.generate_key()
+#f = Fernet(key)
+import hashlib
 
 class AVL:
     def __init__(self):
@@ -20,12 +25,22 @@ class AVL:
         else:
             return -1
 
-    def insert(self, carnet,dpi,nombre,carrera,correo,password,creditos,edad):
-        self.Root = self.insert_inter(carnet,dpi,nombre,carrera,correo,password,creditos,edad, self.Root)
+    def insert(self, carnet,dpi,nombre,carrera,correo,password,edad,creditos=0):
+        dpi_ = f.encrypt(str(dpi).encode())
+        nombre_ = f.encrypt(nombre.encode())
+        correo_ = f.encrypt(correo.encode())
+        paw = bytes(password,"ascii")
+        passw = hashlib.sha256(paw)
+        passw_hex = passw.hexdigest()
+        #print(passw_hex)
+        password_ = f.encrypt(passw_hex.encode())
+        edad_ = f.encrypt(str(edad).encode())
+        self.Root = self.insert_inter(carnet,dpi_,nombre_,carrera,correo_,password_,creditos,edad_, self.Root)
 
     def insert_inter(self, carnet,dpi,nombre,carrera,correo,password,creditos,edad ,root):
         if root is None:
             # cuando no hay datos en el avl
+            #carnet_ = f.encrypt(str(carnet).encode())
             return Nodo(carnet,dpi,nombre,carrera,correo,password,creditos,edad)
         else:
             if int(carnet) < int(root.carnet):
@@ -51,42 +66,6 @@ class AVL:
 
         root.height = self.MAX(self.height(root.left), self.height(root.right)) + 1
         return root
-
-    def insertAños(self, carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado):
-        self.Root = self.insert_interAños(carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado, self.Root)
-
-    def insert_interAños(self, carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado,root):
-        if root is None:
-            print("No hay datos en el avl")
-            # cuando no hay datos en el avl, no hay carnet, lo primero que viene es una tarea
-            #Entonces no se puede insertar en la lista de años
-            self.buscarRetornar(carnet).lista.insertValue(año,semestre,mes,dia,hora,carnet, nombreTarea, descrip, materia, fecha, estado)
-        else:
-            #Cuando ya hay datos
-            if carnet < root.carnet:
-                root.left = self.insert_interAños(carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado, root.left)
-                if self.height(root.right) - self.height(root.left) == -2:
-                    if carnet < root.left.carnet:
-                        root = self.RD(root)
-                        print("Rotacion simple derecha")
-                    else:
-                        root = self.RID(root)
-                        print("Rotacion doble derecha")
-            elif carnet > root.carnet :
-                root.right = self.insert_interAños(carnet,año,semestre,mes,dia,hora, nombreTarea, descrip, materia, fecha, estado, root.right)
-                if self.height(root.right) - self.height(root.left) == 2:
-                    if carnet > root.right.carnet:
-                        root = self.RI(root)
-                        print("Rotacion simple izquierda")
-                    else:
-                        root = self.RDI(root)
-                        print("Rotacion doble izquierda")
-            else:
-                root.carnet = carnet
-
-        root.height = self.MAX(self.height(root.left), self.height(root.right)) + 1
-        return root
-
 
 
 
@@ -202,10 +181,24 @@ class AVL:
 
     def pre_orden_intern(self, root):
         if root is not None:
-            print("CARNET: "+ str(root.carnet) + " NOMBRE: "+ root.nombre+ " Año: ")
+            #f.decrypt(root.nombre).decode()
+            print("CARNET: "+ str(root.carnet) + " NOMBRE: "+ f.decrypt(root.nombre).decode())
             #root.lista.getList()
             self.pre_orden_intern(root.left)
             self.pre_orden_intern(root.right)
+
+
+    def _pre_orden(self):
+        self._pre_orden_intern(self.Root)
+
+    def _pre_orden_intern(self, root):
+        if root is not None:
+            #f.decrypt(root.nombre).decode()
+            carnet = f.encrypt(str(root.carnet).encode())
+            print("CARNET: "+ str(carnet)[0:20] + " NOMBRE: "+ str(root.nombre)[0:20])
+            #root.lista.getList()
+            self._pre_orden_intern(root.left)
+            self._pre_orden_intern(root.right)
 
 
     def buscarRetornar(self, carnet):
@@ -263,6 +256,31 @@ class AVL:
         self.buscarRetornar(carnet).creditos = creditos
         self.buscarRetornar(carnet).edad = edad
 
+    def _graficar(self):
+        grafo = "digraph"
+        grafo += str("{\nnode[shape=record];\n")
+        grafo += str("graph[pencolor=transparent];\n")
+        grafo+=str("rankdir=TB;\n")
+        grafo += str("node [style=filled,fillcolor=thistle1];\n")
+
+
+        aux = self.Root
+        cont = 0
+
+        if self.Root is not None:
+
+            grafo+=self.Root._textoLabel()
+            grafo+=self.Root._textoGraf()
+
+
+        grafo += str("}\n")
+
+        f = open("avldot"+str(self.ngraf)+".dot", 'w',encoding='utf-8')
+        f.write(grafo)
+        f.close()
+        print("********* Se realizo Grafica  AVL *********  " + str(self.ngraf))
+        os.system("dot -Tsvg -o avlg"+str(self.ngraf)+".svg avldot"+str(self.ngraf)+".dot")
+        self.ngraf +=1
 
 
 
