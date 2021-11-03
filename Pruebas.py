@@ -1,4 +1,9 @@
 
+
+
+
+'''
+
 #-------------Probando el arbol B -----------------------
 from Estructuras.Arbol_B.BTree import BTree
 btree = BTree()
@@ -13,11 +18,6 @@ btree.InsertarDatos(110,"Beatriz",240,"Io1","No")
 btree.InsertarDatos(150,"Beatriz",240,"Io1","No")
 btree.Preorden()
 btree.Graficar()
-
-
-
-'''
-
 
 #--------------PROBANDO DATOS DEL AVL-----------
 from Estructuras.AVL import AVL
