@@ -59,7 +59,7 @@ class Hash:
     def insertar(self, carnet, titulo, contenido):
         if self.buscar(carnet)==False:
             posicion = self.funcion_hash(carnet)
-            nuevo = Nodo(posicion, carnet)
+            nuevo = Nodo(posicion, int(carnet))
             self.vector[posicion] = nuevo
             self.elementos += 1
             self.factorCarga = self.elementos / self.tamano
@@ -119,11 +119,11 @@ class Hash:
         self.vector = temporal
 
     def _funcion_hash(self, id):
-        return id % self.tamano
+        return int(id) % self.tamano
 
     def funcion_hash(self, id):
 
-        posicion = id % (self.tamano)
+        posicion = int(id) % (self.tamano)
         #print("El tamano actual es: "+ str(self.tamano)+ " La posicion es: "+ str(posicion))
 
         k= posicion

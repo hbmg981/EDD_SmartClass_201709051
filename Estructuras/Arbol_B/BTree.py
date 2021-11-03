@@ -8,6 +8,7 @@ class BTree:
         self.obligario = ""
         self.prerequisitos = ""
         self.creditos = 0
+        self.ngraf =0
 
         self.aux2 = None
         self.aux1 = False
@@ -224,8 +225,8 @@ class BTree:
                 self.Preorden2(pagina.getApuntador(4))
 
 
-    def Graficar(self,ngraf):
-        ngraf+=1
+    def Graficar(self):
+        self.ngraf+=1
         self.grafica = "digraph ArbolB { \n"
         self.grafica+= "\n\trankdir= TB;\n"
         self.grafica+= "node [color=\"mediumvioletred\", style = \"rounded,filled\",fillcolor=thistle1, shape=record];\n"
@@ -237,11 +238,11 @@ class BTree:
 
         #mandar a graficar
 
-        f = open("ArbolB" + str(ngraf) + ".dot", "w+")
+        f = open("ArbolB" + str(self.ngraf) + ".dot", "w+")
         f.write(self.grafica)
         f.close()
         print("********* Se realizo Grafica de Arbol B *********  ")
-        os.system("dot -Tsvg -o Arbol" + str(ngraf) + ".svg ArbolB" + str(ngraf) + ".dot")
+        os.system("dot -Tsvg -o Arbol" + str(self.ngraf) + ".svg ArbolB" + str(self.ngraf) + ".dot")
 
 
     def Graficar2(self, pagina):

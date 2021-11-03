@@ -92,11 +92,6 @@ def CargaApuntes(ruta):
 
 
 
-
-
-
-
-
 def CargaEstudiantes(ruta):
     try:
         with open(ruta, 'r', encoding='utf8') as contenido:
@@ -121,6 +116,59 @@ def CargaEstudiantes(ruta):
         print("Ocurrio un error")
         return "Ha ocurrido un error, verifique los datos"
 
+@app.route('/reporte', methods=['GET'])
+def reporte():
+    data = request.get_json(force=True)
+    tipo = data['tipo']
+    carnet = data['carnet']
+    año= data['año']
+    semestre= data['semestre']
+    mes= data['mes']
+    dia= data['dia']
+    hora= data['hora']
+
+    '''print("el tipo es: ",tipo)
+    print("el carnet es: ", carnet)
+    print("año es: ",año)
+    print("el semestre es: ",semestre)
+    print("el mes es: ",mes )
+    print("el dia es: ",dia)
+    print("la hora es:",hora )'''
+    if int(tipo) ==0:
+        #print("----- Mandar a graficar el arbol AVL... ----- ")
+        try:
+            avl.graficar()
+            return jsonify({"response": "Arbol AVL graficado"})
+        except:
+            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+    elif int(tipo) ==1:
+        try:
+            bt.Graficar()
+            return jsonify({"response": "Arbol B graficado"})
+        except:
+            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+    elif int(tipo) ==2:
+        try:
+            hash.graficarHash2()
+            return jsonify({"response": "Tabla de apuntes graficada"})
+        except:
+            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+
+    elif int(tipo) ==3:
+        try:
+            avl._graficar()
+            return jsonify({"response": "Arbol AVL Cifrado graficado"})
+        except:
+            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+    elif int(tipo) ==4:
+        try:
+
+            return jsonify({"response": "Arbol AVL graficado"})
+        except:
+            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+
+
+    #return jsonify({"response":"informacion recibida"})
 
 
 
