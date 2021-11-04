@@ -5,6 +5,12 @@ from Estructuras.AVL import AVL
 from Estructuras.Arbol_B.BTree import BTree
 from Hash import Hash
 import os
+from Estructuras.ListaAdyacencia import ListaAdyacencia
+
+ad = ListaAdyacencia()
+
+#ad.insert_node(101,"Mate Basica 1",1)
+#ad.link_graph(101,103)
 
 bt= BTree()
 avl=AVL()
@@ -62,8 +68,10 @@ def CargaCursos(ruta):
                 creditos = elemento['Creditos']
                 prerequisito = elemento['Prerequisitos']
                 obligatorio = elemento['Obligatorio']
+                
 
                 bt.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
+
         return "Carga de cursos Pensum realizada correctamente"
     except:
         print("Ocurrio un error")
@@ -204,21 +212,52 @@ def reporte():
 
     #return jsonify({"response":"informacion recibida"})
 
-@app.route('/estudiante', methods=['POST'])
+@app.route('/registro', methods=['POST'])
 def CrearEstudiante():
     data = request.get_json(force=True)
-    DPI = data['DPI']
-    carnet = data['carnet']
-    nombre= data['nombre']
-    carrera= data['carrera']
-    correo= data['correo']
-    password= data['password']
-    creditos= data['creditos']
-    edad= data['edad']
+    respuesta = CrearEstudianteServer(data)
+    return jsonify({"response": respuesta})
 
-    avl.insert(carnet,DPI,nombre,carrera,correo,password,edad,creditos)
-    return jsonify({"Estudiante Insertado al AVL"})
+def CrearEstudianteServer(data):
+    try:
+        DPI = data['DPI']
+        carnet = data['carnet']
+        nombre= data['nombre']
+        carrera= data['carrera']
+        correo= data['correo']
+        password= data['password']
+        creditos= data['creditos']
+        edad= data['edad']
 
+        avl.insert(carnet,DPI,nombre,carrera,correo,password,edad,creditos)
+        return "Estudiante Insertado al AVL"
+    except:
+        return "Hubo un error al intentar insertar los datos"
+
+
+@app.route('/crearApunte', methods=['POST'])
+def CrearApunte():
+    data = request.get_json(force=True)
+    respuesta = CrearApunteServer(data)
+    return jsonify({"response": respuesta})
+
+def CrearApunteServer(data):
+    try:
+        apuntes = data
+        print(apuntes)
+        lista = apuntes['usuarios']
+        print(lista)
+        for elemento in lista:
+            carnet = elemento['carnet']
+            lista_apuntes = elemento['apuntes']
+            for apunte in lista_apuntes:
+                titulo = apunte['Título']
+                contenido = apunte['Contenido']
+                print("Carnet:", carnet, "titulo:", titulo, "Contenido:", contenido)
+                hash.insertar(carnet, titulo, contenido)
+        return "Apunte Insertado en la tabla"
+    except:
+        return "Hubo un error al intentar insertar los datos"
 
 @app.route('/cursosPensum', methods=['POST'])
 def CrearCurso():

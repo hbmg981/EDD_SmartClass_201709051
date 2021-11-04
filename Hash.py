@@ -224,18 +224,19 @@ class Hash:
 
         cont = 0
 
-        grafo += " nodet [label = \""
+        grafo += " nodet [label = \"Carnet:"
         for i in self.vector:
             if i:
                 # print("indice:", i.indice, "carnet:", i.carnet)
-                grafo += "<f"+str(i.carnet)+">"+"\\n "+str(i.carnet)+" \\n"+"\\n"+" |"
+                grafo +=" |" +"<f"+str(i.carnet)+">"+"\\n "+str(i.carnet)+" \\n"+"\\n"
 
             else:
-                grafo += "<f" +str(cont)+ ">" +"\\n"+"\\n"+"\\n"+ "|"
+                grafo += "|"+ "<f" +str(cont)+ ">" +"\\n"+"\\n"+"\\n"
 
             cont += 1
-        grafo+= "\",height=10.5]; \n"
-        grafo += "node [width = 3.5];\n"
+            #height=10.5
+        grafo+= "\" ]; \n"
+        #grafo += "node [width = 3.5];\n"
         cont = 0
         for i in self.vector:
             if i:

@@ -1,5 +1,26 @@
+from Estructuras.ListaAdyacencia import ListaAdyacencia
+
+ad = ListaAdyacencia()
+
+ad.insert_node(101,"Mate Basica 1",1)
+
+ad.insert_node(103,"Mate Basica 2",2)
+ad.insert_node(107,"Mate intermedia 1",3)
+ad.insert_node(770,"Introduccion a la programacion",4)
+ad.insert_node(771,"Intro a la Progra2", 5)
+ad.insert_node(795,"Logica de sistemas",6)
+ad.insert_node(960,"Mate Computo 1",6)
+ad.link_graph(101,103)
+ad.link_graph(101,103)
+ad.link_graph(103,770)
+ad.link_graph(103,107)
+ad.link_graph(103,795)
+ad.link_graph(103,960)
+ad.link_graph(107,771)
 
 
+ad.get_list()
+ad.graficar()
 
 
 '''

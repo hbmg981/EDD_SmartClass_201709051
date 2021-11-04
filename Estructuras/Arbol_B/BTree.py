@@ -100,7 +100,7 @@ class BTree:
 
         return auxContador
 
-    def BuscarNodoB(self,codigo,raiz ):
+    def BuscarNodoB(self,codigo,raiz):
         auxContador = 0
 
         if codigo < raiz.getCodigo(0):
