@@ -238,7 +238,7 @@ class BTree:
 
         #mandar a graficar
 
-        f = open("ArbolB" + str(self.ngraf) + ".dot", "w+")
+        f = open("ArbolB" + str(self.ngraf) + ".dot", "w+", encoding='utf8')
         f.write(self.grafica)
         f.close()
         print("********* Se realizo Grafica de Arbol B *********  ")

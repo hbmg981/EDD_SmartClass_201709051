@@ -57,7 +57,7 @@ def carga():
 
 def CargaCursos(ruta):
     try:
-        with open(ruta, 'r', encoding='utf8') as contenido:
+        with open(ruta, 'r', encoding='utf-8') as contenido:
             cursos = json.load(contenido)
             print(cursos)
             lista = cursos['Cursos']
@@ -68,8 +68,20 @@ def CargaCursos(ruta):
                 creditos = elemento['Creditos']
                 prerequisito = elemento['Prerequisitos']
                 obligatorio = elemento['Obligatorio']
-                
 
+                print("Codigo:",codigo,"Nombre:",nombre,"Creditos",creditos,"Prerequisito",prerequisito,"Obligatorio:",obligatorio)
+
+                ad.insert_node(codigo, nombre, creditos, prerequisito, str(obligatorio))
+                if prerequisito == "":
+                    print(" No tiene prerequisitos, solo se inserta")
+
+                    # ad.link_graph(101,103)
+                else:
+                    print("Hacer split")
+                    arreglo = prerequisito.split(',')
+                    for x in arreglo:
+                        #print(x)
+                        ad.link_graph(codigo,x )
                 bt.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
 
         return "Carga de cursos Pensum realizada correctamente"
@@ -204,8 +216,9 @@ def reporte():
             return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
     elif int(tipo) ==4:
         try:
-
-            return jsonify({"response": "Arbol AVL graficado"})
+            #ad.get_list()
+            ad.graficar()
+            return jsonify({"response": "Grafo de Cursos graficado"})
         except:
             return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
 

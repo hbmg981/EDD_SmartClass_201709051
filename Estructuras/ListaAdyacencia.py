@@ -30,10 +30,10 @@ class ListaAdyacencia:
         return False
 
 
-    def insert_node(self, codigo, nombre, creditos):
+    def insert_node(self, codigo, nombre, creditos, prerequisito,obligatorio):
         if not self.exists(codigo):
             new_list = Lista()
-            new_node = NodoG(codigo,nombre,creditos, new_list)
+            new_node = NodoG(codigo,nombre,creditos,prerequisito,obligatorio, new_list)
 
             if self.is_empty():
                 self.Last = new_node
@@ -47,18 +47,20 @@ class ListaAdyacencia:
 
     def link_graph(self, codigo1, codigo2):
         aux = self.First
-        while aux is not None:
+        '''while aux is not None:
             if aux.codigo == codigo1:
                 aux.lista.insertValue(codigo2)
                 #print("Insertando valor: ",codigo2, "en:", codigo1)
                 break
+            aux = aux.Next'''
+
+        while aux is not None :
+            if aux.codigo == codigo2:
+                aux.lista.insertValue(codigo1)
+                break
             aux = aux.Next
 
-        '''while aux is not None :
-            if aux.codigo == codigo2:
-                aux.lista.insertValue(codigo1, "Nombre",0)
-                break
-            aux = aux.Next'''
+
     def get_list(self):
         aux = self.First
         counter =0
@@ -70,14 +72,15 @@ class ListaAdyacencia:
                     #print("El codigo deberia estar aqui",aux2.codigo)
                     adjacency_list += "--"+str(aux.creditos)+"->" + str(aux2.codigo)
                     aux2=aux2.Next
-            print (str(counter)+")"+str(aux.codigo)+" Nombre:"+aux.nombre+":  " + adjacency_list)
+            print(str(counter)+")"+str(aux.codigo)+" Nombre:"+aux.nombre+"Creditos: " + str(aux.creditos)
+                   + "Prerequisitos"+aux.prerequisitos+"Obligatorio"+aux.obligatorio)
             adjacency_list = ""
             counter+=1
             aux = aux.Next
 
     def graficar(self):
         grafo = "digraph\n"
-        grafo += str("{\nnode[shape=record];\n")
+        grafo += str("{\nnode[shape=component];\n")
         # grafo += str("graph[pencolor=transparent];\n")
         grafo+=str("rankdir=LR\n")
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
@@ -86,7 +89,9 @@ class ListaAdyacencia:
         cont = 0
 
         while True:
-            info = "" + str(aux.codigo)+ "\\n"+ aux.nombre
+            info = "" + str(aux.codigo)+ "\\n"+ aux.nombre\
+                   +"\\nCreditos: "+ str(aux.creditos)+ "\\n"+ "Prerequisitos: "+aux.prerequisitos\
+                   + "\\n"+ "Obligatorio: "+aux.obligatorio
             grafo += "\t nodo_" +str(aux.codigo) + "[label = \"" + info + "\"];\n"
             aux = aux.Next
             cont += 1
@@ -113,7 +118,7 @@ class ListaAdyacencia:
 
         grafo += str("}\n")
         tmp = self.ngraf
-        f = open("grafo" + str(tmp) + ".dot", "w+")
+        f = open("grafo" + str(tmp) + ".dot", "w+", encoding='utf-8')
         f.write(grafo)
         f.close()
         print("********* Se realizo Grafica  *********  " + str(tmp))

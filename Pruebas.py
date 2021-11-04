@@ -1,29 +1,50 @@
 from Estructuras.ListaAdyacencia import ListaAdyacencia
+from Estructuras.Arbol_B import BTree
+import json
+#ad = ListaAdyacencia()
 
-ad = ListaAdyacencia()
 
-ad.insert_node(101,"Mate Basica 1",1)
 
-ad.insert_node(103,"Mate Basica 2",2)
-ad.insert_node(107,"Mate intermedia 1",3)
-ad.insert_node(770,"Introduccion a la programacion",4)
-ad.insert_node(771,"Intro a la Progra2", 5)
-ad.insert_node(795,"Logica de sistemas",6)
-ad.insert_node(960,"Mate Computo 1",6)
-ad.link_graph(101,103)
-ad.link_graph(101,103)
-ad.link_graph(103,770)
-ad.link_graph(103,107)
-ad.link_graph(103,795)
-ad.link_graph(103,960)
-ad.link_graph(107,771)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+
+ad.insert_node(101,"Mate Basica 1",1,"a","si")
+
+ad.insert_node(103,"Mate Basica 2",2,"b","no")
+ad.insert_node(107,"Mate intermedia 1",3,"c","no")
+ad.insert_node(770,"Introduccion a la programacion",4,"d","si")
+ad.insert_node(771,"Intro a la Progra2", 5,"e","si")
+ad.insert_node(795,"Logica de sistemas",6,"f","si")
+ad.insert_node(960,"Mate Computo 1",6,"g","si")
+
+ad.link_graph(103,101)
+ad.link_graph(770,103)
+ad.link_graph(107,103)
+ad.link_graph(795,103)
+ad.link_graph(960,103)
+ad.link_graph(771,107)
 
 
 ad.get_list()
 ad.graficar()
 
 
-'''
+
+
 
 #-------------Probando el arbol B -----------------------
 from Estructuras.Arbol_B.BTree import BTree
@@ -309,5 +330,49 @@ if __name__ == "__main__":
     ruta="CursosPensum.json"
     CargaCursos(ruta)
     #LlenarAVL()
+    
+    
+    
+    def CargaCursos(ruta):
+    ad = ListaAdyacencia()
+    bt = BTree()
+    try:
+        with open(ruta, 'r', encoding='utf-8') as contenido:
+            cursos = json.load(contenido)
+            print(cursos)
+            lista = cursos['Cursos']
+            # print(lista)
+            for elemento in lista:
+                codigo = elemento['Codigo']
+                nombre = elemento['Nombre']
+                creditos = elemento['Creditos']
+                prerequisito = elemento['Prerequisitos']
+                obligatorio = elemento['Obligatorio']
+
+                ad.insert_node(codigo, nombre, creditos, prerequisito, obligatorio)
+                if prerequisito == "":
+                    print(" No tiene prerequisitos, solo se inserta")
+
+                    # ad.link_graph(101,103)
+                else:
+                    print("Hacer split")
+                    arreglo = prerequisito.split(',')
+                    for x in arreglo:
+                        #print(x)
+                        ad.link_graph(codigo,x )
+                bt.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
+
+        return "Carga de cursos Pensum realizada correctamente"
+    except:
+        print("Ocurrio un error")
+        return "Ha ocurrido un error, verifique los datos"
+
+
+path = "C:\\Users\\Compu Fire\\Downloads\\CursosPensum.json"
+respuesta=CargaCursos(path)
+print(respuesta)
+
+    
+    
     '''
 
