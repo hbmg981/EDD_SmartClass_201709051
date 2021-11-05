@@ -35,6 +35,7 @@ def generar():
     respuesta="Se ha generado la llave de encriptacion"
     return jsonify({"response": respuesta})
 
+
 @app.route('/login')
 def login():
     return "Aqui ira la pagina de inicio"
@@ -249,12 +250,12 @@ def reporte():
                 return jsonify({"response": "Grafo de Cursos graficado"})
             except:
                 return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
-        elif int(tipo) ==6:
+        elif int(tipo) ==8:
             try:
                 #ad.get_list()
                 print("Carnet encontrado en posicion:", hash.buscarposicion(carnet))
-                info = "Carnet encontrado en posicion:"+ str(hash.buscarposicion(carnet))
-                return jsonify({"response":info })
+                info = "Carnet encontrado en posicion:  "+ str(hash.buscarposicion(carnet))
+                return jsonify({"response: ":info })
             except:
                 return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
         elif int(tipo) ==7:
@@ -267,6 +268,25 @@ def reporte():
                 return jsonify({"response":info })
             except:
                 return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==6:
+            try:
+                info2 = ""
+                info ="--- Lista de Apuntes -----"
+                contador = 1
+                if hash.buscar(carnet):
+                    car = hash.retornar(carnet)
+                    for x in car.lista:
+                        info+= "\n"+str(contador)+") "+"\n\t{\n\t" +" \"Titulo \" :" +x.titulo +"\n\t\"Contenido\" : \t"+ x.contenido+"\n\t}"
+                        print(contador, ")", "Titulo:", x.titulo, "Contenido:", x.contenido)
+                        #info2 += jsonify({"Titulo": x.titulo,"Contenido":x.contenido})
+                        contador += 1
+
+                else:
+                    print("No se encontro el carnet")
+                return info
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+
         else:
             return jsonify({"response": "Tipo fuera de rango"})
     except:

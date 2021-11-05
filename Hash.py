@@ -22,7 +22,12 @@ class Hash:
         self.primos = [7,11,13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97101,103,
                        107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,
                        233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,
-                       373,379,383,389,397,401,409]
+                       373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,
+                       509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,
+                       659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,
+                       823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,
+                       983,991,997,1009,1013,1019,1021,1031,1033,1039,1049,1051,1061,1063,1069]
+
         self.contadordeprimos=1
         self.vector = []
         self.elementos = 0
@@ -153,25 +158,44 @@ class Hash:
                # posicion = posicion - self.tamano
         return posicion
 
+
+
     def buscarposicion(self, carnet):
         posicion = int(carnet) % int(self.tamano)
         print("Carnet:",carnet,"Tamaño:",self.tamano)
+        print(posicion)
 
-        if self.vector[posicion].carnet != carnet:
+        if  int(self.vector[posicion].carnet) != int(carnet):
             print("El carnet no esta en esa posicion")
             contador =1
             k = posicion
             while self.vector[posicion].carnet!= None:
-                while self.vector[posicion].carnet != carnet:
+                while int(self.vector[posicion].carnet )!= int(carnet):
                     print("El carnet no esta en esa posicion entonces hay que buscarlo cuadraticamente")
                     posicion = self.linear(k,contador)
                     print("Nueva posicion:",posicion)
                     contador+=1
                 return posicion
+        else:
+            print("Se encontro el carnet en esa posicion", posicion,"Carnet:",carnet)
+
+        return posicion
 
 
-        #print("La posicion es:",posicion)
-        #print("El carnet en esa posicion es:",self.vector[posicion].carnet)
+    '''def buscar(self, carnet):
+        temp = self.first
+        band = False
+        while(temp != None and temp.carnet != carnet):
+            if int(temp.carnet) == int(carnet):
+                band = True
+            temp = temp.next
+            #return True
+        if band ==True:
+            print("Carnet encontrado metodo buscar: "+ str(carnet))
+        else:
+            print("Carnet no encontrado metodo buscar: " + str(carnet))
+
+        return band'''
 
 
 
@@ -183,10 +207,22 @@ class Hash:
         for i in self.vector:
             if i:
                 print("indice:", i.indice,"carnet:", i.carnet)
+                '''for x in i.lista:
+                    print("titulo:",x.titulo,"Contenido",x.contenido)'''
             else:
                 print("indice:", contador, "valor:", i)
 
             contador += 1
+
+    def printapunte(self,carnet):
+        contador = 1
+        if self.buscar(carnet):
+            car= self.retornar(carnet)
+            for x in car.lista:
+                print(contador,")","Titulo:",x.titulo,"Contenido:",x.contenido)
+                contador+=1
+        else:
+            print("No se encontro el carnet")
 
 
     def print2(self):

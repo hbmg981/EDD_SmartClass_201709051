@@ -4,7 +4,7 @@ import json
 
 
 
-
+'''
 #--------------PROBANDO DATOS DEL AVL-----------
 from inicio import f,key
 from Estructuras.Nodo_AVL import Nodo
@@ -25,7 +25,7 @@ print("------- DESPUES DE ELIMINAR -----------")
 avl.insert(103,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "51234", 23, 135)
 avl._pre_orden()
 avl._graficar()
-avl.graficar()
+avl.graficar()'''
 
 #-------------Probando el arbol B -----------------------
 '''from Estructuras.Arbol_B.BTree import BTree
@@ -104,7 +104,7 @@ ad.graficar2(771)'''
 
 
 
-'''
+
 from Hash import Hash
 tabla = Hash()
 
@@ -113,7 +113,10 @@ tabla.insertar(1, "", "")
 tabla.insertar(2,  "segundo valor 15", "realizar tarea")
 tabla.insertar(3,  "tercer valor 29", "realizar tarea")
 tabla.insertar(4,  "4to valor 44", "realizar tarea")
-tabla.insertar(5,  "5to valor 58", "realizar tarea")
+tabla.insertar(5,  "5to valor 58", "realizar")
+tabla.insertar(6,  "6to valor 73", "realizar tarea")
+tabla.insertar(87,  "7mo valor 87", "realizar tarea")
+tabla.insertar(5,  "5to valor 58", " tarea")
 tabla.insertar(6,  "6to valor 73", "realizar tarea")
 tabla.insertar(87,  "7mo valor 87", "realizar tarea")
 tabla.insertar(116,  "8o valor 116", "realizar tarea")
@@ -122,12 +125,15 @@ tabla.insertar(174,  "10 valor 174", "realizar tarea")
 tabla.insertar(203,  "11 valor 203", "realizar tarea")
 tabla.insertar(232,  "12 valor 232", "realizar tarea")
 tabla.insertar(203,  "13 valor 203", "realizar tarea")
-print("Carnet encontrado en posicion:",tabla.buscarposicion(1))
-print("posicion encontrada",tabla.devolver_posicion(2))
-tabla.print()
-tabla.graficarHash2()
 
-'''
+#print("posicion encontrada",tabla.devolver_posicion(87))
+tabla.print()
+tabla.print2()
+
+tabla.graficarHash2()
+print("Carnet 174 encontrado en posicion:",tabla.buscarposicion(174))
+tabla.printapunte(5)
+
 
 
 
