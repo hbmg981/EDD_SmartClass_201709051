@@ -245,7 +245,8 @@ class Hash:
                 for x in i.lista:
                     # print("Apuntes: " + str(x.titulo) + " Contenido: " + x.contenido)
                     info = "Titulo: " + x.titulo + "\\n" + "Contenido:" + x.contenido
-                    grafo += "\t node" +str(i.carnet)+ "_" + str(a) + "[label = \"" + info + "\"];\n"
+                           #+ x.contenido[51,100]+"\\n"
+                    grafo += "\t node"  +str(i.carnet)+ "_" + str(a) + "[label = \"" + info + "\"];\n"
                     a += 1
 
             cont += 1
@@ -258,7 +259,7 @@ class Hash:
                 a = 0
                 for x in i.lista:
                     grafo += "\t-> "+"node"+str(i.carnet)+ "_" + str(a) + ""+""
-                    # print("Apuntes: " + str(x.titulo) + " Contenido: " + x.contenido)
+                    #print("Apuntes: " + str(x.titulo) + " Contenido: " + x.contenido)
                     a += 1
                 grafo += "\n"
                 #grafo += "point_"+str(i.carnet)

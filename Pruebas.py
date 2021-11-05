@@ -1,9 +1,30 @@
 from Estructuras.ListaAdyacencia import ListaAdyacencia
 from Estructuras.Arbol_B import BTree
 import json
-#ad = ListaAdyacencia()
+ad = ListaAdyacencia()
+
+ad.insert_node(101,"Mate Basica 1",1,"a","si")
+ad.insert_node(103,"Mate Basica 2",2,"b","no")
+ad.insert_node(107,"Mate intermedia 1",3,"c","no")
+ad.insert_node(770,"Introduccion a la programacion",4,"d","si")
+ad.insert_node(771,"Intro a la Progra2", 5,"e","si")
+ad.insert_node(795,"Logica de sistemas",6,"f","si")
+ad.insert_node(960,"Mate Computo 1",6,"g","si")
+
+ad.link_graph(101,103)
+ad.link_graph(103,107)
+ad.link_graph(103,770)
+ad.link_graph(103,795)
+ad.link_graph(103,960)
+ad.link_graph(795,771)
+ad.link_graph(107,771)
+ad.link_graph(770,771)
+ad.link_graph(960,771)
 
 
+ad.get_list2(771)
+ad.graf(771)
+#ad.graficar2(771)
 
 
 
@@ -22,25 +43,7 @@ import json
 
 '''
 
-ad.insert_node(101,"Mate Basica 1",1,"a","si")
 
-ad.insert_node(103,"Mate Basica 2",2,"b","no")
-ad.insert_node(107,"Mate intermedia 1",3,"c","no")
-ad.insert_node(770,"Introduccion a la programacion",4,"d","si")
-ad.insert_node(771,"Intro a la Progra2", 5,"e","si")
-ad.insert_node(795,"Logica de sistemas",6,"f","si")
-ad.insert_node(960,"Mate Computo 1",6,"g","si")
-
-ad.link_graph(103,101)
-ad.link_graph(770,103)
-ad.link_graph(107,103)
-ad.link_graph(795,103)
-ad.link_graph(960,103)
-ad.link_graph(771,107)
-
-
-ad.get_list()
-ad.graficar()
 
 
 

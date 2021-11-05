@@ -69,19 +69,19 @@ def CargaCursos(ruta):
                 prerequisito = elemento['Prerequisitos']
                 obligatorio = elemento['Obligatorio']
 
-                print("Codigo:",codigo,"Nombre:",nombre,"Creditos",creditos,"Prerequisito",prerequisito,"Obligatorio:",obligatorio)
+                #print("Codigo:",codigo,"Nombre:",nombre,"Creditos",creditos,"Prerequisito",prerequisito,"Obligatorio:",obligatorio)
 
                 ad.insert_node(codigo, nombre, creditos, prerequisito, str(obligatorio))
                 if prerequisito == "":
-                    print(" No tiene prerequisitos, solo se inserta")
+                    #print(" No tiene prerequisitos, solo se inserta")
 
                     # ad.link_graph(101,103)
                 else:
-                    print("Hacer split")
+                    #print("Hacer split")
                     arreglo = prerequisito.split(',')
                     for x in arreglo:
                         #print(x)
-                        ad.link_graph(codigo,x )
+                        ad.link_graph(x,codigo )
                 bt.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
 
         return "Carga de cursos Pensum realizada correctamente"
