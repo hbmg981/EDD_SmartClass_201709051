@@ -172,8 +172,6 @@ class Hash:
         grafo += str("rankdir=LR;\n")
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
 
-
-
         cont =0
         for i in self.vector:
             if i:
@@ -220,10 +218,7 @@ class Hash:
         grafo += str("rankdir=LR;\n")
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
         grafo += str("node [shape=record,width=.1,height=.1];\n")
-        #
-
         cont = 0
-
         grafo += " nodet [label = \"Carnet:"
         for i in self.vector:
             if i:
@@ -232,7 +227,6 @@ class Hash:
 
             else:
                 grafo += "|"+ "<f" +str(cont)+ ">" +"\\n"+"\\n"+"\\n"
-
             cont += 1
             #height=10.5
         grafo+= "\" ]; \n"

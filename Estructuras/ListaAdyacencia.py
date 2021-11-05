@@ -9,6 +9,8 @@ class ListaAdyacencia:
         self.ngraf =0
         self.listaaux =[]
         self.previos = []
+        self.textoaux = ""
+        self.textolabel = ""
 
     def get_size(self):
         aux = self.First
@@ -136,58 +138,6 @@ class ListaAdyacencia:
             counter+=1
             aux = aux.Next
 
-    def graf(self, codigo):
-        if self.exists(codigo):
-            aux = self.retornar(codigo)
-            texto = ""
-            self.graf2(aux, texto)
-
-        else:
-            print("No existe curso con ese codigo")
-        #return texto
-
-    def graf2(self, aux, texto):
-        #texto =""
-        print("entrando al metodo recursivo")
-
-
-        #print(texto)
-
-        if not aux.lista.isEmpty():
-            aux2 = aux.lista.First
-            adjacency_list = []
-            cont = 0
-            while aux2 is not None:
-                adjacency_list.append(aux2.codigo)
-                cont += 1
-                aux2 = aux2.Next
-            # recorre los elementos dentro de la lista de adyacencia
-
-            print(
-                "Codigo: " + str(aux.codigo) + " Nombre: " + aux.nombre + " Creditos: " + str(aux.creditos)
-                + " Prerequisitos: " + aux.prerequisitos + " Obligatorio: " + aux.obligatorio)
-            if adjacency_list is not None:
-
-                for x in adjacency_list:
-                    texto += "Nodo_" + str(aux.codigo)
-                    texto+= "->"+"Nodo_"+str(x)
-                    texto += "\n"
-                    #print(aux.codigo,"->",x)
-                    if self.exists(x):
-                        aux = self.retornar(x)
-                        self.graf2(aux, texto)
-                        print(texto)
-
-                    else:
-                        print("No se encontro el curso con codigo",x)
-
-                del adjacency_list
-        else:
-            # print("Cuando no hay elementos anteriores, es el ultimo nodo")
-            print(
-                  str(aux.codigo) + " Nombre: " + aux.nombre + " Creditos: " + str(aux.creditos)
-                + " Prerequisitos: " + aux.prerequisitos + " Obligatorio: " + aux.obligatorio)
-
     def buscar_pre(self, aux, counter):
 
         if not aux.lista.isEmpty():
@@ -219,6 +169,95 @@ class ListaAdyacencia:
             print(
                 str(counter) + ")" + str(aux.codigo) + " Nombre: " + aux.nombre + " Creditos: " + str(aux.creditos)
                 + " Prerequisitos: " + aux.prerequisitos + " Obligatorio: " + aux.obligatorio)
+
+
+
+    def graf(self, codigo):
+        if self.exists(codigo):
+            aux = self.retornar(codigo)
+            texto = ""
+            self.graf2(aux)
+
+        else:
+            print("No existe curso con ese codigo")
+        #return texto
+
+    def buscarenlista(self, codigo):
+        for x in self.listaaux:
+            if int(x) == int(codigo):
+                print("Se encontro en la lista")
+                return True
+        return False
+
+    def buscarenlista2(self, infox):
+        for x in self.previos:
+            if x ==infox:
+                print("Se encontro en la lista que hay previos repetidos")
+                return True
+        return False
+
+    def llenarlabel(self):
+        for x in self.listaaux:
+            if self.exists(x):
+                aux = self.retornar(x)
+                info = "Codigo: "+ str(aux.codigo)\
+                    +"\\nNombre: " + aux.nombre + "\\nCreditos: " + str(aux.creditos)\
+                       + " \\nPrerequisitos: " + aux.prerequisitos + " \\nObligatorio: " + aux.obligatorio
+                self.textolabel += "nodo_"+str(aux.codigo)+"[label = \" "+ info+ "  \"]"+"\n"
+
+    def llenarprevios(self):
+        for x in self.previos:
+            self.textoaux += x +"\n"
+
+
+    def graf2(self, aux):
+        if self.buscarenlista(aux.codigo) is False:
+            self.listaaux.append(aux.codigo)
+            print("No se encontro el codigo:", aux.codigo)
+        else:
+            print("Ya existe el codigo:", aux.codigo)
+        if not aux.lista.isEmpty():
+
+            aux2 = aux.lista.First
+            adjacency_list = []
+            cont = 0
+            while aux2 is not None:
+                #
+                adjacency_list.append(aux2.codigo)
+                cont += 1
+                aux2 = aux2.Next
+
+            if adjacency_list is not None:
+
+
+                print(str(aux.codigo) + " Nombre: " + aux.nombre + " Creditos: " + str(aux.creditos)
+                    + " Prerequisitos: " + aux.prerequisitos + " Obligatorio: " + aux.obligatorio)
+                for x in adjacency_list:
+                    print("El curso anterior a:", aux.codigo, "es:", x)
+
+                    print(x,"->", aux.codigo)
+                    if self.exists(x):
+                        aux2 = self.retornar(x)
+                        infox= "nodo_" + str(x) + "-> nodo_" + str(aux.codigo)+ "[label=\"" + str(aux2.creditos) + "\"]"
+                        if self.buscarenlista2(infox) is False:
+                            self.previos.append(infox)
+                            print("no se encontro el texto igual")
+                        self.graf2(aux2)
+
+                    else:
+                        print("No se encontro el curso con codigo", x)
+                    # print(self.exists(x))
+                    # aux =self.retornar(x).lista.First
+                del adjacency_list
+        else:
+            # print("Cuando no hay elementos anteriores, es el ultimo nodo")
+            print( str(aux.codigo) + " Nombre: " + aux.nombre + " Creditos: " + str(aux.creditos)
+                + " Prerequisitos: " + aux.prerequisitos + " Obligatorio: " + aux.obligatorio)
+
+    def printlistaaux(self):
+        for element in self.listaaux:
+            print(element)
+
 
     def graficar(self):
         grafo = "digraph\n"
@@ -275,14 +314,16 @@ class ListaAdyacencia:
         grafo+=str("rankdir=LR\n")
         grafo += str("node [style=filled,fillcolor=thistle1];\n")
 
-        if self.exists(codigo):
-            aux = self.retornar(codigo)
-            texto = ""
-            recibido =self.graf2(aux, texto)
+        self.graf(codigo)
+        self.llenarlabel()
 
-        else:
-            print("No existe curso con ese codigo")
-        grafo+=recibido
+        self.llenarprevios()
+        grafo+=self.textolabel
+        grafo+=self.textoaux
+        self.previos.clear()
+        self.listaaux.clear()
+        self.textolabel =""
+        self.textoaux =""
 
         grafo += "\n"
 

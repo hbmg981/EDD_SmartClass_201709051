@@ -22,9 +22,14 @@ ad.link_graph(770,771)
 ad.link_graph(960,771)
 
 
-ad.get_list2(771)
-ad.graf(771)
-#ad.graficar2(771)
+ad.graficar2(771)
+#ad.get_list2(771)
+#ad.graf(771)
+#print(ad.textoaux)
+#ad.printlistaaux()
+#ad.llenarlabel()
+#print(ad.textolabel)
+#ad.graficar()
 
 
 

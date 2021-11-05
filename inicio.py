@@ -73,7 +73,7 @@ def CargaCursos(ruta):
 
                 ad.insert_node(codigo, nombre, creditos, prerequisito, str(obligatorio))
                 if prerequisito == "":
-                    #print(" No tiene prerequisitos, solo se inserta")
+                    print(" ")
 
                     # ad.link_graph(101,103)
                 else:
@@ -174,6 +174,7 @@ def CargaEstudiantes(ruta):
 def reporte():
     data = request.get_json(force=True)
     tipo = data['tipo']
+    codigo=data['codigo']
     carnet = data['carnet']
     año= data['año']
     semestre= data['semestre']
@@ -218,6 +219,13 @@ def reporte():
         try:
             #ad.get_list()
             ad.graficar()
+            return jsonify({"response": "Grafo de Cursos graficado"})
+        except:
+            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+    elif int(tipo) ==5:
+        try:
+            #ad.get_list()
+            ad.graficar2(codigo)
             return jsonify({"response": "Grafo de Cursos graficado"})
         except:
             return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
