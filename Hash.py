@@ -137,6 +137,44 @@ class Hash:
                # posicion = posicion - self.tamano
         return posicion
 
+    def devolver_posicion(self, id):
+
+        posicion = int(id) % (self.tamano)
+        #print("El tamano actual es: "+ str(self.tamano)+ " La posicion es: "+ str(posicion))
+
+        k= posicion
+        conti =1
+        while (self.vector[posicion] != None):
+
+            posicion = self.linear(k, conti)
+            conti += 1
+            #print(posicion)
+            #if posicion > self.tamano:
+               # posicion = posicion - self.tamano
+        return posicion
+
+    def buscarposicion(self, carnet):
+        posicion = int(carnet) % int(self.tamano)
+        print("Carnet:",carnet,"Tamaño:",self.tamano)
+
+        if self.vector[posicion].carnet != carnet:
+            print("El carnet no esta en esa posicion")
+            contador =1
+            k = posicion
+            while self.vector[posicion].carnet!= None:
+                while self.vector[posicion].carnet != carnet:
+                    print("El carnet no esta en esa posicion entonces hay que buscarlo cuadraticamente")
+                    posicion = self.linear(k,contador)
+                    print("Nueva posicion:",posicion)
+                    contador+=1
+                return posicion
+
+
+        #print("La posicion es:",posicion)
+        #print("El carnet en esa posicion es:",self.vector[posicion].carnet)
+
+
+
     def linear(self, k, i):
         return(k+ i*i) % self.tamano
 

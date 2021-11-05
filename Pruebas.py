@@ -1,7 +1,8 @@
 from Estructuras.ListaAdyacencia import ListaAdyacencia
 from Estructuras.Arbol_B import BTree
+from Hash import Hash
 import json
-ad = ListaAdyacencia()
+'''ad = ListaAdyacencia()
 
 ad.insert_node(101,"Mate Basica 1",1,"a","si")
 ad.insert_node(103,"Mate Basica 2",2,"b","no")
@@ -22,7 +23,7 @@ ad.link_graph(770,771)
 ad.link_graph(960,771)
 
 
-ad.graficar2(771)
+ad.graficar2(771)'''
 #ad.get_list2(771)
 #ad.graf(771)
 #print(ad.textoaux)
@@ -38,7 +39,27 @@ ad.graficar2(771)
 
 
 
+tabla = Hash()
 
+
+tabla.insertar(0, "", "")
+tabla.insertar(15,  "segundo valor 15", "realizar tarea")
+tabla.insertar(29,  "tercer valor 29", "realizar tarea")
+tabla.insertar(44,  "4to valor 44", "realizar tarea")
+tabla.insertar(58,  "5to valor 58", "realizar tarea")
+tabla.insertar(73,  "6to valor 73", "realizar tarea")
+tabla.insertar(87,  "7mo valor 87", "realizar tarea")
+tabla.insertar(116,  "8o valor 116", "realizar tarea")
+tabla.insertar(145,  "9 valor 145", "realizar tarea")
+tabla.insertar(174,  "10 valor 174", "realizar tarea")
+tabla.insertar(203,  "11 valor 203", "realizar tarea")
+tabla.insertar(232,  "12 valor 232", "realizar tarea")
+tabla.insertar(203,  "13 valor 203", "realizar tarea")
+
+
+print("Carnet encontrado en posicion:",tabla.buscarposicion(0))
+print("posicion encontrada",tabla.devolver_posicion(15))
+tabla.graficarHash2()
 
 
 

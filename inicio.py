@@ -31,6 +31,7 @@ def carga():
     data = request.get_json(force=True)
     tipo = data['tipo']
     path = data['path']
+    texto = data['tx']
     print("el tipo es: ",tipo)
     print("el path es: ",path)
     if tipo == "estudiante":
@@ -140,7 +141,7 @@ def CargaCursosE(ruta):
                             obligatorio = curso['Obligatorio']
                             print("Carnet:",carnet,"Año:",año,"Semestre:",semestre,"Codigo:",codigo, "Nombre:"
                                   ,nombre,"Creditos",creditos,"Prerequisito:",prerequisito,"Obligatorio:",obligatorio)
-        return "Carga de apuntes realizada correctamente"
+        return "Carga de cursos estudiante realizada correctamente"
     except:
         print("Ocurrio un error")
         return "Ha ocurrido un error, verifique los datos"
@@ -176,6 +177,7 @@ def reporte():
     tipo = data['tipo']
     codigo=data['codigo']
     carnet = data['carnet']
+    carnex = data['carnex']
     año= data['año']
     semestre= data['semestre']
     mes= data['mes']
@@ -229,7 +231,16 @@ def reporte():
             return jsonify({"response": "Grafo de Cursos graficado"})
         except:
             return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+    elif int(tipo) ==6:
+        try:
+            #ad.get_list()
+            print("Carnet encontrado en posicion:", hash.buscarposicion(carnet))
+            info = "Carnet encontrado en posicion:"+ str(hash.buscarposicion(carnet))
+            return jsonify({"response":info })
+        except:
+            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
 
+    #print("Carnet encontrado en posicion:",tabla.buscarposicion(0))
 
     #return jsonify({"response":"informacion recibida"})
 
@@ -299,6 +310,18 @@ def CargaCursosServer(contenido):
             creditos = elemento['Creditos']
             prerequisito = elemento['Prerequisitos']
             obligatorio = elemento['Obligatorio']
+
+            ad.insert_node(codigo, nombre, creditos, prerequisito, str(obligatorio))
+            if prerequisito == "":
+                print(" ")
+
+                # ad.link_graph(101,103)
+            else:
+                # print("Hacer split")
+                arreglo = prerequisito.split(',')
+                for x in arreglo:
+                    # print(x)
+                    ad.link_graph(x, codigo)
 
             bt.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
         return "Elementos insertados"
