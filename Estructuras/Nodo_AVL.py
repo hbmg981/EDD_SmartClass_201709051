@@ -1,10 +1,13 @@
 #from Estructuras.Lista_A import ListaA
 from cryptography.fernet import Fernet
-
-
+#from inicio import f,key
 key = Fernet.generate_key()
 f = Fernet(key)
+
 class Nodo:
+
+    #key = None
+    #f = None
     def __init__(self, carnet,dpi,nombre,carrera,correo,password,creditos,edad):
         self.carnet = carnet
         self.left = None
@@ -17,7 +20,14 @@ class Nodo:
         self.password = password
         self.creditos = creditos
         self.edad = edad
+        self.key = None
+        self.f = None
+
         #self.lista = ListaA()
+
+    def generarClave(self):
+        self.key = Fernet.generate_key()
+        self.f = Fernet(self.key)
 
     def textoGraf(self):
         if self.left is None and self.right is None:

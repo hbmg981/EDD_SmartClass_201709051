@@ -1,4 +1,5 @@
 from Estructuras.Nodo_Sem import NodoSem
+from Estructuras.Arbol_B.BTree import BTree
 import os
 
 class ListaSem:
@@ -14,26 +15,37 @@ class ListaSem:
             counter += 1
             aux = aux.next
         return counter
+    def isEmpty(self):
+        return self.first is None
 
 
-    def Insertar(self, semestre):
+    def Insertar(self,carnet, año, semestre,codigo,nombre, creditos, prerequisito,obligatorio):
         #Nodo = NodoSem(semestre)
-        if self.getSize() ==0:
-            self.first = NodoSem(semestre)
+        if self.isEmpty():
+            Nodo = NodoSem(carnet, año, semestre)
+            self.first = Nodo
+            if self.obtener(carnet) is not None:
+                aux =self.obtener(carnet)
+                aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
         else:
-            if self.getSize() == 1:
-
-                if self.buscar(semestre)== False:
-                    Nodo = NodoSem(semestre)
+                if self.buscar(carnet) is False:
+                    Nodo = NodoSem(carnet,año,semestre)
 
                     current = self.first
                     while current.next != None:
                         current = current.next
                     current.next= Nodo
+
+                    if self.obtener(carnet) is not None:
+                        aux = self.obtener(carnet)
+                        aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
                 else:
-                    print("El semestre: "+ str(semestre)+" ya existe")
-            else:
-                print("Cantidad de Semestres excedida")
+
+                    print("El carnet: "+ str(carnet)+" ya existe, entonces buscamos e insertamos los datos")
+                    if self.obtener(carnet) is not None:
+                        aux = self.obtener(carnet)
+                        aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
+
 
         #self.Size +=1
 
@@ -65,24 +77,27 @@ class ListaSem:
     def getList(self):
         aux = self.first
         while aux is not None:
-            print(str(aux.semestre))
+            print("Carnet: "+str(aux.carnet)+" Año :"+aux.año)
             aux = aux.next
 
+    def graficarArbol(self,carnet):
+        self.obtener(carnet).arbol.Graficar()
 
-    def buscar(self, semestre):
+
+    def buscar(self, carnet):
         temp = self.first
         band = False
-        while(temp != None and temp.semestre != semestre):
-            if temp.semestre == semestre:
+        while(temp != None and temp.carnet != carnet):
+            if int(temp.carnet) == int(carnet):
                 band = True
             temp = temp.next
             #return True
         if band ==True:
-            print("Semestre encontrado metodo buscar: "+ str(semestre))
+            print("Carnet encontrado metodo buscar: "+ str(carnet))
         else:
-            print("Semestre no encontrado metodo buscar: " + str(semestre))
+            print("Carnet no encontrado metodo buscar: " + str(carnet))
 
-        return  band
+        return band
 
     def Modificar(self, semestre, semestre2):
         actual = self.first
@@ -96,17 +111,14 @@ class ListaSem:
 
             actual = actual.next
 
-    def obtener(self, semestre):
-        actual = self.first
-        if self.buscar(semestre):
-            while actual != None:
-                if actual.semestre == semestre:
-                    print("Semestre encontrado para obtener ")
-                    print("Semestre: "+str(actual.semestre))
-
-                actual = actual.next
-        else:
-            print("Estudiante NO encontrado")
+    def obtener(self, carnet):
+        temp = self.first
+        while temp != None:
+            if int(temp.carnet) == int(carnet):
+                print("Se encontro el carnet para retornar: " + str(temp.carnet))
+                return temp
+            temp = temp.next
+        return temp
 
 
     def graficar(self, ngraf):

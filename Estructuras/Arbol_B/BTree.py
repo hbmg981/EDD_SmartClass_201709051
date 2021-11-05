@@ -1,5 +1,6 @@
 from Estructuras.Arbol_B.PaginaB import PaginaB
 import  os
+
 class BTree:
     def __init__(self):
         self.Raiz = None
@@ -226,7 +227,7 @@ class BTree:
 
 
     def Graficar(self):
-        self.ngraf+=1
+
         self.grafica = "digraph ArbolB { \n"
         self.grafica+= "\n\trankdir= TB;\n"
         self.grafica+= "node [color=\"mediumvioletred\", style = \"rounded,filled\",fillcolor=thistle1, shape=record];\n"
@@ -243,7 +244,7 @@ class BTree:
         f.close()
         print("********* Se realizo Grafica de Arbol B *********  ")
         os.system("dot -Tsvg -o Arbol" + str(self.ngraf) + ".svg ArbolB" + str(self.ngraf) + ".dot")
-
+        self.ngraf += 1
 
     def Graficar2(self, pagina):
         contador = 0

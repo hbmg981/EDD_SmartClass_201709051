@@ -1,4 +1,5 @@
-
+key = None
+f = None
 import json
 from flask import Flask, request, jsonify,render_template
 from Estructuras.AVL import AVL
@@ -6,11 +7,16 @@ from Estructuras.Arbol_B.BTree import BTree
 from Hash import Hash
 import os
 from Estructuras.ListaAdyacencia import ListaAdyacencia
+from Estructuras.Lista_Sem import ListaSem
+from cryptography.fernet import Fernet
+from Estructuras.Nodo_AVL import Nodo
 
+
+ls = ListaSem()
 ad = ListaAdyacencia()
-
 #ad.insert_node(101,"Mate Basica 1",1)
 #ad.link_graph(101,103)
+genera= bool
 
 bt= BTree()
 avl=AVL()
@@ -21,6 +27,14 @@ app=Flask(__name__)
 def principal():
     return "Bienvenida a mi sitio web de python"
 
+@app.route('/genClave')
+def generar():
+    nuevo = Nodo(0, 0, "Muestra", "", "", "", 0, 0)
+    nuevo.generarClave()
+    genera = True
+    respuesta="Se ha generado la llave de encriptacion"
+    return jsonify({"response": respuesta})
+
 @app.route('/login')
 def login():
     return "Aqui ira la pagina de inicio"
@@ -28,32 +42,33 @@ def login():
 
 @app.route('/carga', methods=['POST'])
 def carga():
-    data = request.get_json(force=True)
-    tipo = data['tipo']
-    path = data['path']
-    texto = data['tx']
-    print("el tipo es: ",tipo)
-    print("el path es: ",path)
-    if tipo == "estudiante":
-        #print("Mandamos a llamar la carga de estudiantes")
-        respuesta = CargaEstudiantes(path)
-        return jsonify({"response": respuesta})
-    elif tipo =="apunte":
-        print("Mandamos a leer el archivo .json de apuntes")
-        respuesta = CargaApuntes(path)
-        return jsonify({"response": respuesta})
+    try:
+        data = request.get_json(force=True)
+        tipo = data['tipo']
+        path = data['path']
+        texto = data['tx']
+        print("el tipo es: ",tipo)
+        print("el path es: ",path)
+        if tipo == "estudiante":
+            #print("Mandamos a llamar la carga de estudiantes")
+            respuesta = CargaEstudiantes(path)
+            return jsonify({"response": respuesta})
+        elif tipo =="apunte":
+            print("Mandamos a leer el archivo .json de apuntes")
+            respuesta = CargaApuntes(path)
+            return jsonify({"response": respuesta})
 
-    elif tipo =="curso_e":
-        print("Mandamos a leer el archivo .json de cursos estudiantes")
-        respuesta = CargaCursosE(path)
-        return jsonify({"response": respuesta})
+        elif tipo =="curso_e":
+            print("Mandamos a leer el archivo .json de cursos estudiantes")
+            respuesta = CargaCursosE(path)
+            return jsonify({"response": respuesta})
 
-    elif tipo =="curso_p":
-        print("Mandamos a leer el archivo .json de cursos pensum")
-        respuesta = CargaCursos(path)
-        return jsonify({"response": respuesta})
-
-    #return jsonify({"response":"informacion recibida"})
+        elif tipo =="curso_p":
+            print("Mandamos a leer el archivo .json de cursos pensum")
+            respuesta = CargaCursos(path)
+            return jsonify({"response": respuesta})
+    except:
+        return jsonify({"response":"Ha ocurrido un error, verifique los datos"})
 
 
 def CargaCursos(ruta):
@@ -141,6 +156,7 @@ def CargaCursosE(ruta):
                             obligatorio = curso['Obligatorio']
                             print("Carnet:",carnet,"Año:",año,"Semestre:",semestre,"Codigo:",codigo, "Nombre:"
                                   ,nombre,"Creditos",creditos,"Prerequisito:",prerequisito,"Obligatorio:",obligatorio)
+                            ls.Insertar(carnet, año, semestre, codigo, nombre, creditos, prerequisito,obligatorio)
         return "Carga de cursos estudiante realizada correctamente"
     except:
         print("Ocurrio un error")
@@ -173,76 +189,91 @@ def CargaEstudiantes(ruta):
 
 @app.route('/reporte', methods=['GET'])
 def reporte():
-    data = request.get_json(force=True)
-    tipo = data['tipo']
-    codigo=data['codigo']
-    carnet = data['carnet']
-    carnex = data['carnex']
-    año= data['año']
-    semestre= data['semestre']
-    mes= data['mes']
-    dia= data['dia']
-    hora= data['hora']
+    try:
+        data = request.get_json(force=True)
+        tipo = data['tipo']
+        codigo=data['codigo']
+        carnet = data['carnet']
+        carnex = data['a']
+        año= data['b']
+        semestre= data['c']
+        mes= data['d']
+        dia= data['dia']
+        hora= data['hora']
 
-    '''print("el tipo es: ",tipo)
-    print("el carnet es: ", carnet)
-    print("año es: ",año)
-    print("el semestre es: ",semestre)
-    print("el mes es: ",mes )
-    print("el dia es: ",dia)
-    print("la hora es:",hora )'''
-    if int(tipo) ==0:
-        #print("----- Mandar a graficar el arbol AVL... ----- ")
-        try:
-            avl.graficar()
-            return jsonify({"response": "Arbol AVL graficado"})
-        except:
-            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
-    elif int(tipo) ==3:
-        try:
-            bt.Graficar()
-            return jsonify({"response": "Arbol B graficado"})
-        except:
-            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
-    elif int(tipo) ==2:
-        try:
-            hash.graficarHash2()
-            return jsonify({"response": "Tabla de apuntes graficada"})
-        except:
-            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        '''print("el tipo es: ",tipo)
+        print("el carnet es: ", carnet)
+        print("año es: ",año)
+        print("el semestre es: ",semestre)
+        print("el mes es: ",mes )
+        print("el dia es: ",dia)
+        print("la hora es:",hora )'''
+        if int(tipo) ==0:
+            #print("----- Mandar a graficar el arbol AVL... ----- ")
+            try:
+                avl.graficar()
+                return jsonify({"response": "Arbol AVL graficado"})
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==3:
+            try:
+                bt.Graficar()
+                return jsonify({"response": "Arbol B graficado"})
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==2:
+            try:
+                hash.graficarHash2()
+                return jsonify({"response": "Tabla de apuntes graficada"})
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
 
-    elif int(tipo) ==1:
-        try:
-            avl._graficar()
-            return jsonify({"response": "Arbol AVL Cifrado graficado"})
-        except:
-            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
-    elif int(tipo) ==4:
-        try:
-            #ad.get_list()
-            ad.graficar()
-            return jsonify({"response": "Grafo de Cursos graficado"})
-        except:
-            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
-    elif int(tipo) ==5:
-        try:
-            #ad.get_list()
-            ad.graficar2(codigo)
-            return jsonify({"response": "Grafo de Cursos graficado"})
-        except:
-            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
-    elif int(tipo) ==6:
-        try:
-            #ad.get_list()
-            print("Carnet encontrado en posicion:", hash.buscarposicion(carnet))
-            info = "Carnet encontrado en posicion:"+ str(hash.buscarposicion(carnet))
-            return jsonify({"response":info })
-        except:
-            return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==1:
+            try:
+                if genera:
+                    avl._graficar()
+                    return jsonify({"response": "Arbol AVL Cifrado graficado"})
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==4:
+            try:
+                #ad.get_list()
+                ad.graficar()
+                return jsonify({"response": "Grafo de Cursos graficado"})
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==5:
+            try:
+                #ad.get_list()
+                ad.graficar2(codigo)
+                return jsonify({"response": "Grafo de Cursos graficado"})
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==6:
+            try:
+                #ad.get_list()
+                print("Carnet encontrado en posicion:", hash.buscarposicion(carnet))
+                info = "Carnet encontrado en posicion:"+ str(hash.buscarposicion(carnet))
+                return jsonify({"response":info })
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        elif int(tipo) ==7:
+            try:
+                #ad.get_list()
 
+                info = ""
+                ls.graficarArbol(carnet)
+                info = "Se grafico el arbol"
+                return jsonify({"response":info })
+            except:
+                return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
+        else:
+            return jsonify({"response": "Tipo fuera de rango"})
+    except:
+        return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
     #print("Carnet encontrado en posicion:",tabla.buscarposicion(0))
 
-    #return jsonify({"response":"informacion recibida"})
+    #
 
 @app.route('/registro', methods=['POST'])
 def CrearEstudiante():
@@ -329,6 +360,10 @@ def CargaCursosServer(contenido):
         print()
         return "Ocurrio un error, revise los datos"
 
+
+
+
 if __name__ == '__main__':
     app.run("localhost", port=3000,debug=True)
 
+#class ini:

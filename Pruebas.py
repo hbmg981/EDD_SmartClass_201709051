@@ -1,8 +1,73 @@
-from Estructuras.ListaAdyacencia import ListaAdyacencia
+
 from Estructuras.Arbol_B import BTree
-from Hash import Hash
 import json
-'''ad = ListaAdyacencia()
+
+
+
+
+#--------------PROBANDO DATOS DEL AVL-----------
+from inicio import f,key
+from Estructuras.Nodo_AVL import Nodo
+nuevo = Nodo(120,123,"HEIDY", "SISTEMAS", "CORREO@GMAIL", "devnami", 25, 150)
+nuevo.generarClave()
+from Estructuras.AVL import AVL
+
+avl = AVL()
+avl.insert(120,123,"HEIDY", "SISTEMAS", "CORREO@GMAIL", "devnami", 25, 150)
+avl.insert(105,123,"BEATRIZ", "SISTEMAS", "CORREO@GMAIL", "12340", 20, 105)
+avl.insert(185,123,"MIRANDA", "SISTEMAS", "CORREO@GMAIL", "12341", 12, 125)
+avl.insert(100,123,"GAMEZ", "SISTEMAS", "CORREO@GMAIL", "12342", 16, 155)
+avl.insert(95,123,"LOPEZ", "SISTEMAS", "CORREO@GMAIL", "12343", 19, 175)
+avl.insert(115,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "12344", 22, 195)
+avl.pre_orden()
+print("------- DESPUES DE ELIMINAR -----------")
+#avl.eliminar(115)
+avl.insert(103,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "51234", 23, 135)
+avl._pre_orden()
+avl._graficar()
+avl.graficar()
+
+#-------------Probando el arbol B -----------------------
+'''from Estructuras.Arbol_B.BTree import BTree
+btree = BTree()
+btree.InsertarDatos(120,"Heidy",250,"Io2","No")
+btree.InsertarDatos(100,"Miranda",20,"Analisis","si")
+btree.InsertarDatos(170,"Miranda",20,"Analisis","si")
+btree.InsertarDatos(125,"Heidy",250,"Io2","No")
+btree.InsertarDatos(80,"Miranda",20,"Analisis","si")
+btree.InsertarDatos(160,"Beatriz",240,"Io1","No")
+btree.InsertarDatos(130,"Beatriz",240,"Io1","No")
+btree.InsertarDatos(110,"Beatriz",240,"Io1","No")
+btree.InsertarDatos(150,"Beatriz",240,"Io1","No")
+btree.Preorden()
+btree.Graficar()'''
+
+
+
+
+
+
+
+
+'''from Estructuras.Lista_Sem import ListaSem
+
+ls = ListaSem()
+ls.Insertar(201409051,"año","semestre",1,"Nombre","Creditos","Prerequsito","Obligatorio")
+ls.Insertar(201409052,"2020","1",2,"Heidy","15","135","Si")
+ls.Insertar(201409053,"2019","2",3,"Beatriz","30","0962","No")
+ls.Insertar(201409053,"2019","2",2,"Beatriz","30","0962","No")
+ls.Insertar(201409053,"2019","2",1,"Beatriz","30","0962","No")
+ls.Insertar(201409053,"2019","2",4,"Beatriz","30","0962","No")
+ls.Insertar(201409053,"2019","2",5,"Beatriz","30","0962","No")
+ls.Insertar(201409053,"2019","2",6,"Beatriz","30","0962","No")
+ls.getList()
+ls.graficarArbol(201409051)'''
+
+
+
+'''
+from Estructuras.ListaAdyacencia import ListaAdyacencia
+ad = ListaAdyacencia()
 
 ad.insert_node(101,"Mate Basica 1",1,"a","si")
 ad.insert_node(103,"Mate Basica 2",2,"b","no")
@@ -39,15 +104,17 @@ ad.graficar2(771)'''
 
 
 
+'''
+from Hash import Hash
 tabla = Hash()
 
 
-tabla.insertar(0, "", "")
-tabla.insertar(15,  "segundo valor 15", "realizar tarea")
-tabla.insertar(29,  "tercer valor 29", "realizar tarea")
-tabla.insertar(44,  "4to valor 44", "realizar tarea")
-tabla.insertar(58,  "5to valor 58", "realizar tarea")
-tabla.insertar(73,  "6to valor 73", "realizar tarea")
+tabla.insertar(1, "", "")
+tabla.insertar(2,  "segundo valor 15", "realizar tarea")
+tabla.insertar(3,  "tercer valor 29", "realizar tarea")
+tabla.insertar(4,  "4to valor 44", "realizar tarea")
+tabla.insertar(5,  "5to valor 58", "realizar tarea")
+tabla.insertar(6,  "6to valor 73", "realizar tarea")
 tabla.insertar(87,  "7mo valor 87", "realizar tarea")
 tabla.insertar(116,  "8o valor 116", "realizar tarea")
 tabla.insertar(145,  "9 valor 145", "realizar tarea")
@@ -55,11 +122,15 @@ tabla.insertar(174,  "10 valor 174", "realizar tarea")
 tabla.insertar(203,  "11 valor 203", "realizar tarea")
 tabla.insertar(232,  "12 valor 232", "realizar tarea")
 tabla.insertar(203,  "13 valor 203", "realizar tarea")
-
-
-print("Carnet encontrado en posicion:",tabla.buscarposicion(0))
-print("posicion encontrada",tabla.devolver_posicion(15))
+print("Carnet encontrado en posicion:",tabla.buscarposicion(1))
+print("posicion encontrada",tabla.devolver_posicion(2))
+tabla.print()
 tabla.graficarHash2()
+
+'''
+
+
+
 
 
 
@@ -75,37 +146,8 @@ tabla.graficarHash2()
 
 
 
-#-------------Probando el arbol B -----------------------
-from Estructuras.Arbol_B.BTree import BTree
-btree = BTree()
-btree.InsertarDatos(120,"Heidy",250,"Io2","No")
-btree.InsertarDatos(100,"Miranda",20,"Analisis","si")
-btree.InsertarDatos(170,"Miranda",20,"Analisis","si")
-btree.InsertarDatos(125,"Heidy",250,"Io2","No")
-btree.InsertarDatos(80,"Miranda",20,"Analisis","si")
-btree.InsertarDatos(160,"Beatriz",240,"Io1","No")
-btree.InsertarDatos(130,"Beatriz",240,"Io1","No")
-btree.InsertarDatos(110,"Beatriz",240,"Io1","No")
-btree.InsertarDatos(150,"Beatriz",240,"Io1","No")
-btree.Preorden()
-btree.Graficar()
 
-#--------------PROBANDO DATOS DEL AVL-----------
-from Estructuras.AVL import AVL
-avl = AVL()
-avl.insert(120,123,"HEIDY", "SISTEMAS", "CORREO@GMAIL", "devnami", 25, 150)
-avl.insert(105,123,"BEATRIZ", "SISTEMAS", "CORREO@GMAIL", "12340", 20, 105)
-avl.insert(185,123,"MIRANDA", "SISTEMAS", "CORREO@GMAIL", "12341", 12, 125)
-avl.insert(100,123,"GAMEZ", "SISTEMAS", "CORREO@GMAIL", "12342", 16, 155)
-avl.insert(95,123,"LOPEZ", "SISTEMAS", "CORREO@GMAIL", "12343", 19, 175)
-avl.insert(115,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "12344", 22, 195)
-avl.pre_orden()
-print("------- DESPUES DE ELIMINAR -----------")
-#avl.eliminar(115)
-avl.insert(103,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "51234", 23, 135)
-avl._pre_orden()
-avl._graficar()
-avl.graficar()
+
 
 
 

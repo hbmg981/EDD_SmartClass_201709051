@@ -93,7 +93,7 @@ class Hash:
     def rehashing(self):
         siguiente = self.tamano
         factor = 0
-        while (factor < 0.5):
+        while (factor < 0.4):
             factor = self.elementos / siguiente
             siguiente = self.primos[self.contadordeprimos]
             self.contadordeprimos+=1
@@ -112,7 +112,7 @@ class Hash:
             if i:
                 posicion = self.funcion_hash(i.carnet)
                 #posicion = self.funcion_hash(i.indice)
-                #print("Nueva posicion:", posicion)
+                #print("Nueva posicion:", posicion, "Carnet:", i.carnet)
                 i.indice = posicion
                 temporal[posicion] = i
 
@@ -295,8 +295,7 @@ class Hash:
                     a += 1
                 grafo += "\n"
                 #grafo += "point_"+str(i.carnet)
-            else:
-                print("indice:", contador, "carnet:", i)
+
 
             contador += 1
 

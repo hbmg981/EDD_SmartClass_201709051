@@ -320,10 +320,7 @@ class ListaAdyacencia:
         self.llenarprevios()
         grafo+=self.textolabel
         grafo+=self.textoaux
-        self.previos.clear()
-        self.listaaux.clear()
-        self.textolabel =""
-        self.textoaux =""
+
 
         grafo += "\n"
 
@@ -338,6 +335,10 @@ class ListaAdyacencia:
         f = open("grafo" + str(tmp) + ".dot", "w+", encoding='utf-8')
         f.write(grafo)
         f.close()
-        print("********* Se realizo Grafica  *********  " + str(tmp))
+        self.previos.clear()
+        self.listaaux.clear()
+        self.textolabel = ""
+        self.textoaux = ""
         os.system("dot -Tsvg -o graf" + str(tmp) + ".svg grafo" + str(tmp) + ".dot")
+        print("********* Se realizo Grafica  *********  " + str(tmp))
         self.ngraf += 1
