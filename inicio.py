@@ -317,6 +317,46 @@ def CrearEstudianteServer(data):
     except:
         return "Hubo un error al intentar insertar los datos"
 
+@app.route('/asignarCursos', methods=['POST'])
+def asignarCurso():
+    data = request.get_json(force=True)
+    respuesta = asignarCursoServer(data)
+    return jsonify({"response": respuesta})
+
+
+def asignarCursoServer(data):
+    try:
+        #contenido=data
+        cursos = data
+        print(cursos)
+        lista = cursos['Estudiantes']
+        print(lista)
+        for elemento in lista:
+            carnet = elemento['Carnet']
+            lista_anio = elemento['Años']
+            #print(lista_anio)
+            for anio in lista_anio:
+                año = anio['Año']
+                lista_sem = anio['Semestres']
+                #print(lista_sem)
+                for sem in lista_sem:
+                    semestre = sem['Semestre']
+                    lista_curso = sem['Cursos']
+                    #print(lista_curso)
+                    for curso in lista_curso:
+                        codigo = curso['Codigo']
+                        nombre = curso['Nombre']
+                        creditos = curso['Creditos']
+                        prerequisito = curso['Prerequisitos']
+                        obligatorio = curso['Obligatorio']
+                        print("Carnet:",carnet,"Año:",año,"Semestre:",semestre,"Codigo:",codigo, "Nombre:"
+                              ,nombre,"Creditos",creditos,"Prerequisito:",prerequisito,"Obligatorio:",obligatorio)
+                        ls.Insertar(carnet, año, semestre, codigo, nombre, creditos, prerequisito,obligatorio)
+        return "Carga de cursos estudiante realizada correctamente"
+    except:
+        print("Ocurrio un error")
+        return "Ha ocurrido un error, verifique los datos"
+
 
 @app.route('/crearApunte', methods=['POST'])
 def CrearApunte():
