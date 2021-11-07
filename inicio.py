@@ -119,7 +119,7 @@ def CargaApuntes(ruta):
                 carnet = elemento['carnet']
                 lista_apuntes = elemento['apuntes']
                 for apunte in lista_apuntes:
-                    titulo = apunte['Título']
+                    titulo = apunte['Titulo']
                     contenido = apunte['Contenido']
                     print("Carnet:", carnet, "titulo:", titulo, "Contenido:", contenido)
                     hash.insertar(carnet,titulo,contenido)
