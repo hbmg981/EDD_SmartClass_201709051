@@ -119,8 +119,8 @@ def CargaApuntes(ruta):
                 carnet = elemento['carnet']
                 lista_apuntes = elemento['apuntes']
                 for apunte in lista_apuntes:
-                    titulo = apunte['Titulo']
-                    contenido = apunte['Contenido']
+                    titulo = apunte['titulo']
+                    contenido = apunte['contenido']
                     print("Carnet:", carnet, "titulo:", titulo, "Contenido:", contenido)
                     hash.insertar(carnet,titulo,contenido)
         return "Carga de apuntes realizada correctamente"
@@ -175,7 +175,7 @@ def CargaEstudiantes(ruta):
                 carnet= elemento['carnet']
                 nombre = elemento['nombre']
                 #creditos= elemento['Creditos']
-                dpi= elemento['DPI']
+                dpi= elemento['dpi']
                 carrera= elemento['carrera']
                 pasword= elemento['password']
                 edad= elemento['edad']
@@ -225,6 +225,7 @@ def reporte():
         elif int(tipo) ==2:
             try:
                 hash.graficarHash2()
+                hash.print2()
                 return jsonify({"response": "Tabla de apuntes graficada"})
             except:
                 return jsonify({"response": "Ha ocurrido un error, verifique los datos"})
@@ -374,8 +375,8 @@ def CrearApunteServer(data):
             carnet = elemento['carnet']
             lista_apuntes = elemento['apuntes']
             for apunte in lista_apuntes:
-                titulo = apunte['Título']
-                contenido = apunte['Contenido']
+                titulo = apunte['titulo']
+                contenido = apunte['contenido']
                 print("Carnet:", carnet, "titulo:", titulo, "Contenido:", contenido)
                 hash.insertar(carnet, titulo, contenido)
         return "Apunte Insertado en la tabla"

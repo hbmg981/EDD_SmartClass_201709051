@@ -28,7 +28,7 @@ class ListaAdyacencia:
     def exists(self, codigo):
         aux = self.First
         while aux is not None:
-            if aux.codigo == codigo:
+            if int(aux.codigo) == int(codigo):
                 return True
             aux = aux.Next
         return False
@@ -37,7 +37,7 @@ class ListaAdyacencia:
     def retornar(self, codigo):
         aux = self.First
         while aux is not None:
-            if aux.codigo == codigo:
+            if int(aux.codigo) == int(codigo):
                 return aux
             aux = aux.Next
         return aux
@@ -64,22 +64,27 @@ class ListaAdyacencia:
 
 
     def link_graph(self, codigo1, codigo2):
-        aux = self.First
-        while aux is not None:
-            if aux.codigo == codigo1:
-                #Lista de cursos posteriores
-                aux.lista_post.insertValue(codigo2)
-                #print("Insertando valor: ",codigo2, "en:", codigo1)
-                break
-            aux = aux.Next
+
 
         aux2 = self.First
         while aux2 is not None :
-            if aux2.codigo == codigo2:
+            if int(aux2.codigo) == int(codigo2):
                 #Lista de cursos anteriores
                 aux2.lista.insertValue(codigo1)
+                print("insertando datos, curso previo a:",aux2.codigo,"es:",codigo1)
                 break
             aux2 = aux2.Next
+
+        aux = self.First
+
+        while aux is not None:
+            if int(aux.codigo) == int(codigo1):
+                # Lista de cursos posteriores
+                aux.lista_post.insertValue(codigo2)
+                print("insertando datos, curso posterior a:", aux.codigo, "es:", codigo2)
+                # print("Insertando valor: ",codigo2, "en:", codigo1)
+                break
+            aux = aux.Next
 
 
     def link_graph2(self, codigo1, codigo2):
@@ -191,7 +196,7 @@ class ListaAdyacencia:
 
     def buscarenlista2(self, infox):
         for x in self.previos:
-            if x ==infox:
+            if str(x) ==str(infox):
                 print("Se encontro en la lista que hay previos repetidos")
                 return True
         return False
@@ -235,10 +240,10 @@ class ListaAdyacencia:
                 for x in adjacency_list:
                     print("El curso anterior a:", aux.codigo, "es:", x)
 
-                    print(x,"->", aux.codigo)
+                    print(aux.codigo,"<-", x)
                     if self.exists(x):
                         aux2 = self.retornar(x)
-                        infox= "nodo_" + str(x) + "-> nodo_" + str(aux.codigo)+ "[label=\"" + str(aux2.creditos) + "\"]"
+                        infox= "nodo_" +str(x)  + "-> nodo_" +str(aux.codigo) + "[label=\"" + str(aux2.creditos) + "\"]"
                         if self.buscarenlista2(infox) is False:
                             self.previos.append(infox)
                             print("no se encontro el texto igual")
@@ -249,8 +254,13 @@ class ListaAdyacencia:
                     # print(self.exists(x))
                     # aux =self.retornar(x).lista.First
                 del adjacency_list
+            else:
+                print("Cuando no tiene lista de adyacencia, es el ultimo nodo")
+                print(str(aux.codigo) + " Nombre: " + aux.nombre + " Creditos: " + str(aux.creditos)
+                      + " Prerequisitos: " + aux.prerequisitos + " Obligatorio: " + aux.obligatorio)
+
         else:
-            # print("Cuando no hay elementos anteriores, es el ultimo nodo")
+            print("Cuando no hay elementos anteriores, es el ultimo nodo")
             print( str(aux.codigo) + " Nombre: " + aux.nombre + " Creditos: " + str(aux.creditos)
                 + " Prerequisitos: " + aux.prerequisitos + " Obligatorio: " + aux.obligatorio)
 
