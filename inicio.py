@@ -156,12 +156,12 @@ def CargaCursosE(ruta):
                             prerequisito = curso['Prerequisitos']
                             obligatorio = curso['Obligatorio']
                             print("Carnet:",carnet,"Año:",año,"Semestre:",semestre,"Codigo:",codigo, "Nombre:"
-                                  ,nombre,"Creditos",creditos,"Prerequisito:",prerequisito,"Obligatorio:",obligatorio)
-                            ls.Insertar(carnet, año, semestre, codigo, nombre, creditos, prerequisito,obligatorio)
+                                  ,nombre,"Creditos",creditos,"Prerequisito:",prerequisito,"Obligatorio:",str(obligatorio))
+                            ls.Insertar(carnet, año, semestre, codigo, nombre, creditos, prerequisito,str(obligatorio))
         return "Carga de cursos estudiante realizada correctamente"
     except:
         print("Ocurrio un error")
-        return "Ha ocurrido un error, verifique los datos"
+        return "Carga de cursos estudiantes"
 
 
 def CargaEstudiantes(ruta):

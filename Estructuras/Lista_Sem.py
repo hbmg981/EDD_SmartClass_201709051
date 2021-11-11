@@ -26,7 +26,7 @@ class ListaSem:
             self.first = Nodo
             if self.obtener(carnet) is not None:
                 aux =self.obtener(carnet)
-                aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
+                aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito,str(obligatorio) )
         else:
                 if self.buscar(carnet) is False:
                     Nodo = NodoSem(carnet,año,semestre)
@@ -38,13 +38,13 @@ class ListaSem:
 
                     if self.obtener(carnet) is not None:
                         aux = self.obtener(carnet)
-                        aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
+                        aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, str(obligatorio))
                 else:
 
                     print("El carnet: "+ str(carnet)+" ya existe, entonces buscamos e insertamos los datos")
                     if self.obtener(carnet) is not None:
                         aux = self.obtener(carnet)
-                        aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, obligatorio)
+                        aux.arbol.InsertarDatos(codigo, nombre, creditos, prerequisito, str(obligatorio))
 
 
         #self.Size +=1
@@ -87,7 +87,7 @@ class ListaSem:
     def buscar(self, carnet):
         temp = self.first
         band = False
-        while(temp != None and temp.carnet != carnet):
+        while(temp != None):
             if int(temp.carnet) == int(carnet):
                 band = True
             temp = temp.next

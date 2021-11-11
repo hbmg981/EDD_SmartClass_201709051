@@ -55,7 +55,7 @@ class Nodo:
         if self.left is None and self.right is None:
             info = "Carnet: "+ str(self.carnet) + "\\n Nombre: "+  f.decrypt(self.nombre).decode() + "\\n Carrera: "+ self.carrera\
                    + "\\n DPI: " + dpi+ "\\n Correo: " + correo+ "\\n Password: " + password[0:15]\
-                   + "\\n Edad: " + edad+ "\\n Creditos: " + str(self.creditos)
+                   + "\\n Edad: " + edad+ "\\n Creditos: " + "Calificacion"
 
             grafo = "\t nodo_"+str(self.carnet)+ "[label = \"" + info + "\"];\n"
             return grafo
