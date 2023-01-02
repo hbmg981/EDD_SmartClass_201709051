@@ -1,0 +1,7 @@
+digraph D { 
+	 rankdir =LR 
+	 graph [dpi=300]; 
+	 node [shape = record, color=blue , style=filled,fillcolor=moccasin]; 
+	 nodo_0[shape=box, label= "ID: 1\n Descripcion: Hora 7 fuera de rango\n Tipo : Tarea"];
+
+}

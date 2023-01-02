@@ -190,8 +190,7 @@ void ListaTarea::generaTarea(){
 
             int contador=0;
             do{
-                    string info= "ID: "+to_string(aux->getid())
-                    +"\\n Carnet: "+ aux->getcarnet()
+                    string info=" Carnet: "+ aux->getcarnet()
                     +"\\n Nombre: "+aux->getnombre()
                     +"\\n Descripcion : "+aux->getdescrip()
                     +"\\n Materia: "+aux->getmateria()
@@ -383,13 +382,12 @@ void ListaTarea::generatxt(){
             }else{
             nuevaFecha=aux->getfecha();
             }
-                    string info= "\t ¿element type=\"task\"? \n \t \t ¿item ID=\""+to_string(aux->getid())+"\" $?"
-                    +"\n \t \t ¿item Carnet=\""+aux->getcarnet()+"\" $?"
+                    string info= "\t ¿element type=\"task\"? \n \t \t ¿item Carnet=\""+aux->getcarnet()+"\" $?"
                     +"\n \t \t ¿item Nombre=\" "+aux->getnombre()+"\" $?"
                     +"\n \t \t ¿item Descripcion=\" "+ aux->getdescrip()+"\" $?"
                     +"\n \t \t ¿item Materia=\" "+aux->getmateria()+"\" $?"
                     +"\n \t \t ¿item Fecha=\" "+nuevaFecha+"\" $?"
-                    +"\n \t \t ¿item Hora=\" "+aux->gethora()+"\" $?"
+                    +"\n \t \t ¿item Hora=\" "+aux->gethora()+":00"+"\" $?"
                     +"\n \t \t ¿item Estado=\" "+aux->getestado()+"\" $?";
             archivo<<info;
             archivo<<"\n \t ¿$element?\n";

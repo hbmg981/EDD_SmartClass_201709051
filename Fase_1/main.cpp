@@ -751,7 +751,7 @@ void cargarTarea(){
             else {
                //insertar valores nulos a la matriz
                //hora1+9*((dia1-1)+30*(mes1));
-            tareas->insertList("-1","-1", "-1","-1","-1","-1","-1", (k+9*(j+30*i)));
+            tareas->insertList("-1","-1", "-1","-1","calificacion","-1","-1", (k+9*(j+30*i)));
             }
         }}
     }
