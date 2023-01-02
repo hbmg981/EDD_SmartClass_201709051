@@ -207,6 +207,9 @@ avl.insert(103,123,"ANDREA", "SISTEMAS", "CORREO@GMAIL", "1234", 120, 15)
 avl.pre_orden()
 avl.graficar(1)
 
+
+-------------Probando el arbol B -----------------------
+from Estructuras.Arbol_B.BTree import BTree
 btree = BTree()
 btree.InsertarDatos(120,"Heidy",250,"Io2","No")
 btree.InsertarDatos(100,"Miranda",20,"Analisis","si")
@@ -217,8 +220,6 @@ btree.InsertarDatos(160,"Beatriz",240,"Io1","No")
 btree.InsertarDatos(130,"Beatriz",240,"Io1","No")
 btree.InsertarDatos(110,"Beatriz",240,"Io1","No")
 btree.InsertarDatos(150,"Beatriz",240,"Io1","No")
-
-
 btree.Preorden()
 btree.Graficar(1)
 
